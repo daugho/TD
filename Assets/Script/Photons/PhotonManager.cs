@@ -6,6 +6,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 {
     public const byte BID_EVENT = 1;
     public const byte AUCTION_COMPLETE_EVENT = 3;
+
     private void Start()
     {
         // Photon 서버 연결
@@ -27,10 +28,12 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        Debug.Log("룸에 접속하였습니다.");
+        //Debug.Log("룸에 접속하였습니다.");
 
         if (PhotonNetwork.IsMasterClient)
         {
+            Debug.Log("룸에 접속하였습니다.");
+
             for (int x = 0; x < 4; x++)
             {
                 for (int z = 0; z < 4; z++)

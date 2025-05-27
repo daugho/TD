@@ -7,17 +7,33 @@ public class TileClickManager : MonoBehaviour
 
     void Update()
     {
-        if (!PhotonNetwork.IsMasterClient) return; // 마스터만 작동
-
-        if (Input.GetMouseButtonDown(0))
+        if (PhotonNetwork.IsMasterClient)  // 마스터만 작동
         {
-            Ray ray = otherCamera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            if (Input.GetMouseButtonDown(0))
             {
-                TileBehaviour tile = hit.collider.GetComponent<TileBehaviour>();
-                if (tile != null)
+                Ray ray = otherCamera.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out RaycastHit hit))
                 {
-                    tile.ToggleColor(); // 로컬 색상 변경만 실행
+                    TileBehaviour tile = hit.collider.GetComponent<TileBehaviour>();
+                    if (tile != null)
+                    {
+                        tile.ToggleColor(); // 로컬 색상 변경만 실행
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                Ray ray = otherCamera.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out RaycastHit hit))
+                {
+                    TileBehaviour tile = hit.collider.GetComponent<TileBehaviour>();
+                    if (tile != null)
+                    {
+                        tile.CToggleColor(); // 클라이언트 로컬 색상 변경만 실행
+                    }
                 }
             }
         }
