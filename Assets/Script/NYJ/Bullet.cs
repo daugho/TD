@@ -6,7 +6,8 @@ public class Bullet : MonoBehaviour
     private float _excuteRange = 0.5f;
     private GameObject _explosionEffect;
     private GameObject _gunFireEffect;
-    [SerializeField] private GameObject _target;
+    private GameObject _target;
+    private float _hitThreshold = 0.1f;
 
     private void Awake()
     {
@@ -17,7 +18,8 @@ public class Bullet : MonoBehaviour
     {
         Vector3 dir = _target.transform.position - transform.position;
         dir.Normalize();
-
+        Quaternion targetRotation = Quaternion.LookRotation(dir);
+        transform.rotation = targetRotation;
         transform.position += dir * _moveSpeed * Time.deltaTime;
 
         ExecuteAttack();
@@ -32,4 +34,8 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    public void SetBulletTarget(GameObject target)
+    {
+        _target = target;
+    }
 }
