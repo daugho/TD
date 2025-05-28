@@ -1,16 +1,69 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class DataManager : MonoBehaviour
+public struct TurretData
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public string Name;
+    public string Type;
+    public string Bullet;
+    public float Atk;
+    public float AtkSpeed;
+    public int Price;
+    public int Upgrade;
+    public string EffectPath;
+}
+public class DataManager
+{
+    private static DataManager _instance;
+
+    public static DataManager Instance
     {
-        
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = new DataManager();
+            }
+
+            return _instance;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private Dictionary<string, TurretData> _turretDatas = new Dictionary<string, TurretData>();
+    public Dictionary<string, TurretData> TurretDatas
     {
-        
+        get { return _turretDatas; }
+    }
+
+    public TurretData GetTurretData(string name) { return _turretDatas[name]; }
+
+    public void LoadTurretData()
+    {
+        TextAsset textAsset = Resources.Load<TextAsset>("Tables/TurretTable");
+
+        string text = textAsset.text;
+
+        string[] rowData = text.Split("\r\n");
+
+        for (int i = 1; i < rowData.Length; i++)
+        {
+            if (rowData[i].Length == 0)
+                break;
+
+            string[] datas = rowData[i].Split(",");
+
+            TurretData data;
+            data.Name = datas[1];
+            data.Type = datas[2];
+            data.Bullet = datas[3];
+            data.Atk = float.Parse(datas[4]);
+            data.AtkSpeed = float.Parse(datas[5]);
+            data.Price = int.Parse(datas[6]);
+            data.Upgrade = int.Parse(datas[7]);
+            data.EffectPath = datas[8];
+
+            _turretDatas.Add(data.Name, data);
+        }
     }
 }
+
