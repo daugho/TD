@@ -5,7 +5,12 @@ using UnityEngine;
 public class EnemyMover : MonoBehaviour
 {
     private Queue<Vector3> _waypoints;
-    private float _moveSpeed = 2f;
+    private float _moveSpeed = 10f;
+    private Rigidbody _rb;
+    void Awake()
+    {
+        _rb = GetComponent<Rigidbody>();
+    }
 
     public void SetPath(List<TileBehaviour> path)
     {
@@ -18,18 +23,19 @@ public class EnemyMover : MonoBehaviour
         StartCoroutine(Move());
     }
 
-    private IEnumerator Move()
+    IEnumerator Move()
     {
         while (_waypoints.Count > 0)
         {
-            Vector3 target = _waypoints.Dequeue();
+            Vector3 tileCenter = _waypoints.Peek();
+            Vector3 target = new Vector3(tileCenter.x, tileCenter.y + 1.0f, tileCenter.z);
             while (Vector3.Distance(transform.position, target) > 0.1f)
             {
-                transform.position = Vector3.MoveTowards(transform.position, target, Time.deltaTime * _moveSpeed);
+                Vector3 nextPos = Vector3.MoveTowards(transform.position, target, Time.deltaTime * _moveSpeed);
+                _rb.MovePosition(nextPos); // ? 이걸로 위치 이동!
                 yield return null;
             }
+            _waypoints.Dequeue();
         }
-
-        Debug.Log("적이 목표에 도착했습니다.");
     }
 }
