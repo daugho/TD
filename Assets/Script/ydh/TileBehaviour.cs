@@ -31,6 +31,8 @@ public class TileBehaviour : MonoBehaviourPun
             TileState.Installable => Color.blue,
             TileState.Uninstallable => Color.gray,
             TileState.Installed => Color.red,
+            TileState.StartPoint => Color.green,
+            TileState.EndPoint => Color.black,
             _ => Color.white
         };
 
