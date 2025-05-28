@@ -7,6 +7,18 @@ public class TileSelector : MonoBehaviour
     [SerializeField] private TextMeshProUGUI tileCoordText;
     private TileEditManager tileEditManager;
 
+    private void Start()
+    {
+        if (otherCamera == null)
+        {
+            otherCamera = Camera.main;
+        }
+        tileEditManager = GetComponent<TileEditManager>();
+        if (tileEditManager == null)
+        {
+            Debug.LogError("TileEditManager not found in the scene.");
+        }
+    }
     void Update()
     {
         Ray ray = otherCamera.ScreenPointToRay((Input.mousePosition));
