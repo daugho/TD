@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
-    private GameObject _target;
-    private TurretData _turretData = new TurretData();
-    private TurretHead _turretHead;
-    private Bullet _bullet;
+    protected GameObject _target;
+    protected TurretData _turretData = new TurretData();
+    protected TurretHead _turretHead;
+    protected Bullet _bullet;
 
-    private float _spawnTimer = 0.0f;
-    private float _bulletSpawnTimer = 1.0f;
+    protected float _spawnTimer = 0.0f;
+    protected float _bulletSpawnTimer = 1.0f;
 
     private void Awake()
     {
@@ -23,7 +23,7 @@ public class Turret : MonoBehaviour
         _bullet = Resources.Load<Bullet>("Prefabs/Bullets/" + _turretData.Bullet);
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         _spawnTimer += _turretData.AtkSpeed * Time.deltaTime;
 
@@ -32,7 +32,22 @@ public class Turret : MonoBehaviour
             if (_spawnTimer >= _bulletSpawnTimer)
             {
                 _spawnTimer -= _bulletSpawnTimer;
-                AttackTarget();
+                if(_turretData.Type == "Direct") //직사
+                {
+                    if(_turretData.Name == "FlameTower")
+                    {
+                        AttackFlame();
+                    }
+                    else
+                    {
+                        AttackTarget(); //직사
+                    }
+                }
+                else
+                {
+                    AttackTarget(); //곡사
+                }
+                   
             }
         }
     }
@@ -47,10 +62,17 @@ public class Turret : MonoBehaviour
     {
         return _target;
     }
-    private void AttackTarget()
+    protected virtual void AttackTarget()
     {
         Bullet bulletInstance = Instantiate(_bullet, transform.position, Quaternion.identity);
         bulletInstance.SetBulletTarget(_target);
-        bulletInstance.SetBullet(_turretData.AtkSpeed, _turretData.EffectPath, _turretData.EffectPath);
+        bulletInstance.SetBullet(_turretData.BulletSpeed, _turretData.EffectPath, _turretData.EffectPath);
+    }
+
+    private void AttackFlame()
+    {
+        GameObject prefab = Resources.Load<GameObject>("Prefabs/Effects/WFXMR_FlameThrower Big Alt Looped");
+        GameObject flame = Instantiate(prefab, transform.position,Quaternion.identity);
+
     }
 }

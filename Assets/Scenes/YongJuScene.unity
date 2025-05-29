@@ -401,9 +401,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef5ac3592f5aae845aa7a614125a6524, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyPath: {fileID: 0}
+  _enemyPath: {fileID: 1098484793}
   _spawnInterval: 2
-  _turrets: []
+  _turrets:
+  - {fileID: 80529044}
+  - {fileID: 1688067617}
+  - {fileID: 91719480}
+  - {fileID: 699838795}
+  - {fileID: 249752975}
+  - {fileID: 1245756919}
+  - {fileID: 1784835047}
+  - {fileID: 1554223991}
+  - {fileID: 1421800506}
 --- !u!114 &249752975 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 855642989879850726, guid: 9c80c6e434ee1f14e8f00aabcbd0c9b9, type: 3}
@@ -1381,6 +1390,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 672047405}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &689054242 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2545437748757278906, guid: 8084c5f2891d03940a02a85766c80048, type: 3}
+  m_PrefabInstance: {fileID: 5871223177463613344}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &699838795 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6299079337071243846, guid: 4a54e673e7a69ca44b061b1025a3621b, type: 3}
@@ -1510,7 +1524,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1098484792}
   - component: {fileID: 1098484793}
-  - component: {fileID: 1098484794}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -1579,30 +1592,6 @@ MonoBehaviour:
     Color: {r: 0.15955211, g: 0.8962264, b: 0.080322154, a: 1}
   _radius: 0.3
   _segments: 32
---- !u!114 &1098484794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1098484791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef5ac3592f5aae845aa7a614125a6524, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _enemyPath: {fileID: 1098484793}
-  _spawnInterval: 2
-  _turrets:
-  - {fileID: 80529044}
-  - {fileID: 1688067617}
-  - {fileID: 699838795}
-  - {fileID: 249752975}
-  - {fileID: 1245756919}
-  - {fileID: 1784835047}
-  - {fileID: 1554223991}
-  - {fileID: 1421800503}
-  - {fileID: 91719480}
 --- !u!1 &1177939758
 GameObject:
   m_ObjectHideFlags: 0
@@ -2262,15 +2251,16 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1405602610}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1421800503 stripped
+--- !u!114 &1421800506
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3604854312020475135, guid: 8084c5f2891d03940a02a85766c80048, type: 3}
-  m_PrefabInstance: {fileID: 5871223177463613344}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 689054242}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9f939b0d2f8b9b44897c4c653a48210, type: 3}
+  m_Script: {fileID: 11500000, guid: f035d35cc457c844d805091de49d5fcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1554223991 stripped
@@ -3290,6 +3280,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MissileTower
       objectReference: {fileID: 0}
+    - target: {fileID: 4904216903074317557, guid: 9c80c6e434ee1f14e8f00aabcbd0c9b9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5438241104519818787, guid: 9c80c6e434ee1f14e8f00aabcbd0c9b9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8
@@ -3408,6 +3402,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlameTower
       objectReference: {fileID: 0}
+    - target: {fileID: 2408198903414254266, guid: 01f7ac02057acea42a7a28262dcab8da, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4021515841018475037, guid: 01f7ac02057acea42a7a28262dcab8da, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9
@@ -3465,6 +3463,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ElectricTower
       objectReference: {fileID: 0}
+    - target: {fileID: 1986678107629987373, guid: 4a54e673e7a69ca44b061b1025a3621b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4044089337140882000, guid: 4a54e673e7a69ca44b061b1025a3621b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4
@@ -3521,6 +3523,10 @@ PrefabInstance:
     - target: {fileID: 3487926730017109131, guid: 65f9e5f6efff8954281189ddd03c8443, type: 3}
       propertyPath: m_Name
       value: GravityTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 3487926730017109131, guid: 65f9e5f6efff8954281189ddd03c8443, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8612185183542822646, guid: 65f9e5f6efff8954281189ddd03c8443, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3619,6 +3625,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RifleTower
       objectReference: {fileID: 0}
+    - target: {fileID: 8202240840514863597, guid: a35e332288d1f084c8070efe01efa8b8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3632,9 +3642,53 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1834869974973336507, guid: 7d316eb6b141d544ba57dee3670ae43a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834869974973336507, guid: 7d316eb6b141d544ba57dee3670ae43a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834869974973336507, guid: 7d316eb6b141d544ba57dee3670ae43a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834869974973336507, guid: 7d316eb6b141d544ba57dee3670ae43a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834869974973336507, guid: 7d316eb6b141d544ba57dee3670ae43a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2216471128382344443, guid: 7d316eb6b141d544ba57dee3670ae43a, type: 3}
       propertyPath: m_Name
       value: MachinegunTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 2216471128382344443, guid: 7d316eb6b141d544ba57dee3670ae43a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5253745267278007692, guid: 7d316eb6b141d544ba57dee3670ae43a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5253745267278007692, guid: 7d316eb6b141d544ba57dee3670ae43a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5253745267278007692, guid: 7d316eb6b141d544ba57dee3670ae43a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5253745267278007692, guid: 7d316eb6b141d544ba57dee3670ae43a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5253745267278007692, guid: 7d316eb6b141d544ba57dee3670ae43a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6797038003617128633, guid: 7d316eb6b141d544ba57dee3670ae43a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3693,6 +3747,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: LaserTower
       objectReference: {fileID: 0}
+    - target: {fileID: 2545437748757278906, guid: 8084c5f2891d03940a02a85766c80048, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6009353264818749716, guid: 8084c5f2891d03940a02a85766c80048, type: 3}
+      propertyPath: m_UseWorldSpace
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6009353264818749716, guid: 8084c5f2891d03940a02a85766c80048, type: 3}
+      propertyPath: m_Parameters.widthMultiplier
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 7765132963857039061, guid: 8084c5f2891d03940a02a85766c80048, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3
@@ -3733,10 +3799,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3604854312020475135, guid: 8084c5f2891d03940a02a85766c80048, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2545437748757278906, guid: 8084c5f2891d03940a02a85766c80048, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1421800506}
   m_SourcePrefab: {fileID: 100100000, guid: 8084c5f2891d03940a02a85766c80048, type: 3}
 --- !u!1001 &7162048634404387399
 PrefabInstance:
@@ -3789,6 +3859,10 @@ PrefabInstance:
     - target: {fileID: 6390043252148673206, guid: 8dc53405d8c32f341b4ccfdd5fee2e6e, type: 3}
       propertyPath: m_Name
       value: GrenadeTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 6390043252148673206, guid: 8dc53405d8c32f341b4ccfdd5fee2e6e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
