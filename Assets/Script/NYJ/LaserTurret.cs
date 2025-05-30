@@ -18,8 +18,9 @@ public class LaserTurret : Turret
     {
         if (_target == null)
             return;
+        Vector3 worldPosition = _turretHead.transform.TransformPoint(_firePosition);
 
-        _lineRenderer.SetPosition(0, transform.position);
+        _lineRenderer.SetPosition(0, worldPosition);
         _lineRenderer.SetPosition(1, _target.transform.position);
         _lineRenderer.enabled = true;
 

@@ -406,13 +406,13 @@ MonoBehaviour:
   _turrets:
   - {fileID: 80529044}
   - {fileID: 1688067617}
-  - {fileID: 91719480}
   - {fileID: 699838795}
   - {fileID: 249752975}
   - {fileID: 1245756919}
-  - {fileID: 1784835047}
+  - {fileID: 7162048634404387401}
   - {fileID: 1554223991}
   - {fileID: 1421800506}
+  - {fileID: 91719480}
 --- !u!114 &249752975 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 855642989879850726, guid: 9c80c6e434ee1f14e8f00aabcbd0c9b9, type: 3}
@@ -2263,6 +2263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f035d35cc457c844d805091de49d5fcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _firePosition: {x: 0, y: 0, z: 1.83}
 --- !u!114 &1554223991 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6901566110427595416, guid: 7d316eb6b141d544ba57dee3670ae43a, type: 3}
@@ -2494,17 +2495,6 @@ MeshFilter:
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6405776339555596353, guid: cfba9c31c1275e64699267100ac74cf7, type: 3}
   m_PrefabInstance: {fileID: 1444360194966873625}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9f939b0d2f8b9b44897c4c653a48210, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1784835047 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3936611658595531450, guid: 8dc53405d8c32f341b4ccfdd5fee2e6e, type: 3}
-  m_PrefabInstance: {fileID: 7162048634404387399}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -3276,6 +3266,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 855642989879850726, guid: 9c80c6e434ee1f14e8f00aabcbd0c9b9, type: 3}
+      propertyPath: _firePosition.z
+      value: 0.83
+      objectReference: {fileID: 0}
     - target: {fileID: 4904216903074317557, guid: 9c80c6e434ee1f14e8f00aabcbd0c9b9, type: 3}
       propertyPath: m_Name
       value: MissileTower
@@ -3377,6 +3371,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6405776339555596353, guid: cfba9c31c1275e64699267100ac74cf7, type: 3}
+      propertyPath: _firePosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6405776339555596353, guid: cfba9c31c1275e64699267100ac74cf7, type: 3}
+      propertyPath: _firePosition.z
+      value: 2.53
+      objectReference: {fileID: 0}
     - target: {fileID: 7424355451000019177, guid: cfba9c31c1275e64699267100ac74cf7, type: 3}
       propertyPath: m_Name
       value: RailgunTower
@@ -3446,6 +3448,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5095237959058776507, guid: 01f7ac02057acea42a7a28262dcab8da, type: 3}
+      propertyPath: _firePosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5095237959058776507, guid: 01f7ac02057acea42a7a28262dcab8da, type: 3}
+      propertyPath: _firePosition.z
+      value: 1.37
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3507,6 +3517,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6299079337071243846, guid: 4a54e673e7a69ca44b061b1025a3621b, type: 3}
+      propertyPath: _firePosition.z
+      value: 2.31
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3520,6 +3534,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 22506019509448629, guid: 65f9e5f6efff8954281189ddd03c8443, type: 3}
+      propertyPath: _firePosition.z
+      value: 1.64
+      objectReference: {fileID: 0}
     - target: {fileID: 3487926730017109131, guid: 65f9e5f6efff8954281189ddd03c8443, type: 3}
       propertyPath: m_Name
       value: GravityTower
@@ -3621,6 +3639,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7430521017009958424, guid: a35e332288d1f084c8070efe01efa8b8, type: 3}
+      propertyPath: _firePosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7430521017009958424, guid: a35e332288d1f084c8070efe01efa8b8, type: 3}
+      propertyPath: _firePosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7430521017009958424, guid: a35e332288d1f084c8070efe01efa8b8, type: 3}
+      propertyPath: _firePosition.z
+      value: 1.04
+      objectReference: {fileID: 0}
     - target: {fileID: 8202240840514863597, guid: a35e332288d1f084c8070efe01efa8b8, type: 3}
       propertyPath: m_Name
       value: RifleTower
@@ -3687,6 +3717,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5253745267278007692, guid: 7d316eb6b141d544ba57dee3670ae43a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5253745267278007692, guid: 7d316eb6b141d544ba57dee3670ae43a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
@@ -3729,6 +3763,14 @@ PrefabInstance:
     - target: {fileID: 6797038003617128633, guid: 7d316eb6b141d544ba57dee3670ae43a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6901566110427595416, guid: 7d316eb6b141d544ba57dee3670ae43a, type: 3}
+      propertyPath: _firePosition.y
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6901566110427595416, guid: 7d316eb6b141d544ba57dee3670ae43a, type: 3}
+      propertyPath: _firePosition.z
+      value: 2.41
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3864,11 +3906,58 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8573367783300480413, guid: 8dc53405d8c32f341b4ccfdd5fee2e6e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8573367783300480413, guid: 8dc53405d8c32f341b4ccfdd5fee2e6e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8573367783300480413, guid: 8dc53405d8c32f341b4ccfdd5fee2e6e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8573367783300480413, guid: 8dc53405d8c32f341b4ccfdd5fee2e6e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8573367783300480413, guid: 8dc53405d8c32f341b4ccfdd5fee2e6e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3936611658595531450, guid: 8dc53405d8c32f341b4ccfdd5fee2e6e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6390043252148673206, guid: 8dc53405d8c32f341b4ccfdd5fee2e6e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7162048634404387401}
   m_SourcePrefab: {fileID: 100100000, guid: 8dc53405d8c32f341b4ccfdd5fee2e6e, type: 3}
+--- !u!1 &7162048634404387400 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6390043252148673206, guid: 8dc53405d8c32f341b4ccfdd5fee2e6e, type: 3}
+  m_PrefabInstance: {fileID: 7162048634404387399}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7162048634404387401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7162048634404387400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edd0bda11d1627742b0d0b3317f805f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _firePosition: {x: 0, y: 0, z: 1}
+  _grenadeStorages:
+  - {x: -0.41, y: 0, z: 0.85}
+  - {x: 0.4, y: 0, z: 0.85}
+  - {x: -0.4, y: 0, z: 1.9}
+  - {x: 0.4, y: 0, z: 1.9}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

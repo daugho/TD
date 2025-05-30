@@ -11,7 +11,8 @@ public struct TurretData
     public float AtkSpeed;
     public int Price;
     public int Upgrade;
-    public string EffectPath;
+    public string fireEffectPath;
+    public string hitEffectPath;
 }
 public class DataManager
 {
@@ -54,15 +55,16 @@ public class DataManager
             string[] datas = rowData[i].Split(",");
 
             TurretData data;
-            data.Name = datas[1];
-            data.Type = datas[2];
-            data.Bullet = datas[3];
-            data.BulletSpeed = float.Parse(datas[4]);
-            data.Atk = float.Parse(datas[5]);
-            data.AtkSpeed = float.Parse(datas[6]);
-            data.Price = int.Parse(datas[7]);
-            data.Upgrade = int.Parse(datas[8]);
-            data.EffectPath = datas[9];
+            data.Name = datas[0];
+            data.Type = datas[1];
+            data.Bullet = datas[2];
+            data.BulletSpeed = float.Parse(datas[3]);
+            data.Atk = float.Parse(datas[4]);
+            data.AtkSpeed = float.Parse(datas[5]);
+            data.Price = int.Parse(datas[6]);
+            data.Upgrade = int.Parse(datas[7]);
+            data.fireEffectPath = datas[8];
+            data.hitEffectPath = datas[9];
 
             _turretDatas.Add(data.Name, data);
         }

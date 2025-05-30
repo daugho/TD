@@ -5,7 +5,6 @@ public class Bullet : MonoBehaviour
     private float _moveSpeed = 5.0f;
     private float _excuteRange = 0.5f;
     private GameObject _explosionEffect;
-    private GameObject _gunFireEffect;
     private GameObject _target;
     private float _hitThreshold = 0.1f;
 
@@ -38,11 +37,10 @@ public class Bullet : MonoBehaviour
         GameObject explosionPrefab = Instantiate<GameObject>(_explosionEffect, transform.position, transform.rotation);
     }
 
-    public void SetBullet(float speed, string effectPath, string gunfirePath)
+    public void SetBullet(float speed, string hitEffectPath)
     {
         _moveSpeed = speed;
-        _explosionEffect = Resources.Load<GameObject>("Prefabs/Effects/" + gunfirePath);
-        _gunFireEffect = Resources.Load<GameObject>("Prefabs/Effects/" + gunfirePath);
+        _explosionEffect = Resources.Load<GameObject>("Prefabs/HitEffects/" + hitEffectPath);
     }
     public void SetBulletTarget(GameObject target)
     {
