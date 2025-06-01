@@ -61,9 +61,9 @@ public class Monster : MonoBehaviour
     public void GetDamaged(int damageAmount)
     {
         if (CurHp <= 0)
-        {
-            gameObject.SetActive(false);
-            _hpSlider.gameObject.SetActive(false);  
+        { // 풀링때 변경 
+            Destroy(gameObject);
+            Destroy(_hpSlider);  
             return;
         }
 

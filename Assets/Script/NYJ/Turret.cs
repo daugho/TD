@@ -14,6 +14,8 @@ public class Turret : MonoBehaviour
     protected float _spawnTimer = 0.0f;
     protected float _bulletSpawnTimer = 1.0f;
 
+    private TurretRarity _turretRarity;
+
     private void Awake()
     {
         _turretHead = GetComponentInChildren<TurretHead>();
@@ -24,6 +26,11 @@ public class Turret : MonoBehaviour
         string name = gameObject.name.Replace("(Clone)", "").Trim();
         _turretData = DataManager.Instance.GetTurretData(name);
 
+        GameObject rarityPrefab = Resources.Load<GameObject>("Prefabs/Turrets/RarityCircle");
+        GameObject instance = Instantiate(rarityPrefab, transform);
+        _turretRarity = instance.GetComponent<TurretRarity>();
+        _turretRarity.SetRarityVisual(_turretData.Rarity);
+       
         _bullet = Resources.Load<Bullet>("Prefabs/Bullets/" + _turretData.Bullet);
         _fireEffectPrefab = Resources.Load<GameObject>("Prefabs/FireEffects/" + _turretData.fireEffectPath);
     }
@@ -72,7 +79,7 @@ public class Turret : MonoBehaviour
 
     public bool GetTarget()
     {
-        return _target;
+        return _target != null;
     }
     protected virtual void AttackTarget()
     {
@@ -95,9 +102,23 @@ public class Turret : MonoBehaviour
 
     private void AttackFlame()
     {
-        GameObject prefab = Resources.Load<GameObject>("Prefabs/Effects/WFXMR_FlameThrower Big Alt Looped");
-        GameObject flame = Instantiate(prefab, transform.position,Quaternion.identity);
+        Vector3 worldPosition = _turretHead.transform.TransformPoint(_firePosition);
 
+        //if (_activeFlameEffect == null)
+        //{
+        //    GameObject prefab = Resources.Load<GameObject>("Prefabs/HitEffects/WFXMR_FlameThrower Big Alt Looped");
+        //    _activeFlameEffect = Instantiate(prefab, worldPosition, transform.rotation, _turretHead.transform);
+        //}
+        //else
+        //{
+        //    _activeFlameEffect.transform.position = worldPosition;
+        //    _activeFlameEffect.transform.rotation = transform.rotation;
+        //
+        //    if (!_activeFlameEffect.activeSelf)
+        //    {
+        //        _activeFlameEffect.SetActive(true);
+        //    }
+        //}
     }
 
     protected virtual void OnDrawGizmos()

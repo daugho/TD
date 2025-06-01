@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,6 +6,7 @@ public struct TurretData
 {
     public string Name;
     public string Type;
+    public TowerRarity Rarity;
     public string Bullet;
     public float BulletSpeed;
     public float Atk;
@@ -14,6 +16,12 @@ public struct TurretData
     public string fireEffectPath;
     public string hitEffectPath;
 }
+
+public enum TowerRarity
+{
+    Normal, Rare, Epic, Legendary
+}
+
 public class DataManager
 {
     private static DataManager _instance;
@@ -57,14 +65,15 @@ public class DataManager
             TurretData data;
             data.Name = datas[0];
             data.Type = datas[1];
-            data.Bullet = datas[2];
-            data.BulletSpeed = float.Parse(datas[3]);
-            data.Atk = float.Parse(datas[4]);
-            data.AtkSpeed = float.Parse(datas[5]);
-            data.Price = int.Parse(datas[6]);
-            data.Upgrade = int.Parse(datas[7]);
-            data.fireEffectPath = datas[8];
-            data.hitEffectPath = datas[9];
+            data.Rarity = Enum.Parse<TowerRarity>(datas[2]);
+            data.Bullet = datas[3];
+            data.BulletSpeed = float.Parse(datas[4]);
+            data.Atk = float.Parse(datas[5]);
+            data.AtkSpeed = float.Parse(datas[6]);
+            data.Price = int.Parse(datas[7]);
+            data.Upgrade = int.Parse(datas[8]);
+            data.fireEffectPath = datas[9];
+            data.hitEffectPath = datas[10];
 
             _turretDatas.Add(data.Name, data);
         }
