@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TurretHead : MonoBehaviour
 {
-    private GameObject _target;
+    private Monster _target;
     [SerializeField] private float _rotationSpeed = 5.0f;
 
 
@@ -21,12 +21,12 @@ public class TurretHead : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * _rotationSpeed);
     }
 
-    public void SetTarget(GameObject target)
+    public void SetTarget(Monster target)
     {
         _target = target;
     }
 
-    public GameObject GetTarget()
+    public Monster GetTarget()
     {
         return _target;
     }

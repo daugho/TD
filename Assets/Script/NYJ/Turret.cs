@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
-    protected GameObject _target;
+    protected Monster _target;
     protected GameObject _fireEffectPrefab;
     private GameObject _activeFireEffect;
 
@@ -64,7 +64,7 @@ public class Turret : MonoBehaviour
         }
     }
 
-    public void SetTarget(GameObject target)
+    public void SetTarget(Monster target)
     {
         _target = target;
         _turretHead.SetTarget(target);
@@ -90,7 +90,7 @@ public class Turret : MonoBehaviour
 
         Bullet bulletInstance = Instantiate(_bullet, worldPosition, Quaternion.identity);
         bulletInstance.SetBulletTarget(_target);
-        bulletInstance.SetBullet(_turretData.BulletSpeed, _turretData.hitEffectPath);
+        bulletInstance.SetBullet(_turretData.BulletSpeed, _turretData.Atk, _turretData.hitEffectPath);
     }
 
     private void AttackFlame()

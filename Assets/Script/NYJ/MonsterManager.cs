@@ -5,12 +5,16 @@ public class MonsterManager : MonoBehaviour
     [SerializeField] private EnemyPath _enemyPath;
     [SerializeField] private float _spawnInterval = 2f;
     [SerializeField] private Turret[] _turrets;
+    [SerializeField] private Transform _monsterGuiCanvas;
+    private HPBar _hpBar;
 
-    private GameObject _enemyPrefab;
+
+    private Monster _enemyPrefab;
     private float _timer = 0f;
     private void Awake()
     {
-        _enemyPrefab = Resources.Load<GameObject>("Prefabs/Monsters/Monster");
+        _enemyPrefab = Resources.Load<Monster>("Prefabs/Monsters/Monster");
+        _hpBar = Resources.Load<HPBar>("Prefabs/Monsters/HPBar");
     }
 
     private void Update()
@@ -26,25 +30,19 @@ public class MonsterManager : MonoBehaviour
     {
         if (_enemyPrefab == null || _enemyPath == null) return;
 
-        GameObject enemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity);
+        HPBar hpBar = Instantiate(_hpBar, _monsterGuiCanvas);
+
+        Monster enemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity);
         Monster enemyScript = enemy.GetComponent<Monster>();
 
         if (enemyScript != null)
         {
-            enemyScript.Init(_enemyPath, 3.0f);
+            enemyScript.Init(_enemyPath, 3.0f, hpBar);
 
-            if (!_turrets[0].GetTarget())
+            for(int i = 0; i < _turrets.Length; i++)    
             {
-                //Test
-                _turrets[0].SetTarget(enemy);
-                _turrets[1].SetTarget(enemy);
-                _turrets[2].SetTarget(enemy);
-                _turrets[3].SetTarget(enemy);
-                _turrets[4].SetTarget(enemy);
-                _turrets[5].SetTarget(enemy);
-                _turrets[6].SetTarget(enemy);
-                _turrets[7].SetTarget(enemy);
-                _turrets[8].SetTarget(enemy);
+                if (!_turrets[i].GetTarget())
+                    _turrets[i].SetTarget(enemy);
             }
         }
     }

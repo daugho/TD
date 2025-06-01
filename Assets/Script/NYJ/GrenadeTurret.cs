@@ -23,7 +23,7 @@ public class GrenadeTurret : Turret
             Bullet bulletInstance = Instantiate(_bullet, transform.position, Quaternion.identity);
             bulletInstance.transform.position = bulletPosition;
             bulletInstance.SetBulletTarget(_target);
-            bulletInstance.SetBullet(_turretData.BulletSpeed, _turretData.hitEffectPath);
+            bulletInstance.SetBullet(_turretData.BulletSpeed, _turretData.Atk, _turretData.hitEffectPath);
         }
     }
 
