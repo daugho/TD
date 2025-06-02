@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id">
+  <string name="gcm_defaultSenderId" translatable="false">134210326642</string>
+  <string name="google_storage_bucket" translatable="false">androidtower-d35cb.firebasestorage.app</string>
+  <string name="project_id" translatable="false">androidtower-d35cb</string>
+  <string name="google_api_key" translatable="false">AIzaSyAe39-hRk4ad8MET34--SxvXa80bhDjSiQ</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAe39-hRk4ad8MET34--SxvXa80bhDjSiQ</string>
+  <string name="google_app_id" translatable="false">1:134210326642:android:353c92366f297b13ec72eb</string>
+</resources>

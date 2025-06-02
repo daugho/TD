@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/daughoTestScene.unity
     guid: 338685f7d3092044898fb4642476051c
+  - enabled: 1
+    path: Assets/Scenes/daughoPlayTest.unity
+    guid: bfb000b020f0fc643b5d3be78807d88b
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

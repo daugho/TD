@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "134210326642",
+    "project_id": "androidtower-d35cb",
+    "storage_bucket": "androidtower-d35cb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:134210326642:android:353c92366f297b13ec72eb",
+        "android_client_info": {
+          "package_name": "com.sbs.tdgame"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAe39-hRk4ad8MET34--SxvXa80bhDjSiQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

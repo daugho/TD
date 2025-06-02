@@ -73,3 +73,29 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Photon Fusion / PUN2 /
+/Photon/PhotonUnityNetworking/Code/PhotonNetworkPing.*
+/Photon/PhotonUnityNetworking/Code/PhotonPing*
+/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset
+
+# Firebase Editor Cache
+.firebase/
+
+# Firebase crash logs, if any
+crashlytics-build.properties
+google-services-desktop.json
+
+# Git LFS 설치
+git lfs install
+
+# 확장자 추적 설정
+git lfs track "*.so"
+git lfs track "*.bundle"
+
+# gitignore에도 자동으로 추가됨
+git add .gitattributes
+git add Assets/Firebase/Plugins/x86_64/FirebaseCppApp-12_9_0.bundle
+git add Assets/Firebase/Plugins/x86_64/FirebaseCppApp-12_9_0.so
+git commit -m "Track large Firebase binaries using Git LFS"
+git push origin main

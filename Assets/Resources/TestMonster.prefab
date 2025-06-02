@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 7583322701902861437}
   - component: {fileID: 4635047769011070314}
   - component: {fileID: 8007185695343721941}
-  - component: {fileID: 3206798705912190763}
   - component: {fileID: -1695932621184258201}
+  - component: {fileID: 3203031730828877090}
   m_Layer: 0
   m_Name: TestMonster
   m_TagString: Untagged
@@ -110,18 +110,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3206798705912190763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2821125151376046562}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa0a86c4e5428df40a3c2e1d1187be61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &-1695932621184258201
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -149,3 +137,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3203031730828877090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2821125151376046562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84cd0e299a3365d4babce98a5820c45b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileContext: {fileID: 0}
+  speed: 2
