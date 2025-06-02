@@ -37,7 +37,7 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject);
         
         _target.GetDamaged(5); 
-        GameObject explosionPrefab = Instantiate<GameObject>(_explosionEffect, transform.position, transform.rotation);
+        //GameObject explosionPrefab = Instantiate<GameObject>(_explosionEffect, transform.position, transform.rotation);
     }
 
     public void SetBullet(float speed, float atk, string hitEffectPath)
