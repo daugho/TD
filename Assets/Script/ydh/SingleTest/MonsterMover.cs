@@ -89,7 +89,7 @@ public class MonsterMover : MonoBehaviour
         List<Vector3> worldPath = new();
         foreach (var tilePos in path)
         {
-            Vector3 world = new Vector3(tilePos.x + 0.5f, 0, tilePos.y + 0.5f);
+            Vector3 world = new Vector3(tilePos.x + 0.5f, 0.5f, tilePos.y + 0.5f);
             worldPath.Add(world);
         }
 

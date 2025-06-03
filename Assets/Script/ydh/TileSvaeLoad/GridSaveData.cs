@@ -8,6 +8,7 @@ public class TileData
     public int x;
     public int z;
     public TileState state;
+    public TileAccessType access;
 }
 
 [Serializable]

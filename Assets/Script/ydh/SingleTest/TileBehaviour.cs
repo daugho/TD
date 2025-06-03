@@ -5,6 +5,7 @@ using UnityEngine;
 public class TileBehaviour : MonoBehaviourPun
 {
     public TileState _tileState { get; private set; } = TileState.None;
+    public TileAccessType _accessType { get; private set; } = TileAccessType.Everyone;
     private Renderer _renderer;
     private Color _originalColor;
     private bool _isSelected = false;
@@ -16,22 +17,48 @@ public class TileBehaviour : MonoBehaviourPun
         _originalColor = _renderer.material.color;
         UnityEngine.Debug.Log($"[TileBehaviour] ViewID: {photonView.ViewID}");
     }
-    public void SetTileState(TileState newState)
+    public void SetTileState(TileState state)
     {
-        _tileState = newState;
-        UnityEngine.Debug.Log($"[SetTileState] {gameObject.name} → 상태: {_tileState}");
+        SetTileState(state, TileAccessType.Everyone); // 기본 접근 권한
+    }
+
+    public void SetTileState(TileState state, TileAccessType access)
+    {
+        _tileState = state;
+
+        if (state == TileState.Installable)
+        {
+            _accessType = access;
+        }
+        else
+        {
+            // ? 경고 조건 추가
+            if (state != TileState.Installable)
+            {
+                UnityEngine.Debug.LogWarning($"?? {gameObject.name}: Installable 타일이 아닌데 권한 타입이 부여되었습니다. → 'Installable 타일 위에 타입을 부여하세요'");
+            }
+
+            _accessType = TileAccessType.Everyone; // 강제로 초기화
+        }
+
+        UnityEngine.Debug.Log($"[SetTileState] {gameObject.name} → 상태: {_tileState}, 권한: {_accessType}");
         UpdateColor();
-        OnAnyTileChanged?.Invoke(); // 상태 변경 시 이벤트 발생. OnAnyTileChanged가 null이아니면Invoke.
-    }  
+        OnAnyTileChanged?.Invoke();
+    }
 
     private void UpdateColor()
     {
-        if (_renderer == null)
-            _renderer = GetComponent<Renderer>();
+        if (_renderer == null) _renderer = GetComponent<Renderer>();
 
         Color color = _tileState switch
         {
-            TileState.Installable => Color.blue,
+            TileState.Installable => _accessType switch
+            {
+                TileAccessType.Everyone => Color.blue,
+                TileAccessType.MasterOnly => Color.cyan,
+                TileAccessType.ClientOnly => Color.yellow,
+                _ => Color.white
+            },
             TileState.Uninstallable => Color.gray,
             TileState.Installed => Color.red,
             TileState.StartPoint => Color.green,
@@ -39,10 +66,34 @@ public class TileBehaviour : MonoBehaviourPun
             _ => Color.white
         };
 
-        UnityEngine.Debug.Log($"[UpdateColor] {gameObject.name} → 적용 색: {color}");
-
         _renderer.material.color = color;
+    }
+    public void SetAccessType(TileAccessType access)
+    {
+        if (_tileState != TileState.Installable)
+        {
+            UnityEngine.Debug.LogWarning("?? Installable 상태가 아닙니다. 접근 권한을 설정할 수 없습니다.");
+            return;
+        }
 
+        _accessType = access;
+        UnityEngine.Debug.Log($"[SetAccessType] {gameObject.name} → 권한: {_accessType}");
+        UpdateColor();
+    }
+    [PunRPC]
+    public void SetTileClickedColor(string role)
+    {
+        if (_renderer == null) _renderer = GetComponent<Renderer>();
+
+        if (role == "Master")
+            _renderer.material.color = Color.magenta;
+        else if (role == "Client")
+            _renderer.material.color = new Color(1.0f, 0.0f, 1.0f); // 마젠타
+    }
+    [PunRPC]
+    public void RPC_SetTileState(int state, int access)
+    {
+        SetTileState((TileState)state, (TileAccessType)access);
     }
 
     [PunRPC]
@@ -70,18 +121,4 @@ public class TileBehaviour : MonoBehaviourPun
         bool nextState = !_isSelected;
         photonView.RPC("CSetColorRPC", RpcTarget.AllBuffered, nextState);
     }
-    //public void ToggleColorLocalOnly()
-    //{
-    //    _isSelected = !_isSelected;
-    //    _renderer.material.color = _isSelected ? Color.green : _originalColor;
-    //    Color currentColor = _renderer.material.color;
-    //    Debug.Log($"현재 머티리얼 색상: {currentColor}");
-    //}
-    //public void ToggleColorRPC()
-    //{
-    //    _isSelected = !_isSelected;
-    //    Color newColor = _isSelected ? Color.green : _originalColor;
-    //    _renderer.material.color = newColor;
-    //    Debug.Log($"[TileBehaviour] 색상 변경됨: {newColor}");
-    //}
 }

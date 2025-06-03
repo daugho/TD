@@ -44,6 +44,9 @@ MonoBehaviour:
   - ToggleColor
   - CToggleColor
   - CSetColorRPC
+  - RPC_LoadMap
+  - RPC_SetTileState
+  - SetTileClickedColor
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

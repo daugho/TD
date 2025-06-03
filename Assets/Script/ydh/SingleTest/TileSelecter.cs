@@ -35,22 +35,56 @@ public class TileSelector : MonoBehaviour
                 TileBehaviour tile = hit.collider.GetComponent<TileBehaviour>();
                 if (tile == null) return;
 
-                switch (tileEditManager.currentMode)
+                switch (tileEditManager.editMode)
                 {
-                    case TileState.Installable:
-                        tile.SetTileState(TileState.Installable);
+                    case EditMode.TileStateEdit:
+                        tile.SetTileState(tileEditManager.currentTileState);
                         break;
-                    case TileState.Uninstallable:
-                        tile.SetTileState(TileState.Uninstallable);
-                        break;
-                    case TileState.StartPoint:
-                        tile.SetTileState(TileState.StartPoint);
-                        break;
-                    case TileState.EndPoint:
-                        tile.SetTileState(TileState.EndPoint);
+
+                    case EditMode.AccessTypeEdit:
+                        if (tile._tileState == TileState.Installable)
+                        {
+                            tile.SetAccessType(tileEditManager.currentAccessType);
+                        }
+                        else
+                        {
+                            Debug.LogWarning("?? Installable 타일 위에만 접근 타입을 설정할 수 있습니다.");
+                        }
                         break;
                 }
             }
+            //if (Input.GetMouseButtonDown(0))
+            //{
+            //    TileBehaviour tile = hit.collider.GetComponent<TileBehaviour>();
+            //    if (tile == null) return;
+
+            //    switch (tileEditManager.currentMode)
+            //    {
+            //        case TileState.Installable:
+            //            tile.SetTileState(TileState.Installable);
+            //            break;
+            //        case TileState.Uninstallable:
+            //            tile.SetTileState(TileState.Uninstallable);
+            //            break;
+            //        case TileState.StartPoint:
+            //            tile.SetTileState(TileState.StartPoint);
+            //            break;
+            //        case TileState.EndPoint:
+            //            tile.SetTileState(TileState.EndPoint);
+            //            break;
+            //        case TileState.MasterInstallable:
+            //            tile.SetTileState(TileState.MasterInstallable);
+            //            break;
+            //        case TileState.ClientInstallable:
+            //            tile.SetTileState(TileState.ClientInstallable);
+            //            break;
+            //    }
+            //    if (tile._tileState == TileState.MasterInstallable || tile._tileState == TileState.ClientInstallable)
+            //    {
+            //        string role = Photon.Pun.PhotonNetwork.IsMasterClient ? "Master" : "Client";
+            //        tile.photonView.RPC("SetTileClickedColor", Photon.Pun.RpcTarget.AllBuffered, role);
+            //    }
+            //}
         }
     }
 }
