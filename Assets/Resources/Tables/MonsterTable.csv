@@ -1,0 +1,10 @@
+key,name,droneType,hp,movespeed,prefabPath
+1,감시드론,Small,100,3,Sentinel
+2,정찰드론,Small,200,3,Scout
+3,추적드론,Small,300,3,Hunter
+4,수호자,Small,300,3,Warden
+5,돌격드론,Large,1000,2,Vanguard
+6,수송드론,Large,1000,2,CargoShip
+7,사신,Medium,700,5,Reaper
+8,저거노트,Medium,800,5,Juggernaut
+9,드레드노트,Medium,800,5,Dreadnought

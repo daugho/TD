@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text.RegularExpressions;
+using UnityEditor.Overlays;
 using UnityEngine;
 
 public struct TurretData
@@ -20,6 +23,42 @@ public struct TurretData
 public enum TowerRarity
 {
     Normal, Rare, Epic, Legendary
+}
+
+public struct MonsterData
+{
+    public int Key;
+    public string Name;
+    public DroneSize DroneSize;
+    public int HP;
+    public float MoveSpeed;
+    public string PrefabPath;
+}
+
+public enum DroneSize
+{
+    Small, Medium, Large
+}
+
+public struct RoundData
+{
+    public int Stage;
+    public int Wave;
+    public List<MonsterSpawnInfo> Monsters;
+    public float SpeedMultiplier;
+    public float HpMultiplier;
+    public int Reward;
+}
+
+public enum DroneTypes
+{
+    Sentinel = 1, Scout, Hunter, Warden, Vanguard, CargoShip, Reaper, Juggernaut, Dreadnought
+}
+
+public class MonsterSpawnInfo
+{
+    public DroneTypes Type;
+    public int Count;
 }
 
 public class DataManager
@@ -46,6 +85,22 @@ public class DataManager
     }
 
     public TurretData GetTurretData(string name) { return _turretDatas[name]; }
+
+    private Dictionary<int, MonsterData> _monsterDatas = new Dictionary<int, MonsterData>();
+    public Dictionary<int, MonsterData> MonsterDatas
+    {
+        get { return _monsterDatas; }
+    }
+
+    public MonsterData GetMonsterData(int key) { return _monsterDatas[key]; }
+
+    private Dictionary<(int, int), RoundData> _roundDatas = new Dictionary<(int, int), RoundData>();
+    public Dictionary<(int, int), RoundData> RoundDatas
+    {
+        get { return _roundDatas; }
+    }
+
+    public RoundData GetRoundData((int, int) key) { return _roundDatas[key]; }
 
     public void LoadTurretData()
     {
@@ -76,6 +131,82 @@ public class DataManager
             data.hitEffectPath = datas[10];
 
             _turretDatas.Add(data.Name, data);
+        }
+    }
+
+    public void LoadMonsterData()
+    {
+        TextAsset textAsset = Resources.Load<TextAsset>("Tables/MonsterTable");
+
+        string text = textAsset.text;
+
+        string[] rowData = text.Split("\r\n");
+
+        for (int i = 1; i < rowData.Length; i++)
+        {
+            if (rowData[i].Length == 0)
+                break;
+
+            string[] datas = rowData[i].Split(",");
+
+            MonsterData data;
+            data.Key = int.Parse(datas[0]);
+            data.Name = datas[1];
+            data.DroneSize = Enum.Parse<DroneSize>(datas[2]);
+            data.HP = int.Parse(datas[3]);
+            data.MoveSpeed = float.Parse(datas[4]);
+            data.PrefabPath = datas[5];
+   
+            _monsterDatas.Add(data.Key, data);
+        }
+    }
+
+    public void LoadRoundData()
+    {
+        TextAsset textAsset = Resources.Load<TextAsset>("Tables/RoundTable");
+
+        string text = textAsset.text;
+        string[] rowData = text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+        for (int i = 1; i < rowData.Length; i++)
+        {
+            string[] datas = Regex.Split(rowData[i], ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+
+            int stage = int.Parse(datas[0]);
+            int wave = int.Parse(datas[1]);
+            string rawDroneTypes = datas[2].Trim('"');
+            string[] droneTypes = rawDroneTypes.Split(',');
+
+            string rawCounts = datas[3].Trim('"');
+            string[] counts = rawCounts.Split(',');
+
+            float speedMultiplier = float.Parse(datas[4]);
+            float hpMultiplier = float.Parse(datas[5]);
+            int reward = int.Parse(datas[6]);
+
+            RoundData waveData = new RoundData
+            {
+                Stage = stage,
+                Wave = wave,
+                SpeedMultiplier = speedMultiplier,
+                HpMultiplier = hpMultiplier,
+                Reward = reward,
+                Monsters = new List<MonsterSpawnInfo>()
+            };
+
+            for (int j = 0; j < droneTypes.Length; j++)
+            {
+                DroneTypes type = Enum.Parse<DroneTypes>(droneTypes[j].Trim());
+                int count = int.Parse(counts[j].Trim());
+
+                waveData.Monsters.Add(new MonsterSpawnInfo
+                {
+                    Type = type,
+                    Count = count
+                });
+            }
+
+            _roundDatas[(stage, wave)] = waveData;
         }
     }
 }

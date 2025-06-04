@@ -1,43 +1,63 @@
+using System.Collections;
+using UnityEditor.Overlays;
 using UnityEngine;
 
 public class MonsterManager : MonoBehaviour
 {
     [SerializeField] private EnemyPath _enemyPath;
-    [SerializeField] private float _spawnInterval = 2f;
     [SerializeField] private Turret[] _turrets;
     [SerializeField] private Transform _monsterGuiCanvas;
+    
     private HPBar _hpBar;
+    private int _stage = 1;
+    private int _wave = 1;
 
 
-    private Monster _enemyPrefab;
-    private float _timer = 0f;
     private void Awake()
     {
-        _enemyPrefab = Resources.Load<Monster>("Prefabs/Monsters/Monster");
         _hpBar = Resources.Load<HPBar>("Prefabs/Monsters/HPBar");
+    }
+
+    private void Start()
+    {
+        RoundData roundData = DataManager.Instance.GetRoundData((_stage, _wave));
+
+        StartCoroutine(SpawnWaveCoroutine(roundData));
     }
 
     private void Update()
     {
-        _timer += Time.deltaTime;
-        if (_timer >= _spawnInterval)
+
+    }
+
+    private IEnumerator SpawnWaveCoroutine(RoundData roundData)
+    {
+        foreach (MonsterSpawnInfo monster in roundData.Monsters)
         {
-            _timer -= _spawnInterval;
-            EnemySpawn();
+            for (int i = 0; i < monster.Count; i++)
+            {
+                EnemySpawn(monster.Type);
+                yield return new WaitForSeconds(0.2f); 
+            }
         }
     }
-    private void EnemySpawn()
+    private void EnemySpawn(DroneTypes type)
     {
-        if (_enemyPrefab == null || _enemyPath == null) return;
+        if (_enemyPath == null) return;
+        
+        RoundData roundData = DataManager.Instance.GetRoundData((_stage, _wave));
 
+        MonsterData monsterData = DataManager.Instance.GetMonsterData((int)type);
+        Monster monsterPrefab = Resources.Load<Monster>("Prefabs/Monsters/" + monsterData.PrefabPath); 
+        
         HPBar hpBar = Instantiate(_hpBar, _monsterGuiCanvas);
 
-        Monster enemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity);
-        Monster enemyScript = enemy.GetComponent<Monster>();
+        Monster enemy = Instantiate(monsterPrefab, transform.position, Quaternion.identity);
 
-        if (enemyScript != null)
+        if (enemy != null)
         {
-            enemyScript.Init(_enemyPath, 3.0f, hpBar);
+            enemy.Init(monsterData, _enemyPath, roundData.SpeedMultiplier, 
+                roundData.HpMultiplier, hpBar); // 나중에 _hpBar 풀링 
 
             for(int i = 0; i < _turrets.Length; i++)    
             {

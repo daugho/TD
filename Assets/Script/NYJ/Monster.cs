@@ -4,13 +4,12 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Monster : MonoBehaviour
 {
-    [SerializeField] private float _movespeed = 3.0f;
     [SerializeField] private EnemyPath _enemyPath;
 
     private Waypoint[] _waypoints;
     private int _currentIndex = 0;
     private HPBar _hpSlider;
-    private int _maxHP = 100;
+    private MonsterData _monsterData;
     public int CurHp { get; set; }
 
     private void Update()
@@ -30,9 +29,18 @@ public class Monster : MonoBehaviour
         if (_waypoints == null || _waypoints.Length == 0) return;
         if (_currentIndex >= _waypoints.Length) return;
 
-        Vector3 target = _enemyPath.transform.position + _waypoints[_currentIndex].Position;
+        Vector3 target = _waypoints[_currentIndex].Position;
+        
+        Vector3 direction = target - transform.position;
+        direction.y = 0f; 
 
-        transform.position = Vector3.MoveTowards(transform.position, target, _movespeed * Time.deltaTime);
+        if (direction != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+        }
+
+        transform.position = Vector3.MoveTowards(transform.position, target, _monsterData.MoveSpeed * Time.deltaTime);
 
         if (Vector3.Distance(transform.position, target) < 0.05f)
         {
@@ -44,15 +52,19 @@ public class Monster : MonoBehaviour
         }
     }
 
-    public void Init(EnemyPath path, float speed, HPBar hpBar)
+    public void Init(MonsterData monsterData, EnemyPath path, float speedMultiplier, float hpMultiplier, HPBar hpBar)
     {
+        _monsterData = monsterData; 
         _enemyPath = path;
         _waypoints = _enemyPath.GetWaypoints;
-        _movespeed = speed;
+
         _hpSlider = hpBar;
 
-        CurHp = _maxHP;
-        hpBar.SetMaxHp(_maxHP); // 나중에 수정 
+        float MaxHp = monsterData.HP * hpMultiplier;    
+       
+        CurHp = monsterData.HP;
+        _hpSlider.SetMaxHp(MaxHp); 
+        _monsterData.MoveSpeed *= speedMultiplier;
 
         transform.position = _enemyPath.transform.position + _waypoints[0].Position;
         _currentIndex = 1;

@@ -15,5 +15,7 @@ public class GameManager : MonoBehaviour
         _instance = this;
 
         DataManager.Instance.LoadTurretData();
+        DataManager.Instance.LoadMonsterData();
+        DataManager.Instance.LoadRoundData();
     }
 }
