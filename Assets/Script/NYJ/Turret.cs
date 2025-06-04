@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 
 public class Turret : MonoBehaviour
@@ -32,7 +33,7 @@ public class Turret : MonoBehaviour
         _turretRarity.SetRarityVisual(_turretData.Rarity);
        
         _bullet = Resources.Load<Bullet>("Prefabs/Bullets/" + _turretData.Bullet);
-        _fireEffectPrefab = Resources.Load<GameObject>("Prefabs/FireEffects/" + _turretData.fireEffectPath);
+        _fireEffectPrefab = Resources.Load<GameObject>("Prefabs/FireEffects/" + _turretData.FireEffectPath);
     }
 
     protected virtual void Update()
@@ -97,7 +98,7 @@ public class Turret : MonoBehaviour
 
         Bullet bulletInstance = Instantiate(_bullet, worldPosition, Quaternion.identity);
         bulletInstance.SetBulletTarget(_target);
-        bulletInstance.SetBullet(_turretData.BulletSpeed, _turretData.Atk, _turretData.hitEffectPath);
+        bulletInstance.SetBullet(_turretData.BulletSpeed, _turretData.Atk, _turretData.HitEffectPath);
     }
 
     private void AttackFlame()
@@ -121,6 +122,25 @@ public class Turret : MonoBehaviour
         //}
     }
 
+    public void BuildTurret(string turretName, Vector3 position)
+    {
+        GameObject turretPrefab = Resources.Load<GameObject>("Prefabs/Turrets/" + turretName);
+
+        GameObject turretInstance = PhotonNetwork.Instantiate("Prefabs/Turrets/" + turretName, position, Quaternion.identity);
+
+        PhotonView turretView = turretInstance.GetComponent<PhotonView>();
+        if (turretView.IsMine)
+        {
+            turretView.RPC("OnBuildComplete", RpcTarget.AllBuffered);
+        }
+    }
+
+    [PunRPC]
+    public void OnBuildComplete()
+    {
+        // 설치 시 시각 효과, 초기 타겟 스캔, UI 연결 등 처리
+        Debug.Log($"{gameObject.name} 터렛이 설치 완료됨");
+    }
     protected virtual void OnDrawGizmos()
     {
         _turretHead = GetComponentInChildren<TurretHead>();

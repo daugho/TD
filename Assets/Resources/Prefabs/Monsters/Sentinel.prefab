@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7276049896784021079, guid: 312b642179f6d9d4db8e6786bcdabf43, type: 3}
       propertyPath: m_Name
-      value: Sentinel Variant
+      value: Sentinel
       objectReference: {fileID: 0}
     - target: {fileID: 8048610349263625453, guid: 312b642179f6d9d4db8e6786bcdabf43, type: 3}
       propertyPath: m_LocalPosition.x
@@ -59,6 +59,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7276049896784021079, guid: 312b642179f6d9d4db8e6786bcdabf43, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5572451545057633491}
+    - targetCorrespondingSourceObject: {fileID: 7276049896784021079, guid: 312b642179f6d9d4db8e6786bcdabf43, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5673936247632850781}
   m_SourcePrefab: {fileID: 100100000, guid: 312b642179f6d9d4db8e6786bcdabf43, type: 3}
 --- !u!1 &2335311940202927443 stripped
 GameObject:
@@ -77,5 +80,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8bdabe260ad1984191df06eb0f6ad0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movespeed: 3
   _enemyPath: {fileID: 0}
+--- !u!114 &5673936247632850781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2335311940202927443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

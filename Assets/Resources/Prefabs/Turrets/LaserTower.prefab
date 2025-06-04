@@ -9,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7765132963857039061}
-  - component: {fileID: 3604854312020475135}
   - component: {fileID: 6009353264818749716}
+  - component: {fileID: 1682642821906118173}
+  - component: {fileID: 4467922693506763104}
   m_Layer: 0
   m_Name: LaserTower
   m_TagString: Untagged
@@ -34,18 +35,6 @@ Transform:
   - {fileID: 5906525324713896065}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3604854312020475135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2545437748757278906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9f939b0d2f8b9b44897c4c653a48210, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!120 &6009353264818749716
 LineRenderer:
   serializedVersion: 2
@@ -96,7 +85,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 1
+    widthMultiplier: 0.1
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -150,9 +139,38 @@ LineRenderer:
     shadowBias: 0.5
     generateLightingData: 0
   m_MaskInteraction: 0
-  m_UseWorldSpace: 0
+  m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &1682642821906118173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2545437748757278906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f035d35cc457c844d805091de49d5fcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _firePosition: {x: 0, y: 0, z: 1.83}
+--- !u!114 &4467922693506763104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2545437748757278906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9df448c4ba9a4d4cb5a369b4692ceb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerDetailManager: {fileID: 0}
+  CellPrototype: {fileID: 0}
+  PlayerCountsText: {fileID: 0}
+  UpdateStatusText: {fileID: 0}
 --- !u!1001 &4696374928753310730
 PrefabInstance:
   m_ObjectHideFlags: 0

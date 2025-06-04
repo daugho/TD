@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
 using UnityEngine;
+using Photon.Pun;
 using static UnityEngine.GraphicsBuffer;
 
 public class Monster : MonoBehaviour
@@ -70,6 +71,7 @@ public class Monster : MonoBehaviour
         _currentIndex = 1;
     }
 
+    [PunRPC]
     public void GetDamaged(int damageAmount)
     {
         if (CurHp <= 0)

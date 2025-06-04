@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -8,6 +9,7 @@ public class Bullet : MonoBehaviour
     private GameObject _explosionEffect;
     private Monster _target;
     private float _hitThreshold = 0.1f;
+    private PhotonView _targetView;
 
     private void Awake()
     {
@@ -34,9 +36,13 @@ public class Bullet : MonoBehaviour
 
     private void ExecuteAttack()
     {
+        if (_targetView != null)
+        {
+            _targetView.RPC("TakeDamage", RpcTarget.AllBuffered, 10f);
+        }
+
         Destroy(gameObject);
         
-        _target.GetDamaged(5); 
         //GameObject explosionPrefab = Instantiate<GameObject>(_explosionEffect, transform.position, transform.rotation);
     }
 
@@ -49,5 +55,6 @@ public class Bullet : MonoBehaviour
     public void SetBulletTarget(Monster target)
     {
         _target = target;
+        _targetView = target.GetComponent<PhotonView>();
     }
 }

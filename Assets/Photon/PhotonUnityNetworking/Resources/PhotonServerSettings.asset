@@ -47,6 +47,8 @@ MonoBehaviour:
   - RPC_LoadMap
   - RPC_SetTileState
   - SetTileClickedColor
+  - GetDamaged
+  - OnBuildComplete
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -16,8 +16,10 @@ public struct TurretData
     public float AtkSpeed;
     public int Price;
     public int Upgrade;
-    public string fireEffectPath;
-    public string hitEffectPath;
+    public string FireEffectPath;
+    public string HitEffectPath;
+    public int CommonSummonTicket;
+    public int RareSummonTicket;
 }
 
 public enum TowerRarity
@@ -127,8 +129,10 @@ public class DataManager
             data.AtkSpeed = float.Parse(datas[6]);
             data.Price = int.Parse(datas[7]);
             data.Upgrade = int.Parse(datas[8]);
-            data.fireEffectPath = datas[9];
-            data.hitEffectPath = datas[10];
+            data.FireEffectPath = datas[9];
+            data.HitEffectPath = datas[10];
+            data.CommonSummonTicket = int.Parse(datas[11]);
+            data.RareSummonTicket = int.Parse(datas[12]);
 
             _turretDatas.Add(data.Name, data);
         }
