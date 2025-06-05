@@ -1,13 +1,15 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEditor.Overlays;
 using UnityEngine;
+using Photon.Pun;
 
 public class MonsterManager : MonoBehaviour
 {
-    [SerializeField] private EnemyPath _enemyPath;
     [SerializeField] private Turret[] _turrets;
-    [SerializeField] private Transform _monsterGuiCanvas;
-    
+
+    public static List<Monster> Monsters = new List<Monster>();
+
     private HPBar _hpBar;
     private int _stage = 1;
     private int _wave = 1;
@@ -18,16 +20,12 @@ public class MonsterManager : MonoBehaviour
         _hpBar = Resources.Load<HPBar>("Prefabs/Monsters/HPBar");
     }
 
-    private void Start()
+
+    public void OnClickSpawn()
     {
         RoundData roundData = DataManager.Instance.GetRoundData((_stage, _wave));
 
         StartCoroutine(SpawnWaveCoroutine(roundData));
-    }
-
-    private void Update()
-    {
-
     }
 
     private IEnumerator SpawnWaveCoroutine(RoundData roundData)
@@ -43,27 +41,24 @@ public class MonsterManager : MonoBehaviour
     }
     private void EnemySpawn(DroneTypes type)
     {
-        if (_enemyPath == null) return;
-        
         RoundData roundData = DataManager.Instance.GetRoundData((_stage, _wave));
 
         MonsterData monsterData = DataManager.Instance.GetMonsterData((int)type);
-        Monster monsterPrefab = Resources.Load<Monster>("Prefabs/Monsters/" + monsterData.PrefabPath); 
-        
-        HPBar hpBar = Instantiate(_hpBar, _monsterGuiCanvas);
 
-        Monster enemy = Instantiate(monsterPrefab, transform.position, Quaternion.identity);
+        object[] instData = new object[]
+       {
+            (int)type,
+            roundData.SpeedMultiplier,
+            roundData.HpMultiplier
+       };
 
-        if (enemy != null)
+        GameObject enemy = PhotonNetwork.Instantiate("Prefabs/Monsters/" + monsterData.PrefabPath, 
+            transform.position, Quaternion.identity, 0, instData);
+        Monster monsterPrefab = enemy.GetComponent<Monster>();
+
+        if (monsterPrefab != null)
         {
-            enemy.Init(monsterData, _enemyPath, roundData.SpeedMultiplier, 
-                roundData.HpMultiplier, hpBar); // 나중에 _hpBar 풀링 
-
-            for(int i = 0; i < _turrets.Length; i++)    
-            {
-                if (!_turrets[i].GetTarget())
-                    _turrets[i].SetTarget(enemy);
-            }
+            Monsters.Add(monsterPrefab);
         }
     }
 }

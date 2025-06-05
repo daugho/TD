@@ -362,7 +362,7 @@ GameObject:
   - component: {fileID: 6405776339555596353}
   - component: {fileID: 8675837982496077175}
   m_Layer: 0
-  m_Name: RailgunTower
+  m_Name: RailgunTower_Master
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

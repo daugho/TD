@@ -1,4 +1,5 @@
 using Photon.Pun;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Turret : MonoBehaviour
@@ -7,37 +8,39 @@ public class Turret : MonoBehaviour
     protected GameObject _fireEffectPrefab;
     private GameObject _activeFireEffect;
 
+    private float _searchInterval = 0.2f;
+    private float _searchTimer = 0.0f;
+
     protected TurretData _turretData = new TurretData();
     protected TurretHead _turretHead;
     protected Bullet _bullet;
     [SerializeField] protected Vector3 _firePosition = Vector3.forward;
+    [SerializeField] private float _range = 5.0f;
 
     protected float _spawnTimer = 0.0f;
     protected float _bulletSpawnTimer = 1.0f;
+
+    private float _rangeSqr;
 
     private TurretRarity _turretRarity;
 
     private void Awake()
     {
         _turretHead = GetComponentInChildren<TurretHead>();
+
+        _rangeSqr = _range * _range;
     }
 
-    private void Start()
-    {
-        string name = gameObject.name.Replace("(Clone)", "").Trim();
-        _turretData = DataManager.Instance.GetTurretData(name);
-
-        GameObject rarityPrefab = Resources.Load<GameObject>("Prefabs/Turrets/RarityCircle");
-        GameObject instance = Instantiate(rarityPrefab, transform);
-        _turretRarity = instance.GetComponent<TurretRarity>();
-        _turretRarity.SetRarityVisual(_turretData.Rarity);
-       
-        _bullet = Resources.Load<Bullet>("Prefabs/Bullets/" + _turretData.Bullet);
-        _fireEffectPrefab = Resources.Load<GameObject>("Prefabs/FireEffects/" + _turretData.FireEffectPath);
-    }
 
     protected virtual void Update()
     {
+        _searchTimer += Time.deltaTime;
+        if (_searchTimer >= _searchInterval)
+        {
+            _searchTimer = 0.0f;
+            FindTarget();
+        }
+
         _spawnTimer += _turretData.AtkSpeed * Time.deltaTime;
 
         if (_target)
@@ -47,7 +50,7 @@ public class Turret : MonoBehaviour
                 _spawnTimer -= _bulletSpawnTimer;
                 if(_turretData.Type == "Direct") //ม๗ป็
                 {
-                    if(_turretData.Name == "FlameTower")
+                    if(_turretData.Name == TowerTypes.FlameTower)
                     {
                         AttackFlame();
                     }
@@ -71,11 +74,38 @@ public class Turret : MonoBehaviour
             }
         }
     }
-
-    public void SetTarget(Monster target)
+    public void FindTarget()
     {
-        _target = target;
-        _turretHead.SetTarget(target);
+        if (_target != null)
+        {
+            float distSqr = (_target.transform.position - transform.position).sqrMagnitude;
+            if (distSqr > _rangeSqr)
+            {
+                _target = null;
+            }
+            else
+            {
+                return; 
+            }
+        }
+
+        List<Monster> allMonsters = MonsterManager.Monsters;
+        float closestDist = float.MaxValue;
+        Monster closest = null;
+
+        foreach (Monster m in allMonsters)
+        {
+            if (m == null) continue;
+
+            float distSqr = (m.transform.position - transform.position).sqrMagnitude;
+            if (distSqr <= _rangeSqr && distSqr < closestDist)
+            {
+                closest = m;
+                closestDist = distSqr;
+            }
+        }
+
+        _target = closest;
     }
 
     public bool GetTarget()
@@ -122,6 +152,18 @@ public class Turret : MonoBehaviour
         //}
     }
 
+    public void InitTurret(TowerTypes type)
+    {
+        _turretData = DataManager.Instance.GetTurretData(type);
+
+        GameObject rarityPrefab = Resources.Load<GameObject>("Prefabs/Turrets/RarityCircle");
+        GameObject instance = Instantiate(rarityPrefab, transform);
+        _turretRarity = instance.GetComponent<TurretRarity>();
+        _turretRarity.SetRarityVisual(_turretData.Rarity);
+
+        _bullet = Resources.Load<Bullet>("Prefabs/Bullets/" + _turretData.Bullet);
+        _fireEffectPrefab = Resources.Load<GameObject>("Prefabs/FireEffects/" + _turretData.FireEffectPath);
+    }
     public void BuildTurret(string turretName, Vector3 position)
     {
         GameObject turretPrefab = Resources.Load<GameObject>("Prefabs/Turrets/" + turretName);

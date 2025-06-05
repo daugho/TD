@@ -3,7 +3,7 @@ using UnityEngine;
 using Photon.Pun;
 using static UnityEngine.GraphicsBuffer;
 
-public class Monster : MonoBehaviour
+public class Monster : MonoBehaviourPun, IPunInstantiateMagicCallback
 {
     [SerializeField] private EnemyPath _enemyPath;
 
@@ -17,6 +17,7 @@ public class Monster : MonoBehaviour
     {
         Move();
     }
+
     private void LateUpdate()
     {
         if (_hpSlider != null)
@@ -53,6 +54,23 @@ public class Monster : MonoBehaviour
         }
     }
 
+    public void OnPhotonInstantiate(PhotonMessageInfo info)
+    {
+        object[] instData = photonView.InstantiationData;
+        if (instData == null) return;
+
+        int monsterDataId = (int)instData[0];
+        float speedMul = (float)instData[1];
+        float hpMul = (float)instData[2];
+
+        MonsterData monsterData = DataManager.Instance.GetMonsterData(monsterDataId);
+        EnemyPath path = GameManager.Instance.GetMonsterPath();
+        Transform monsterGuiCanvas = GameManager.Instance.GetMonsterCanvas();
+
+        HPBar hpBar = Instantiate(Resources.Load<HPBar>("Prefabs/Monsters/HPBar"), monsterGuiCanvas);
+
+        Init(monsterData, path, speedMul, hpMul, hpBar);
+    }
     public void Init(MonsterData monsterData, EnemyPath path, float speedMultiplier, float hpMultiplier, HPBar hpBar)
     {
         _monsterData = monsterData; 

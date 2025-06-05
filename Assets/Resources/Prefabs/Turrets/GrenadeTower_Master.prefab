@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6246004321424971166}
   - component: {fileID: 191895224957652057}
   m_Layer: 0
-  m_Name: GrenadeTower
+  m_Name: GrenadeTower_Master
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _firePosition: {x: 0, y: 0, z: 1}
   _grenadeStorages:
-  - {x: -0.41, y: 0, z: 0.85}
+  - {x: -0.72, y: 0, z: 0.85}
   - {x: 0.4, y: 0, z: 0.85}
   - {x: -0.4, y: 0, z: 1.9}
   - {x: 0.4, y: 0, z: 1.9}

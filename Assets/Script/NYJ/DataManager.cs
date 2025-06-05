@@ -7,7 +7,7 @@ using UnityEngine;
 
 public struct TurretData
 {
-    public string Name;
+    public TowerTypes Name;
     public string Type;
     public TowerRarity Rarity;
     public string Bullet;
@@ -25,6 +25,14 @@ public struct TurretData
 public enum TowerRarity
 {
     Normal, Rare, Epic, Legendary
+}
+public enum TowerTypes
+{
+    RifleTower, MachinegunTower, 
+    FlameTower, MissileTower, 
+    RailgunTower, GravityTower, 
+    GrenadeTower, ElectricTower, 
+    LaserTower
 }
 
 public struct MonsterData
@@ -80,13 +88,13 @@ public class DataManager
         }
     }
 
-    private Dictionary<string, TurretData> _turretDatas = new Dictionary<string, TurretData>();
-    public Dictionary<string, TurretData> TurretDatas
+    private Dictionary<TowerTypes, TurretData> _turretDatas = new Dictionary<TowerTypes, TurretData>();
+    public Dictionary<TowerTypes, TurretData> TurretDatas
     {
         get { return _turretDatas; }
     }
 
-    public TurretData GetTurretData(string name) { return _turretDatas[name]; }
+    public TurretData GetTurretData(TowerTypes name) { return _turretDatas[name]; }
 
     private Dictionary<int, MonsterData> _monsterDatas = new Dictionary<int, MonsterData>();
     public Dictionary<int, MonsterData> MonsterDatas
@@ -120,7 +128,7 @@ public class DataManager
             string[] datas = rowData[i].Split(",");
 
             TurretData data;
-            data.Name = datas[0];
+            data.Name = Enum.Parse<TowerTypes>(datas[0]);
             data.Type = datas[1];
             data.Rarity = Enum.Parse<TowerRarity>(datas[2]);
             data.Bullet = datas[3];
