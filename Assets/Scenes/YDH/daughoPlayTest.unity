@@ -657,6 +657,7 @@ GameObject:
   - component: {fileID: 1437550494}
   - component: {fileID: 1437550496}
   - component: {fileID: 1437550495}
+  - component: {fileID: 1437550497}
   m_Layer: 0
   m_Name: GridSystem
   m_TagString: Untagged
@@ -785,6 +786,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpawner: {fileID: 1437550495}
   tileContext: {fileID: 1437550490}
+--- !u!114 &1437550497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1437550488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 441d23741b527494f961557a54a2d2f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _towerPrefab: {fileID: 5537279196229623920, guid: d85f94dd8a383944489a529d2ed69c7b, type: 3}
 --- !u!1 &1951988192
 GameObject:
   m_ObjectHideFlags: 0

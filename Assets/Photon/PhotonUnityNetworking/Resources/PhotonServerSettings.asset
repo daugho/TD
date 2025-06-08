@@ -51,6 +51,7 @@ MonoBehaviour:
   - OnBuildComplete
   - RPC_SpawnMyMonster
   - RPC_Spawn
+  - SetCoordinates
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

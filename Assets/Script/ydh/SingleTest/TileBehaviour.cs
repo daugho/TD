@@ -9,6 +9,8 @@ public class TileBehaviour : MonoBehaviourPun
     private Renderer _renderer;
     private Color _originalColor;
     private bool _isSelected = false;
+    public int CoordX { get; private set; }
+    public int CoordZ { get; private set; }
 
     public static event Action OnAnyTileChanged;
     private void Awake()
@@ -132,9 +134,20 @@ public class TileBehaviour : MonoBehaviourPun
         Color color = _renderer.material.color;
     }
     
-    public void CToggleColor()
+    public void CToggleColor()//클라이언트 전용 색상 변경함수
     {
         bool nextState = !_isSelected;
         photonView.RPC("CSetColorRPC", RpcTarget.AllBuffered, nextState);
+    }
+    [PunRPC]
+    public void SetCoordinates(int x, int z)
+    {
+        CoordX = x;
+        CoordZ = z;
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            var gridManager = FindFirstObjectByType<GridManager>();
+            gridManager?.RegisterTile(this);
+        }
     }
 }

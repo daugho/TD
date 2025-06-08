@@ -39,32 +39,30 @@ private TileBehaviour FindMyStartPoint()
 {
     bool isMaster = PhotonNetwork.IsMasterClient;
         Debug.Log($"[DEBUG] 역할: {(isMaster ? "마스터" : "클라이언트")}");
-        foreach (Transform child in tileContext.TileParent)
+    foreach (Transform child in tileContext.TileParent)
     {
         var tile = child.GetComponent<TileBehaviour>();
-        if (tile == null || tile._tileState != TileState.StartPoint)
-        {  
-            Debug.LogWarning("타일에 TileBehaviour 없음");
-            continue;
+            if (tile == null || tile._tileState != TileState.StartPoint)
+            {
+                Debug.LogWarning("타일에 TileBehaviour 없음");
+                continue;
+            }
+
+        Debug.Log($"▶ 타일 발견: {tile.CoordX},{tile.CoordZ} / Access: {tile._accessType}");
+
+        switch (tile._accessType)
+        {
+        case TileAccessType.Everyone:
+            return tile;
+
+        case TileAccessType.MasterOnly:
+            if (isMaster) return tile;
+            break;
+
+        case TileAccessType.ClientOnly:
+            if (!isMaster) return tile;
+            break;
         }
-        if (tile._tileState != TileState.StartPoint)
-            continue;
-
-        Debug.Log($"▶ 타일 발견: {tile.name} / Access: {tile._accessType}");
-
-         switch (tile._accessType)
-         {
-         case TileAccessType.Everyone:
-             return tile;
-
-         case TileAccessType.MasterOnly:
-             if (isMaster) return tile;
-             break;
-
-         case TileAccessType.ClientOnly:
-             if (!isMaster) return tile;
-             break;
-         }
     }
 
     return null;
