@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8007185695343721941}
   - component: {fileID: -1695932621184258201}
   - component: {fileID: 3203031730828877090}
+  - component: {fileID: -1261610756157574753}
   m_Layer: 0
   m_Name: TestMonster
   m_TagString: Untagged
@@ -149,5 +150,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84cd0e299a3365d4babce98a5820c45b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileContext: {fileID: 0}
-  speed: 2
+--- !u!114 &-1261610756157574753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2821125151376046562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1

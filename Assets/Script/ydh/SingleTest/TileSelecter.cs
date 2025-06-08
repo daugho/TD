@@ -38,7 +38,7 @@ public class TileSelector : MonoBehaviour
                 switch (tileEditManager.editMode)
                 {
                     case EditMode.TileStateEdit:
-                        tile.SetTileState(tileEditManager.currentTileState);
+                        tile.SetTileState(tileEditManager.currentTileState, tileEditManager.currentAccessType);
                         break;
 
                     case EditMode.AccessTypeEdit:

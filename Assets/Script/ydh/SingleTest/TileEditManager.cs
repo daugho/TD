@@ -19,10 +19,17 @@ public class TileEditManager : MonoBehaviour
         currentTileState = TileState.Uninstallable;
     }
 
-    public void SelectStartPointMode()
+    public void SelectStartPointMode_MasterOnly()
     {
         editMode = EditMode.TileStateEdit;
         currentTileState = TileState.StartPoint;
+        currentAccessType = TileAccessType.MasterOnly;
+    }
+    public void SelectStartPointMode_ClientOnly()
+    {
+        editMode = EditMode.TileStateEdit;
+        currentTileState = TileState.StartPoint;
+        currentAccessType = TileAccessType.ClientOnly;
     }
 
     public void SelectEndPointMode()

@@ -11,11 +11,26 @@ public class TileBehaviour : MonoBehaviourPun
     private bool _isSelected = false;
 
     public static event Action OnAnyTileChanged;
+    private void Awake()
+    {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            var context = GameObject.Find("GridSystem")?.GetComponent<TileContext>();
+            if (context != null)
+            {
+                transform.SetParent(context.TileParent);
+            }
+            else
+            {
+                UnityEngine.Debug.LogError("TileContext를 찾을 수 없습니다.");
+            }
+        }
+    }
     void Start()
     {
         _renderer = GetComponent<Renderer>();
         _originalColor = _renderer.material.color;
-        UnityEngine.Debug.Log($"[TileBehaviour] ViewID: {photonView.ViewID}");
+        //UnityEngine.Debug.Log($"[TileBehaviour] ViewID: {photonView.ViewID}");
     }
     public void SetTileState(TileState state)
     {
@@ -26,22 +41,17 @@ public class TileBehaviour : MonoBehaviourPun
     {
         _tileState = state;
 
-        if (state == TileState.Installable)
+        // ? StartPoint와 EndPoint도 권한을 허용
+        if (state == TileState.Installable || state == TileState.StartPoint)
         {
             _accessType = access;
         }
         else
         {
-            // ? 경고 조건 추가
-            if (state != TileState.Installable)
-            {
-                UnityEngine.Debug.LogWarning($"?? {gameObject.name}: Installable 타일이 아닌데 권한 타입이 부여되었습니다. → 'Installable 타일 위에 타입을 부여하세요'");
-            }
-
-            _accessType = TileAccessType.Everyone; // 강제로 초기화
+            _accessType = TileAccessType.Everyone; // 기본값으로 리셋
         }
 
-        UnityEngine.Debug.Log($"[SetTileState] {gameObject.name} → 상태: {_tileState}, 권한: {_accessType}");
+        //UnityEngine.Debug.Log($"[SetTileState] {gameObject.name} → 상태: {_tileState}, 권한: {_accessType}");
         UpdateColor();
         OnAnyTileChanged?.Invoke();
     }
@@ -59,9 +69,15 @@ public class TileBehaviour : MonoBehaviourPun
                 TileAccessType.ClientOnly => Color.yellow,
                 _ => Color.white
             },
+            TileState.StartPoint => _accessType switch
+            {
+                TileAccessType.Everyone => Color.green,               // 기본 StartPoint
+                TileAccessType.MasterOnly => new Color(0.0f, 0.6f, 0.0f), // 진한 초록 (Master용)
+                TileAccessType.ClientOnly => new Color(0.6f, 1.0f, 0.6f), // 밝은 초록 (Client용)
+                _ => Color.green
+            },
             TileState.Uninstallable => Color.gray,
             TileState.Installed => Color.red,
-            TileState.StartPoint => Color.green,
             TileState.EndPoint => Color.black,
             _ => Color.white
         };

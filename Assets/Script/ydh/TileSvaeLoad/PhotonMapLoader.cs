@@ -1,22 +1,34 @@
 using Photon.Pun;
 using UnityEngine;
+using System.Collections;
 
 public class PhotonMapLoader : MonoBehaviourPunCallbacks
 {
     [SerializeField] private FirebaseMapDownloader downloader;
     [SerializeField] private GridManager gridManager;
 
-    public async void LoadMapAndSync(string mapName)
+    public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged)
     {
-        if (!PhotonNetwork.IsMasterClient) return;
-
-        string fileName = mapName + ".json";
-        string json = await downloader.DownloadMap(fileName);
-
-        if (!string.IsNullOrEmpty(json))
+        if (propertiesThatChanged.ContainsKey("MapName"))
         {
-            photonView.RPC(nameof(RPC_LoadMap), RpcTarget.AllBuffered, json);//현재 클라이언트 + 이후 입장할 클라이언트에게도 적용됨 (버퍼에 저장됨)
+            string mapName = propertiesThatChanged["MapName"] as string;
+            Debug.Log($"[PhotonMapLoader] MapName 변경 감지: {mapName}");
+            StartCoroutine(LoadMapAndSync(mapName));
         }
+    }
+    public IEnumerator LoadMapAndSync(string mapName)
+    {
+        var downloadTask = downloader.DownloadMap(mapName + ".json");
+        while (!downloadTask.IsCompleted) yield return null;
+
+        string json = downloadTask.Result;
+        if (string.IsNullOrEmpty(json))
+        {
+            Debug.LogError("맵 데이터가 비어 있음");
+            yield break;
+        }
+
+        photonView.RPC(nameof(RPC_LoadMap), RpcTarget.AllBuffered, json);
     }
 
     [PunRPC]

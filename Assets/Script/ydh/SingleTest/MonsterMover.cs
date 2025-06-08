@@ -2,12 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum OwnerRole
+{
+    Master,
+    Client
+}
+
 public class MonsterMover : MonoBehaviour
 {
+    public OwnerRole Owner { get; private set; }
     private TileContext tileContext;
     private TileBehaviour[,] tiles;
     private int width, height;
     private Coroutine moveCoroutine;
+
 
     private void Awake()
     {
@@ -22,6 +30,10 @@ public class MonsterMover : MonoBehaviour
     private void OnDisable()
     {
         TileBehaviour.OnAnyTileChanged -= HandleTileChanged;
+    }
+    public void Initialize(OwnerRole owner)
+    {
+        Owner = owner;
     }
 
     private void HandleTileChanged()
@@ -40,7 +52,7 @@ public class MonsterMover : MonoBehaviour
         {
             var tileBehaviour = tile.GetComponent<TileBehaviour>();
             if (tileBehaviour == null) continue;
-
+            Debug.LogWarning($"[x] : {width},[z] : {height}");
             string[] parts = tile.name.Split('_');
             int x = int.Parse(parts[1]);
             int z = int.Parse(parts[2]);
