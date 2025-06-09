@@ -8,6 +8,7 @@ public class StageInfoUI : MonoBehaviour
     [SerializeField]
     private Button _startButton;
 
+
     private void Start()
     {
         if(_stageInfoUI != null)
