@@ -12,7 +12,7 @@ public class MonsterManager : MonoBehaviour
 
     private HPBar _hpBar;
     private int _stage = 1;
-    private int _wave = 1;
+    private int _wave = 2;
 
 
     private void Awake()
@@ -54,11 +54,5 @@ public class MonsterManager : MonoBehaviour
 
         GameObject enemy = PhotonNetwork.Instantiate("Prefabs/Monsters/" + monsterData.PrefabPath, 
             transform.position, Quaternion.identity, 0, instData);
-        Monster monsterPrefab = enemy.GetComponent<Monster>();
-
-        if (monsterPrefab != null)
-        {
-            Monsters.Add(monsterPrefab);
-        }
     }
 }

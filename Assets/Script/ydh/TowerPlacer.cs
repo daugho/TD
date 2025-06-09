@@ -55,7 +55,7 @@ public class TowerPlacer : MonoBehaviour
             return;
         }
 
-        // 설치 진행
+        // 설치 진행 용주 수정 
         Vector3 spawnPos = tile.transform.position + Vector3.up * 0.5f;
         PhotonNetwork.Instantiate(_towerPrefab.name, spawnPos, Quaternion.identity);
 
