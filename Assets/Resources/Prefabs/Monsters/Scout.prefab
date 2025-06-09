@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9136085286110327649, guid: 348ec46c9e2d9df45aa7d202ac2f76aa, type: 3}
       propertyPath: m_Name
-      value: Scout Variant
+      value: Scout
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -77,5 +77,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8bdabe260ad1984191df06eb0f6ad0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movespeed: 3
   _enemyPath: {fileID: 0}

@@ -27,7 +27,7 @@ public class GrenadeTurret : Turret
         }
     }
 
-    protected override void OnDrawGizmos()
+    protected override void OnDrawSelectedGizmos()
     {
         _turretHead = GetComponentInChildren<TurretHead>(); // 나중에 지우기 
         foreach (Vector3 bulletPosition in _grenadeStorages)

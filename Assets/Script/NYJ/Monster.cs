@@ -70,6 +70,8 @@ public class Monster : MonoBehaviourPun, IPunInstantiateMagicCallback
         HPBar hpBar = Instantiate(Resources.Load<HPBar>("Prefabs/Monsters/HPBar"), monsterGuiCanvas);
 
         Init(monsterData, path, speedMul, hpMul, hpBar);
+
+        MonsterManager.Monsters.Add(this);
     }
     public void Init(MonsterData monsterData, EnemyPath path, float speedMultiplier, float hpMultiplier, HPBar hpBar)
     {
@@ -90,7 +92,7 @@ public class Monster : MonoBehaviourPun, IPunInstantiateMagicCallback
     }
 
     [PunRPC]
-    public void GetDamaged(int damageAmount)
+    public void TakeDamage(int damageAmount)
     {
         if (CurHp <= 0)
         { // 풀링때 변경 

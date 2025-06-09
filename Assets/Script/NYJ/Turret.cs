@@ -15,20 +15,19 @@ public class Turret : MonoBehaviour
     protected TurretHead _turretHead;
     protected Bullet _bullet;
     [SerializeField] protected Vector3 _firePosition = Vector3.forward;
-    [SerializeField] private float _range = 5.0f;
 
     protected float _spawnTimer = 0.0f;
     protected float _bulletSpawnTimer = 1.0f;
 
     private float _rangeSqr;
 
+    private PhotonView _photonView;
     private TurretRarity _turretRarity;
 
     private void Awake()
     {
         _turretHead = GetComponentInChildren<TurretHead>();
-
-        _rangeSqr = _range * _range;
+        _photonView = GetComponentInChildren<PhotonView>();
     }
 
 
@@ -43,32 +42,41 @@ public class Turret : MonoBehaviour
 
         _spawnTimer += _turretData.AtkSpeed * Time.deltaTime;
 
-        if (_target)
+
+        if (PhotonNetwork.IsMasterClient)
         {
-            if (_spawnTimer >= _bulletSpawnTimer)
+            _spawnTimer += _turretData.AtkSpeed * Time.deltaTime;
+
+            if (_target)
             {
-                _spawnTimer -= _bulletSpawnTimer;
-                if(_turretData.Type == "Direct") //직사
+                if (_spawnTimer >= _bulletSpawnTimer)
                 {
-                    if(_turretData.Name == TowerTypes.FlameTower)
+                    _spawnTimer -= _bulletSpawnTimer;
+
+                    Vector3 worldPosition = _turretHead.transform.TransformPoint(_firePosition);
+                    Vector3 targetPos = _target.transform.position;
+
+                    if (_turretData.Type == "Direct")
                     {
-                        AttackFlame();
+                        if (_turretData.Name == TowerTypes.FlameTower)
+                        {
+                            AttackFlame();
+                        }
+                        else
+                        {
+                            _photonView.RPC("RPC_SpawnBullet", RpcTarget.All, worldPosition, targetPos);
+                        }
                     }
                     else
                     {
-                        AttackTarget(); //직사
+                        _photonView.RPC("RPC_SpawnBullet", RpcTarget.All, worldPosition, targetPos);
                     }
                 }
-                else
-                {
-                    AttackTarget(); //곡사
-                }
-                   
             }
         }
         else
         {
-            if (_activeFireEffect != null && _activeFireEffect.activeSelf)
+            if (_activeFireEffect != null && _activeFireEffect.activeSelf && _target == null)
             {
                 _activeFireEffect.SetActive(false);
             }
@@ -106,12 +114,34 @@ public class Turret : MonoBehaviour
         }
 
         _target = closest;
+        _turretHead.SetTarget(_target);
     }
 
     public bool GetTarget()
     {
         return _target != null;
     }
+
+    [PunRPC]
+    private void RPC_SpawnBullet(Vector3 firePosition, Vector3 targetPosition)
+    {
+        if (_activeFireEffect == null)
+        {
+            _activeFireEffect = Instantiate(_fireEffectPrefab, firePosition, Quaternion.identity, _turretHead.transform);
+        }
+        else
+        {
+            _activeFireEffect.transform.position = firePosition;
+            if (!_activeFireEffect.activeSelf)
+                _activeFireEffect.SetActive(true);
+        }
+
+        Bullet bulletInstance = Instantiate(_bullet, firePosition, Quaternion.identity);
+        //bulletInstance.SetBulletTargetPosition(targetPosition); // 타겟이 아닌 위치로
+        bulletInstance.SetBulletTarget(_target);
+        bulletInstance.SetBullet(_turretData.BulletSpeed, _turretData.Atk, _turretData.HitEffectPath);
+    }
+
     protected virtual void AttackTarget()
     {
         Vector3 worldPosition = _turretHead.transform.TransformPoint(_firePosition);
@@ -152,6 +182,12 @@ public class Turret : MonoBehaviour
         //}
     }
 
+    [PunRPC]
+    public void OnBuildComplete(int towerTypeInt)
+    {
+        TowerTypes type = (TowerTypes)towerTypeInt;
+        InitTurret(type);
+    }
     public void InitTurret(TowerTypes type)
     {
         _turretData = DataManager.Instance.GetTurretData(type);
@@ -160,6 +196,8 @@ public class Turret : MonoBehaviour
         GameObject instance = Instantiate(rarityPrefab, transform);
         _turretRarity = instance.GetComponent<TurretRarity>();
         _turretRarity.SetRarityVisual(_turretData.Rarity);
+
+        _rangeSqr = _turretData.Range * _turretData.Range;  
 
         _bullet = Resources.Load<Bullet>("Prefabs/Bullets/" + _turretData.Bullet);
         _fireEffectPrefab = Resources.Load<GameObject>("Prefabs/FireEffects/" + _turretData.FireEffectPath);
@@ -183,11 +221,16 @@ public class Turret : MonoBehaviour
         // 설치 시 시각 효과, 초기 타겟 스캔, UI 연결 등 처리
         Debug.Log($"{gameObject.name} 터렛이 설치 완료됨");
     }
-    protected virtual void OnDrawGizmos()
+    protected virtual void OnDrawSelectedGizmos()
     {
         _turretHead = GetComponentInChildren<TurretHead>();
         Vector3 worldPosition = _turretHead.transform.TransformPoint(_firePosition);
 
         Gizmos.DrawSphere(worldPosition, 0.01f);
+    }
+    private void OnDrawGizmos() // 범위 체크 
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, Mathf.Sqrt(_turretData.Range));
     }
 }

@@ -12,23 +12,21 @@ public class NYJBuildSystem : MonoBehaviour
     }
     public void OnClickBuildButton()
     {
-        if(PhotonNetwork.IsMasterClient)
-        {
-            GameObject masterTurret = PhotonNetwork.Instantiate
-                ("Prefabs/Turrets/MachinegunTower_Master", _testPos, Quaternion.identity);
-            Turret turret = masterTurret.GetComponent<Turret>();
+        GameObject turretInstance;
+        TowerTypes towerType;
 
-            TowerTypes tower = TowerTypes.MachinegunTower;
-            turret.InitTurret(tower);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            turretInstance = PhotonNetwork.Instantiate("Prefabs/Turrets/MachinegunTower_Master", _testPos, Quaternion.identity);
+            towerType = TowerTypes.MachinegunTower;
         }
         else
-        { // 나중에 타워설치랑 연동 수정  
-            GameObject clientTurret = PhotonNetwork.Instantiate
-                ("Prefabs/Turrets/RailgunTower_Client", _testPos1, Quaternion.identity);
-            Turret turret = clientTurret.GetComponent<Turret>();
-
-            TowerTypes tower = TowerTypes.RailgunTower;
-            turret.InitTurret(tower);
+        {
+            turretInstance = PhotonNetwork.Instantiate("Prefabs/Turrets/RailgunTower_Client", _testPos1, Quaternion.identity);
+            towerType = TowerTypes.RailgunTower;
         }
+
+        PhotonView view = turretInstance.GetComponent<PhotonView>();
+        view.RPC("OnBuildComplete", RpcTarget.AllBuffered, (int)towerType);
     }
 }
