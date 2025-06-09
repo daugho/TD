@@ -44,7 +44,14 @@ public class MonsterMover : MonoBehaviour
         StopCurrentMovement();
         MoveByPathfinding();
     }
-
+    private void StopCurrentMovement()
+    {
+        if (moveCoroutine != null)
+        {
+            StopCoroutine(moveCoroutine);
+            moveCoroutine = null;
+        }
+    }
     public void MoveByPathfinding()
     {
         width = gridManager.GetWidth();
@@ -108,15 +115,6 @@ public class MonsterMover : MonoBehaviour
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, 2f * Time.deltaTime);
                 yield return null;
             }
-        }
-    }
-
-    private void StopCurrentMovement()
-    {
-        if (moveCoroutine != null)
-        {
-            StopCoroutine(moveCoroutine);
-            moveCoroutine = null;
         }
     }
 }
