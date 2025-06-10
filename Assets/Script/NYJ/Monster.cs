@@ -103,6 +103,8 @@ public class Monster : MonoBehaviourPun, IPunInstantiateMagicCallback
 
         CurHp -= damageAmount;
 
+        Debug.Log(CurHp);
+
         _hpSlider.SetHp(CurHp);
     }
 

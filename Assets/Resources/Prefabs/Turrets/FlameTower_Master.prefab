@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4021515841018475037}
-  - component: {fileID: 5095237959058776507}
   - component: {fileID: 7842044800411961225}
+  - component: {fileID: 2244478455105002181}
   m_Layer: 0
   m_Name: FlameTower_Master
   m_TagString: Untagged
@@ -34,19 +34,6 @@ Transform:
   - {fileID: 6893480742246160478}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5095237959058776507
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2408198903414254266}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9f939b0d2f8b9b44897c4c653a48210, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _firePosition: {x: 0, y: 0, z: 1.37}
 --- !u!114 &7842044800411961225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,6 +56,21 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &2244478455105002181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2408198903414254266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9750782559ca98f4da3ae70b1f802615, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _firePosition: {x: 0, y: 0, z: 1}
+  _flameAngle: 45
+  _testLength: 5
 --- !u!1001 &6350120877852032949
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,33 +1,56 @@
+using Photon.Pun;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
 public class LaserTurret : Turret
 {
     private LineRenderer _lineRenderer;
+    private float _flameTickTimer = 0f;
+    private float _flameTickInterval = 0.2f;
     private void Awake()
     {
+        _turretHead = GetComponentInChildren<TurretHead>();
+        _photonView = GetComponentInChildren<PhotonView>();
         _lineRenderer = GetComponent<LineRenderer>();
     }
 
     protected override void Update()
     {
         base.Update();
-    }
 
-    protected override void AttackTarget()
-    {
         if (_target == null)
+        {
+            _lineRenderer.enabled = false;
             return;
-        Vector3 worldPosition = _turretHead.transform.TransformPoint(_firePosition);
+        }
 
-        _lineRenderer.SetPosition(0, worldPosition);
-        _lineRenderer.SetPosition(1, _target.transform.position);
         _lineRenderer.enabled = true;
 
-        //_target.TakeDamage(_turretData.Atk * Time.deltaTime); 
+        Vector3 start = _turretHead.transform.TransformPoint(_firePosition);
+        Vector3 end = _target.transform.position;
 
-        // 일정 시간 후 레이저 끄기
-        //Invoke(nameof(DisableLaser), _laserDuration);
+        _lineRenderer.SetPosition(0, start);
+        _lineRenderer.SetPosition(1, end);
+
+        _flameTickTimer += Time.deltaTime;
+        if (_flameTickTimer >= _flameTickInterval)
+        {
+            _flameTickTimer -= _flameTickInterval;
+            ApplyLaserDamage();
+        }
     }
 
+    [PunRPC]
+    protected override void RPC_SpawnBullet(Vector3 firePosition, Vector3 targetPosition)
+    {
+    }
+
+    private void ApplyLaserDamage()
+    {
+        PhotonView targetView = _target.GetComponent<PhotonView>();
+        if (targetView != null)
+        {
+            targetView.RPC("TakeDamage", RpcTarget.AllBuffered, _turretData.Atk);
+        }
+    }
 }

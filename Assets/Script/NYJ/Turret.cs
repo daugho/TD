@@ -6,7 +6,6 @@ public class Turret : MonoBehaviour
 {
     protected Monster _target;
     protected GameObject _fireEffectPrefab;
-    private GameObject _activeFireEffect;
 
     private float _searchInterval = 0.2f;
     private float _searchTimer = 0.0f;
@@ -21,7 +20,7 @@ public class Turret : MonoBehaviour
 
     private float _rangeSqr;
 
-    private PhotonView _photonView;
+    protected PhotonView _photonView;
     private TurretRarity _turretRarity;
 
     private void Awake()
@@ -58,27 +57,12 @@ public class Turret : MonoBehaviour
 
                     if (_turretData.Type == "Direct")
                     {
-                        if (_turretData.Name == TowerTypes.FlameTower)
-                        {
-                            AttackFlame();
-                        }
-                        else
-                        {
-                            _photonView.RPC("RPC_SpawnBullet", RpcTarget.All, worldPosition, targetPos);
-                        }
                     }
                     else
                     {
-                        _photonView.RPC("RPC_SpawnBullet", RpcTarget.All, worldPosition, targetPos);
                     }
+                    _photonView.RPC("RPC_SpawnBullet", RpcTarget.All, worldPosition, targetPos);
                 }
-            }
-        }
-        else
-        {
-            if (_activeFireEffect != null && _activeFireEffect.activeSelf && _target == null)
-            {
-                _activeFireEffect.SetActive(false);
             }
         }
     }
@@ -123,63 +107,12 @@ public class Turret : MonoBehaviour
     }
 
     [PunRPC]
-    private void RPC_SpawnBullet(Vector3 firePosition, Vector3 targetPosition)
+    protected virtual void RPC_SpawnBullet(Vector3 firePosition, Vector3 targetPosition)
     {
-        if (_activeFireEffect == null)
-        {
-            _activeFireEffect = Instantiate(_fireEffectPrefab, firePosition, Quaternion.identity, _turretHead.transform);
-        }
-        else
-        {
-            _activeFireEffect.transform.position = firePosition;
-            if (!_activeFireEffect.activeSelf)
-                _activeFireEffect.SetActive(true);
-        }
-
         Bullet bulletInstance = Instantiate(_bullet, firePosition, Quaternion.identity);
         //bulletInstance.SetBulletTargetPosition(targetPosition); // 타겟이 아닌 위치로
         bulletInstance.SetBulletTarget(_target);
         bulletInstance.SetBullet(_turretData.BulletSpeed, _turretData.Atk, _turretData.HitEffectPath);
-    }
-
-    protected virtual void AttackTarget()
-    {
-        Vector3 worldPosition = _turretHead.transform.TransformPoint(_firePosition);
-       
-        if (_activeFireEffect == null)
-        {
-            _activeFireEffect = Instantiate(_fireEffectPrefab, worldPosition, Quaternion.identity, _turretHead.transform);
-        }
-        else if (!_activeFireEffect.activeSelf)
-        {
-            _activeFireEffect.transform.position = worldPosition;
-            _activeFireEffect.SetActive(true);
-        }
-
-        Bullet bulletInstance = Instantiate(_bullet, worldPosition, Quaternion.identity);
-        bulletInstance.SetBulletTarget(_target);
-        bulletInstance.SetBullet(_turretData.BulletSpeed, _turretData.Atk, _turretData.HitEffectPath);
-    }
-
-    private void AttackFlame()
-    {
-        Vector3 worldPosition = _turretHead.transform.TransformPoint(_firePosition);
-
-        //if (_activeFlameEffect == null)
-        //{
-        //    GameObject prefab = Resources.Load<GameObject>("Prefabs/HitEffects/WFXMR_FlameThrower Big Alt Looped");
-        //    _activeFlameEffect = Instantiate(prefab, worldPosition, transform.rotation, _turretHead.transform);
-        //}
-        //else
-        //{
-        //    _activeFlameEffect.transform.position = worldPosition;
-        //    _activeFlameEffect.transform.rotation = transform.rotation;
-        //
-        //    if (!_activeFlameEffect.activeSelf)
-        //    {
-        //        _activeFlameEffect.SetActive(true);
-        //    }
-        //}
     }
 
     [PunRPC]

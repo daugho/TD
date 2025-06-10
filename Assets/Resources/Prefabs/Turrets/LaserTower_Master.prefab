@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7765132963857039061}
   - component: {fileID: 6009353264818749716}
   - component: {fileID: 1682642821906118173}
-  - component: {fileID: 4467922693506763104}
+  - component: {fileID: -4370807342852327073}
   m_Layer: 0
   m_Name: LaserTower_Master
   m_TagString: Untagged
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _firePosition: {x: 0, y: 0, z: 1.83}
---- !u!114 &4467922693506763104
+--- !u!114 &-4370807342852327073
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,13 +164,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 2545437748757278906}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9df448c4ba9a4d4cb5a369b4692ceb2, type: 3}
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerDetailManager: {fileID: 0}
-  CellPrototype: {fileID: 0}
-  PlayerCountsText: {fileID: 0}
-  UpdateStatusText: {fileID: 0}
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &4696374928753310730
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -24,8 +24,6 @@ public class TurretHead : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * _rotationSpeed);
 
-        Debug.Log($"[MASTER] 회전 전송: {transform.rotation.eulerAngles}");
-
         _photonView.RPC("RPC_SetRotation", RpcTarget.Others, transform.rotation);
     }
 
