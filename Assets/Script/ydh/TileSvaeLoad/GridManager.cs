@@ -1,4 +1,5 @@
 using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
@@ -168,8 +169,15 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
+        StartCoroutine(DelayedSpawnPathTracer());
     }
+    private IEnumerator DelayedSpawnPathTracer()
+    {
+        // 최소한 1 프레임 기다림 (RPC 반영 대기)
+        yield return new WaitForSeconds(0.2f);
 
+        PathVisualizerSpawner.Instance?.SpawnPathTracer();
+    }
     public TileBehaviour[,] GetTileArray()
     {
         int width = _tileContext.Width;

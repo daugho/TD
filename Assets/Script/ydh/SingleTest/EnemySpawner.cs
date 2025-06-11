@@ -4,7 +4,6 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour//멀티전용 몬스터 소환.
 {
     [SerializeField] private TileContext tileContext;
-    [SerializeField] private GameObject monsterPrefab;
 
     public void SpawnEnemy()
     {
@@ -16,7 +15,7 @@ public class EnemySpawner : MonoBehaviour//멀티전용 몬스터 소환.
             return;
         }
 
-        Vector3 spawnPos = startTile.transform.position + Vector3.up * 0.5f;
+        Vector3 spawnPos = startTile.transform.position + Vector3.up;
         GameObject monster = PhotonNetwork.Instantiate("Prefabs/Monsters/Sentinel", spawnPos, Quaternion.identity);
 
         // MonsterMover를 찾아 경로 이동 시작
@@ -64,7 +63,6 @@ private TileBehaviour FindMyStartPoint()
             break;
         }
     }
-
     return null;
 }
 }

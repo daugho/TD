@@ -658,6 +658,7 @@ GameObject:
   - component: {fileID: 1437550496}
   - component: {fileID: 1437550495}
   - component: {fileID: 1437550497}
+  - component: {fileID: 1437550498}
   m_Layer: 0
   m_Name: GridSystem
   m_TagString: Untagged
@@ -771,7 +772,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileContext: {fileID: 1437550490}
-  monsterPrefab: {fileID: 2335311940202927443, guid: 56bde199282cd9a4888af2fee3aee939, type: 3}
 --- !u!114 &1437550496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -798,7 +798,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441d23741b527494f961557a54a2d2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _towerPrefab: {fileID: 5537279196229623920, guid: d85f94dd8a383944489a529d2ed69c7b, type: 3}
+--- !u!114 &1437550498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1437550488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 382b59c17b54fd14aaed1942bd81762e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileContext: {fileID: 1437550490}
 --- !u!1 &1951988192
 GameObject:
   m_ObjectHideFlags: 0

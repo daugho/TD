@@ -47,6 +47,7 @@ public class FirebaseMapDownloader : MonoBehaviour
         // 3. 정상적으로 다운로드된 JSON 텍스트 반환
         Debug.Log($"? 맵 다운로드 성공: {fileName}");
         return request.downloadHandler.text;
+
     }
 
 }
