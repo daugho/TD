@@ -77,6 +77,9 @@ public class TowerPlacer : MonoBehaviour
             string[] parts = tb.name.Split('_');
             int x = int.Parse(parts[1]);
             int z = int.Parse(parts[2]);
+
+            tiles[x, z] = tb;
+
             if (tb._tileState != TileState.Installable &&
                 tb._tileState != TileState.StartPoint &&
                 tb._tileState != TileState.EndPoint)
