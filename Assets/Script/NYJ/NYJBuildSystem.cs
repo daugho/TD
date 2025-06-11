@@ -17,13 +17,13 @@ public class NYJBuildSystem : MonoBehaviour
 
         if (PhotonNetwork.IsMasterClient)
         {
-            turretInstance = PhotonNetwork.Instantiate("Prefabs/Turrets/LaserTower_Master", _testPos, Quaternion.identity);
-            towerType = TowerTypes.LaserTower;
+            turretInstance = PhotonNetwork.Instantiate("Prefabs/Turrets/FlameTower_Master", _testPos, Quaternion.identity);
+            towerType = TowerTypes.FlameTower;
         }
         else
         {
-            turretInstance = PhotonNetwork.Instantiate("Prefabs/Turrets/MachinegunTower_Client", _testPos1, Quaternion.identity);
-            towerType = TowerTypes.MachinegunTower;
+            turretInstance = PhotonNetwork.Instantiate("Prefabs/Turrets/LaserTower_Client", _testPos1, Quaternion.identity);
+            towerType = TowerTypes.LaserTower;
         }
 
         PhotonView view = turretInstance.GetComponent<PhotonView>();

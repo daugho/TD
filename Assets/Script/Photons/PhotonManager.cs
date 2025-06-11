@@ -10,7 +10,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     private void Start()
     {
         // Photon 서버 연결
-        //PhotonNetwork.ConnectUsingSettings();
+        PhotonNetwork.ConnectUsingSettings();
     }
 
     public override void OnConnectedToMaster()

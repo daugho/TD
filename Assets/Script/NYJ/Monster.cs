@@ -15,7 +15,7 @@ public class Monster : MonoBehaviourPun, IPunInstantiateMagicCallback
 
     private void Update()
     {
-        Move();
+        //Move();
     }
 
     private void LateUpdate()
