@@ -17,7 +17,7 @@ public class EnemySpawner : MonoBehaviour//멀티전용 몬스터 소환.
         }
 
         Vector3 spawnPos = startTile.transform.position + Vector3.up * 0.5f;
-        GameObject monster = PhotonNetwork.Instantiate("TestMonster1", spawnPos, Quaternion.identity);
+        GameObject monster = PhotonNetwork.Instantiate("Prefabs/Monsters/Sentinel", spawnPos, Quaternion.identity);
 
         // MonsterMover를 찾아 경로 이동 시작
         MonsterMover mover = monster.GetComponent<MonsterMover>();

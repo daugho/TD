@@ -3,7 +3,7 @@ using Photon.Pun;
 
 public class TowerPlacer : MonoBehaviour
 {
-    [SerializeField] private GameObject _towerPrefab;
+    [SerializeField] private Turret _towerPrefab;
 
     private void Update()
     {
@@ -49,7 +49,12 @@ public class TowerPlacer : MonoBehaviour
 
             // ? 4. 경로가 있으면 진짜 설치
             Vector3 spawnPos = tile.transform.position + Vector3.up * 0.5f;
-            PhotonNetwork.Instantiate("TestTower", spawnPos, Quaternion.identity);
+            
+            GameObject towerPrefab = PhotonNetwork.Instantiate("Prefabs/Turrets/FlameTower_Master", spawnPos, Quaternion.identity);
+            TowerTypes towerTypes = TowerTypes.FlameTower;
+            PhotonView view = towerPrefab.GetComponent<PhotonView>();
+            view.RPC("OnBuildComplete", RpcTarget.AllBuffered, (int)towerTypes);
+            
             tile.photonView.RPC(nameof(TileBehaviour.RPC_SetTileState), RpcTarget.AllBuffered,
                 (int)TileState.Installed, (int)tile._accessType);
         }
