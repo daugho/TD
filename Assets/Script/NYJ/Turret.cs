@@ -55,12 +55,6 @@ public class Turret : MonoBehaviour
                     Vector3 worldPosition = _turretHead.transform.TransformPoint(_firePosition);
                     Vector3 targetPos = _target.transform.position;
 
-                    if (_turretData.Type == "Direct")
-                    {
-                    }
-                    else
-                    {
-                    }
                     _photonView.RPC("RPC_SpawnBullet", RpcTarget.All, worldPosition, targetPos);
                 }
             }
@@ -130,7 +124,8 @@ public class Turret : MonoBehaviour
         _turretRarity = instance.GetComponent<TurretRarity>();
         _turretRarity.SetRarityVisual(_turretData.Rarity);
 
-        _rangeSqr = _turretData.Range * _turretData.Range;  
+        _rangeSqr = _turretData.Range * _turretData.Range;
+        _turretHead.SetTurretType(_turretData.Type);
 
         _bullet = Resources.Load<Bullet>("Prefabs/Bullets/" + _turretData.Bullet);
         _fireEffectPrefab = Resources.Load<GameObject>("Prefabs/FireEffects/" + _turretData.FireEffectPath);

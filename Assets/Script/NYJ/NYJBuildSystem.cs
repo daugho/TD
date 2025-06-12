@@ -17,8 +17,8 @@ public class NYJBuildSystem : MonoBehaviour
 
         if (PhotonNetwork.IsMasterClient)
         {
-            turretInstance = PhotonNetwork.Instantiate("Prefabs/Turrets/GravityTower_Master", _testPos, Quaternion.identity);
-            towerType = TowerTypes.GravityTower;
+            turretInstance = PhotonNetwork.Instantiate("Prefabs/Turrets/MissileTower_Master", _testPos, Quaternion.identity);
+            towerType = TowerTypes.MissileTower;
         }
         else
         {
