@@ -18,7 +18,7 @@ public class Turret : MonoBehaviour
     protected float _spawnTimer = 0.0f;
     protected float _bulletSpawnTimer = 1.0f;
 
-    private float _rangeSqr;
+    protected float _rangeSqr;
 
     protected PhotonView _photonView;
     private TurretRarity _turretRarity;
@@ -66,7 +66,7 @@ public class Turret : MonoBehaviour
             }
         }
     }
-    public void FindTarget()
+    protected virtual void FindTarget()
     {
         if (_target != null)
         {
