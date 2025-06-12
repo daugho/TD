@@ -48,7 +48,7 @@ public class TowerPlacer : MonoBehaviour
             // ? 4. 경로가 있으면 진짜 설치
             Vector3 spawnPos = tile.transform.position + Vector3.up * 0.5f;
             
-            GameObject towerPrefab = PhotonNetwork.Instantiate("TestTower", spawnPos, Quaternion.identity);
+            GameObject towerPrefab = PhotonNetwork.Instantiate("Prefabs/Turrets/FlameTower_Master", spawnPos, Quaternion.identity);
             TowerTypes towerTypes = TowerTypes.FlameTower;
             PhotonView view = towerPrefab.GetComponent<PhotonView>();
             view.RPC("OnBuildComplete", RpcTarget.AllBuffered, (int)towerTypes);
