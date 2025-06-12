@@ -585,10 +585,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 129c8bccfa4fb20428ee8d4480dbc1ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  circleSprite: {fileID: 21300000, guid: 2bac54d246eee6649ab59226f81cbf9b, type: 3}
-  triangleSprite: {fileID: 21300000, guid: ff41471fca6a43042804ef2c48cf79a3, type: 3}
-  squareSprite: {fileID: 21300000, guid: ca334c2792aa33948b0ad81ed8cb8844, type: 3}
-  starSprite: {fileID: 21300000, guid: 529d744622dc7184db9122c4ade932d6, type: 3}
+  circleSprite: {fileID: 21300000, guid: d57a6c2e0b0984540b94ffd2968f9f75, type: 3}
+  triangleSprite: {fileID: 21300000, guid: b4115afef1cb7e04d8d1fff77655c237, type: 3}
+  squareSprite: {fileID: 21300000, guid: f0edbff0b164dbc43902c63d46772d7f, type: 3}
+  starSprite: {fileID: 21300000, guid: 01abcbde42283b94a8b760d396478d6c, type: 3}
   content: {fileID: 570323589}
   shapeButtonPrefab: {fileID: 3731339340766021810, guid: 353bdd0ecf65cdb4ab039c24e8de841e, type: 3}
 --- !u!1 &570323588
