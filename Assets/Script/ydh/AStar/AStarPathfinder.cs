@@ -15,8 +15,8 @@ public class AStarPathfinder
 
     public List<Vector2Int> FindPath(Vector2Int start, Vector2Int end)
     {
-        Debug.Log($"[A*] Start: {start}, End: {end}");
-        Debug.Log($"[A*] 타일배열 크기: {width} x {height}");
+        //Debug.Log($"[A*] Start: {start}, End: {end}");
+        //Debug.Log($"[A*] 타일배열 크기: {width} x {height}");
 
         HashSet<Vector2Int> closedSet = new();
         PriorityQueue<Node> openSet = new();
@@ -25,7 +25,7 @@ public class AStarPathfinder
         // 시작 타일 상태 확인
         TileState startState = tiles[start.x, start.y]._tileState;
         TileState endState = tiles[end.x, end.y]._tileState;
-        Debug.Log($"[A*] StartTile 상태: {startState}, EndTile 상태: {endState}");
+        //Debug.Log($"[A*] StartTile 상태: {startState}, EndTile 상태: {endState}");
 
         // 시작 타일이 비정상 상태일 경우 경로 생성하지 않음
         if (startState != TileState.Installable && startState != TileState.StartPoint)
@@ -38,7 +38,7 @@ public class AStarPathfinder
         openSet.Enqueue(startNode);
         allNodes[start] = startNode;
 
-        Debug.Log($"[A*] OpenSet 초기 Count: {openSet.Count}");
+        //Debug.Log($"[A*] OpenSet 초기 Count: {openSet.Count}");
 
         while (openSet.Count > 0)
         {

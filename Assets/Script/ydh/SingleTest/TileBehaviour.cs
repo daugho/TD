@@ -41,6 +41,7 @@ public class TileBehaviour : MonoBehaviourPun
 
     public void SetTileState(TileState state, TileAccessType access)
     {
+        UnityEngine.Debug.Log($"[SetTileState] 상태 변경 발생 → {gameObject.name}, state: {state}, access: {access}");
         _tileState = state;
 
         // ? StartPoint와 EndPoint도 권한을 허용
@@ -111,6 +112,7 @@ public class TileBehaviour : MonoBehaviourPun
     [PunRPC]
     public void RPC_SetTileState(int state, int access)
     {
+        UnityEngine.Debug.Log($"[RPC_SetTileState] {gameObject.name} 에서 RPC 호출 수신됨 → state: {(TileState)state}, access: {(TileAccessType)access}");
         SetTileState((TileState)state, (TileAccessType)access);
     }
 
