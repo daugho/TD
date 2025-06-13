@@ -6919,7 +6919,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tileContext: {fileID: 2038592509}
-  _activateModeButton: {fileID: 0}
+  _activateModeButton: {fileID: 2060977474}
 --- !u!1 &2060977472
 GameObject:
   m_ObjectHideFlags: 0
