@@ -6,10 +6,12 @@ public class PathVisualizerSpawner : MonoBehaviour
 {
 
     [SerializeField] private TileContext tileContext;
+    private PhotonView photonView;
     public static PathVisualizerSpawner Instance { get; private set; }
     
     private void Awake()
     {
+        photonView = GetComponent<PhotonView>();
         // ΩÃ±€≈Ê º≥¡§
         if (Instance == null)
         {
@@ -22,6 +24,12 @@ public class PathVisualizerSpawner : MonoBehaviour
         }
     }
     public void SpawnPathTracer()
+    {
+        photonView.RPC(nameof(RPC_SpawnPathTracer), RpcTarget.AllBuffered);
+    }
+
+    [PunRPC]
+    private void RPC_SpawnPathTracer()
     {
         if (tileContext == null)
         {
@@ -54,7 +62,6 @@ public class PathVisualizerSpawner : MonoBehaviour
         }
     }
 
-
     private TileBehaviour FindMyStartPoint(TileContext tileContext)
     {
         bool isMaster = Photon.Pun.PhotonNetwork.IsMasterClient;
@@ -75,4 +82,5 @@ public class PathVisualizerSpawner : MonoBehaviour
 
         return null;
     }
+
 }

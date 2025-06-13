@@ -55,6 +55,7 @@ MonoBehaviour:
   - RPC_SpawnBullet
   - TakeDamage
   - RPC_SetRotation
+  - RPC_SpawnPathTracer
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -5,7 +5,7 @@ public class PhotonInit : MonoBehaviour
 {
     private void Awake()
     {
-        PhotonNetwork.AutomaticallySyncScene = false;
+        PhotonNetwork.AutomaticallySyncScene = true;
         Debug.Log("[PhotonInit] 씬 동기화 설정 완료");
     }
 }
