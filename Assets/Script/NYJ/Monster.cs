@@ -11,6 +11,8 @@ public class Monster : MonoBehaviourPun, IPunInstantiateMagicCallback
     private int _currentIndex = 0;
     private HPBar _hpSlider;
     private MonsterData _monsterData;
+    private float _originSpeed;
+    private bool _isDebuffed = false;
     public int CurHp { get; set; }
 
     private void Update()
@@ -75,7 +77,8 @@ public class Monster : MonoBehaviourPun, IPunInstantiateMagicCallback
     }
     public void Init(MonsterData monsterData, EnemyPath path, float speedMultiplier, float hpMultiplier, HPBar hpBar)
     {
-        _monsterData = monsterData; 
+        _monsterData = monsterData;
+        _originSpeed = monsterData.MoveSpeed;
         _enemyPath = path;
         _waypoints = _enemyPath.GetWaypoints;
 
@@ -106,6 +109,27 @@ public class Monster : MonoBehaviourPun, IPunInstantiateMagicCallback
         Debug.Log(CurHp);
 
         _hpSlider.SetHp(CurHp);
+    }
+
+    [PunRPC]
+    public void TakeSlowDebuff(float slowAmount)
+    {
+        if (_isDebuffed)
+        {
+            return;
+        }
+
+        _monsterData.MoveSpeed *= slowAmount;
+
+        _isDebuffed = true;
+
+        Invoke(nameof(ClearDebuffs), 4.0f);
+    }
+
+    public void ClearDebuffs()
+    {
+        _monsterData.MoveSpeed = _originSpeed;
+        _isDebuffed = false;
     }
 
     private void OnPathComplete()

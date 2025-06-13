@@ -1,6 +1,7 @@
 using DigitalRuby.LightningBolt;
 using Photon.Pun;
 using System.Collections.Generic;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 
 public class ElectricTurret : Turret
@@ -51,6 +52,8 @@ public class ElectricTurret : Turret
 
         for (int i = 0; i < chainTargets.Count - 1; i++)
         {
+            PhotonView targetView = chainTargets[i].GetComponent<PhotonView>();
+            
             Vector3 start = chainTargets[i].transform.position;
             Vector3 end = chainTargets[i + 1].transform.position;
 
@@ -63,6 +66,8 @@ public class ElectricTurret : Turret
                 bolt.StartPosition = start;
                 bolt.EndPosition = end;
             }
+
+            targetView.RPC("TakeDamage", RpcTarget.AllBuffered, _turretData.Atk);
 
             Destroy(effectInstance, 0.5f);
         }
