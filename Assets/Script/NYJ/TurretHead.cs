@@ -28,7 +28,7 @@ public class TurretHead : MonoBehaviour
         {
             float dist = Vector3.Distance(transform.position, _target.transform.position);
             float t = Mathf.Clamp01(dist / 10.0f); // 거리에 따라 0~1로 정규화
-            yAngle = Mathf.Lerp(0f, 45f, t); // 0 ~ 45도 사이 부드럽게 보간
+            yAngle = Mathf.Lerp(0f, 5.0f, t); 
         }
 
         direction.y = yAngle;

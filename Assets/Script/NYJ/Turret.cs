@@ -39,12 +39,9 @@ public class Turret : MonoBehaviour
             FindTarget();
         }
 
-        _spawnTimer += _turretData.AtkSpeed * Time.deltaTime;
-
-
         if (PhotonNetwork.IsMasterClient)
         {
-            _spawnTimer += _turretData.AtkSpeed * Time.deltaTime;
+            _spawnTimer += Time.deltaTime;
 
             if (_target)
             {
@@ -118,6 +115,7 @@ public class Turret : MonoBehaviour
     public void InitTurret(TowerTypes type)
     {
         _turretData = DataManager.Instance.GetTurretData(type);
+        _bulletSpawnTimer = 1.0f / _turretData.AtkSpeed;
 
         GameObject rarityPrefab = Resources.Load<GameObject>("Prefabs/Turrets/RarityCircle");
         GameObject instance = Instantiate(rarityPrefab, transform);

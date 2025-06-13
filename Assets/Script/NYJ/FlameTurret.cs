@@ -65,8 +65,6 @@ public class FlameTurret : Turret
 
         Collider[] hits = Physics.OverlapSphere(origin, _testLength, LayerMask.GetMask("Monster"));
 
-        Debug.Log(hits.Length);
-
         foreach (Collider hit in hits)
         {
             Vector3 toTarget = hit.transform.position - origin;

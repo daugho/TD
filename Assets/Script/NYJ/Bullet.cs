@@ -4,17 +4,17 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private float _moveSpeed = 5.0f;
-    private int _atk; 
+    protected int _atk; 
     private float _excuteRange = 0.5f;
-    private GameObject _explosionEffect;
-    private Monster _target;
+    protected GameObject _explosionEffect;
+    protected Monster _target;
     private float _hitThreshold = 0.1f;
     private PhotonView _targetView;
 
     private void Awake()
     {
     }
-    private void Update()
+    protected virtual void Update()
     {
         if (!_target)
         {
@@ -34,7 +34,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    private void ExecuteAttack()
+    protected virtual void ExecuteAttack()
     {
         if (_targetView != null)
         {
@@ -43,7 +43,7 @@ public class Bullet : MonoBehaviour
 
         Destroy(gameObject);
         
-        //GameObject explosionPrefab = Instantiate<GameObject>(_explosionEffect, transform.position, transform.rotation);
+        GameObject explosionPrefab = Instantiate<GameObject>(_explosionEffect, transform.position, transform.rotation);
     }
 
     public void SetBullet(float speed, int atk, string hitEffectPath)
