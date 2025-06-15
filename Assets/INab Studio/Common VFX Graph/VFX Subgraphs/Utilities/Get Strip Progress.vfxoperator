@@ -177,7 +177,7 @@ MonoBehaviour:
   m_UISuperCollapsed: 0
   m_InputSlots: []
   m_OutputSlots:
-  - {fileID: 48}
+  - {fileID: 50}
   attribute: particleIndexInStrip
   location: 0
   mask: xyz
@@ -201,7 +201,7 @@ MonoBehaviour:
   m_UISuperCollapsed: 0
   m_InputSlots: []
   m_OutputSlots:
-  - {fileID: 49}
+  - {fileID: 51}
   attribute: particleCountInStrip
   location: 0
   mask: xyz
@@ -271,7 +271,7 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
   m_Direction: 0
   m_LinkedSlots:
-  - {fileID: 49}
+  - {fileID: 51}
 --- !u!114 &27
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -543,7 +543,7 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
   m_Direction: 0
   m_LinkedSlots:
-  - {fileID: 48}
+  - {fileID: 50}
 --- !u!114 &44
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -614,7 +614,7 @@ MonoBehaviour:
   m_Direction: 0
   m_LinkedSlots:
   - {fileID: 35}
---- !u!114 &48
+--- !u!114 &50
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -632,7 +632,7 @@ MonoBehaviour:
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
-  m_MasterSlot: {fileID: 48}
+  m_MasterSlot: {fileID: 50}
   m_MasterData:
     m_Owner: {fileID: 18}
     m_Value:
@@ -649,7 +649,7 @@ MonoBehaviour:
   m_Direction: 1
   m_LinkedSlots:
   - {fileID: 43}
---- !u!114 &49
+--- !u!114 &51
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -667,7 +667,7 @@ MonoBehaviour:
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
-  m_MasterSlot: {fileID: 49}
+  m_MasterSlot: {fileID: 51}
   m_MasterData:
     m_Owner: {fileID: 20}
     m_Value:

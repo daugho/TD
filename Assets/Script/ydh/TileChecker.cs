@@ -5,14 +5,7 @@ using Photon.Pun;
 public class TileChecker : MonoBehaviour
 {
     [SerializeField] private TileContext tileContext;
-    [SerializeField] private Button checkButton;
-
-    private void Start()
-    {
-        checkButton.onClick.AddListener(HideNoneTiles);
-    }
-
-    private void HideNoneTiles()
+    public void HideNoneTiles()
     {
         foreach (Transform child in tileContext.TileParent)
         {

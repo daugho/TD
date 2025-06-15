@@ -89,7 +89,7 @@ public class Turret : MonoBehaviour
         }
 
         _target = closest;
-        _turretHead.SetTarget(_target);
+        //_turretHead.SetTarget(_target);
     }
 
     public bool GetTarget()

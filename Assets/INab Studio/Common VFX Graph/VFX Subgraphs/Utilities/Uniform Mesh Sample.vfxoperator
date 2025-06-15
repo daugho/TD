@@ -302,7 +302,7 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
   m_Direction: 0
   m_LinkedSlots:
-  - {fileID: 114350483966675362}
+  - {fileID: 114350483966675363}
 --- !u!114 &114350483966675006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,7 +323,7 @@ MonoBehaviour:
   m_UISuperCollapsed: 0
   m_InputSlots: []
   m_OutputSlots:
-  - {fileID: 114350483966675362}
+  - {fileID: 114350483966675363}
   attribute: particleId
   location: 0
   mask: xyz
@@ -7599,7 +7599,7 @@ MonoBehaviour:
   m_LinkedSlots:
   - {fileID: 114350483966675126}
   - {fileID: 114350483966675243}
---- !u!114 &114350483966675362
+--- !u!114 &114350483966675363
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7617,7 +7617,7 @@ MonoBehaviour:
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
-  m_MasterSlot: {fileID: 114350483966675362}
+  m_MasterSlot: {fileID: 114350483966675363}
   m_MasterData:
     m_Owner: {fileID: 114350483966675006}
     m_Value:
