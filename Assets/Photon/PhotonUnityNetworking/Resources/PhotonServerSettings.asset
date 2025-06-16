@@ -57,6 +57,9 @@ MonoBehaviour:
   - RPC_SetRotation
   - RPC_SpawnPathTracer
   - TakeSlowDebuff
+  - RPC_RegisterTurret
+  - RPC_RegisterClientTurret
+  - RPC_RegisterMasterTurret
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
