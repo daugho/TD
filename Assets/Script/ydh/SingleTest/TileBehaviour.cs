@@ -1,3 +1,4 @@
+using INab.Common;
 using Photon.Pun;
 using System;
 using System.Diagnostics;
@@ -11,6 +12,7 @@ public class TileBehaviour : MonoBehaviourPun
     private bool _isSelected = false;
     public int CoordX { get; private set; }
     public int CoordZ { get; private set; }
+    public Transform _customMaskTransform;
 
     public static event Action OnAnyTileChanged;
     private void Awake()
@@ -32,6 +34,23 @@ public class TileBehaviour : MonoBehaviourPun
     {
         _renderer = GetComponent<Renderer>();
         _originalColor = _renderer.material.color;
+
+        var effect = GetComponent<InteractiveEffect>();
+        if (effect != null && _customMaskTransform != null && effect.mask != null)
+        {
+            // 마스크 이동 애니메이션 설정
+            effect.usePositionTransform = true;
+            effect.useScaleTransform = false;
+
+            // 위치 설정
+            effect.initialPosition = _customMaskTransform.position;
+            effect.finalPosition = _customMaskTransform.position + new Vector3(0f, 0f, 2f); // 또는 원하는 방향
+
+            // 마스크 위치 초기화
+            effect.mask.transform.position = _customMaskTransform.position;
+
+            effect.PlayEffect();
+        }
         //UnityEngine.Debug.Log($"[TileBehaviour] ViewID: {photonView.ViewID}");
     }
     public void SetTileState(TileState state)

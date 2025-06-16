@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 3718666774765869672}
   - component: {fileID: 234658270897035534}
   - component: {fileID: 2973251180713011112}
-  - component: {fileID: 3401727801572339492}
   - component: {fileID: 8667912959551283490}
+  - component: {fileID: 7380614080293088973}
+  - component: {fileID: 777493269615702214}
   m_Layer: 0
   m_Name: Tile
   m_TagString: Untagged
@@ -111,18 +112,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3401727801572339492
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6865660136274553626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c30ea286babd4ea4da5754e7b802a1be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8667912959551283490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,47 +134,26 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!1 &7222335539632009153
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6432449861884651575}
-  - component: {fileID: 8208931189865128965}
-  m_Layer: 0
-  m_Name: Effect
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6432449861884651575
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7222335539632009153}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.287, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8581111179199702466}
-  - {fileID: 7162491750193523134}
-  m_Father: {fileID: 3796682663619871641}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8208931189865128965
+--- !u!114 &7380614080293088973
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7222335539632009153}
+  m_GameObject: {fileID: 6865660136274553626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c30ea286babd4ea4da5754e7b802a1be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _customMaskTransform: {fileID: 7162491750193523134}
+--- !u!114 &777493269615702214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6865660136274553626}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 930806b4069d8f34193388fbbc88b895, type: 3}
@@ -224,6 +192,18 @@ MonoBehaviour:
       index: 7
     - coord: {x: 0.6941575, y: 0.12488522}
       index: 0
+    - coord: {x: 0.36193526, y: 0.50703233}
+      index: 11
+    - coord: {x: 0.0575009, y: 0.06434394}
+      index: 9
+    - coord: {x: 0.12987173, y: 0.7025211}
+      index: 5
+    - coord: {x: 0.38023078, y: 0.5054934}
+      index: 1
+    - coord: {x: 0.16325909, y: 0.43665543}
+      index: 1
+    - coord: {x: 0.260826, y: 0.73103845}
+      index: 1
   sampleCountMultiplier: 1.58
   mask: {fileID: 1652181910659047608}
   maskType: 2
@@ -255,21 +235,21 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  duration: 2
+  duration: 1
   vfxEventOffset: 2
   resetOnInitial: 1
   useInstancedMaterials: 0
-  isFinished: 0
-  effectStateTest: 0.5
-  usePositionTransform: 0
-  initialPosition: {x: 0, y: 0, z: 0}
-  finalPosition: {x: 0, y: 0, z: 0}
+  isFinished: 1
+  effectStateTest: 0
+  usePositionTransform: 1
+  initialPosition: {x: 1.371, y: 1, z: 1.32}
+  finalPosition: {x: 1.371, y: 1, z: 3.701}
   useScaleTransform: 0
-  initialScale: {x: 0, y: 0, z: 0}
-  finalScale: {x: 0, y: 0, z: 0}
+  initialScale: {x: 1.5, y: 1.5, z: 1.5}
+  finalScale: {x: 1.5, y: 1.5, z: 1.5}
   useRotationTransform: 0
-  initialRotation: {x: 0, y: 0, z: 0}
-  finalRotation: {x: 0, y: 0, z: 0}
+  initialRotation: {x: -0, y: 0, z: 0}
+  finalRotation: {x: -0, y: 0, z: 0}
   propertiesScaleRate: 1
   invert: 0
   guideTexture: {fileID: 0}
@@ -294,6 +274,39 @@ MonoBehaviour:
   glareWidth: 0
   glareSmoothness: 0.3
   glareOffset: 0
+--- !u!1 &7222335539632009153
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6432449861884651575}
+  m_Layer: 0
+  m_Name: Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6432449861884651575
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7222335539632009153}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.38, y: -0.929, z: -0.89}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8581111179199702466}
+  - {fileID: 7162491750193523134}
+  m_Father: {fileID: 3796682663619871641}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7232714639599807882
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,6 +319,7 @@ GameObject:
   - component: {fileID: 327715279850396457}
   - component: {fileID: 5546893586214748411}
   - component: {fileID: 1398815374565420155}
+  - component: {fileID: 1970008129359670732}
   m_Layer: 0
   m_Name: Vfx Graph
   m_TagString: Untagged
@@ -345,23 +359,41 @@ VisualEffect:
   m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 0.5
+        m_Name: Guide Strength
+        m_Overridden: 1
+      - m_Value: 1
+        m_Name: Guide Tiling
+        m_Overridden: 1
     m_Vector2f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: 1, y: 1}
+        m_Name: Tiling
+        m_Overridden: 1
     m_Vector3f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: -0, y: 0, z: 0}
+        m_Name: Transform_angles
+        m_Overridden: 1
+      - m_Value: {x: 0, y: 0, z: 0}
+        m_Name: Transform_position
+        m_Overridden: 1
+      - m_Value: {x: 1, y: 1, z: 1}
+        m_Name: Transform_scale
+        m_Overridden: 1
     m_Vector4f:
       m_Array:
       - m_Value: {x: 0, y: 0, z: 1, w: 0}
         m_Name: Mask Forward
         m_Overridden: 1
-      - m_Value: {x: 0, y: 0.287, z: 0, w: 0}
+      - m_Value: {x: -0.008999944, y: 0.07099998, z: 0.43000007, w: 0}
         m_Name: Mask Position
         m_Overridden: 1
       - m_Value: {x: 1, y: 0, z: 0, w: 0}
         m_Name: Mask Right
         m_Overridden: 1
-      - m_Value: {x: 1, y: 1, z: 1, w: 0}
+      - m_Value: {x: 1.5, y: 1.5, z: 1.5, w: 0}
         m_Name: Mask Scale
         m_Overridden: 1
       - m_Value: {x: 0, y: 1, z: 0, w: 0}
@@ -378,9 +410,27 @@ VisualEffect:
     m_Gradient:
       m_Array: []
     m_NamedObject:
-      m_Array: []
+      m_Array:
+      - m_Value: {fileID: 2800000, guid: 48878ac263c6381429f1ae56832d54ae, type: 3}
+        m_Name: Guide Texture
+        m_Overridden: 1
+      - m_Value: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+        m_Name: Mesh Renderer
+        m_Overridden: 1
     m_Bool:
-      m_Array: []
+      m_Array:
+      - m_Value: 0
+        m_Name: Use Box
+        m_Overridden: 1
+      - m_Value: 1
+        m_Name: Use Ellipse
+        m_Overridden: 1
+      - m_Value: 0
+        m_Name: Use Plane
+        m_Overridden: 1
+      - m_Value: 0
+        m_Name: Use Skinned Mesh
+        m_Overridden: 1
 --- !u!73398921 &5546893586214748411
 VFXRenderer:
   serializedVersion: 1
@@ -437,8 +487,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ExecuteInEditor: 1
-  m_Bindings: []
+  m_Bindings:
+  - {fileID: 1970008129359670732}
   m_VisualEffect: {fileID: 327715279850396457}
+--- !u!114 &1970008129359670732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7232714639599807882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33749af2b80913f4a810677e249c9ba4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Target: {fileID: 3796682663619871641}
 --- !u!1 &7598808547521399470
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,8 +529,8 @@ Transform:
   m_GameObject: {fileID: 7598808547521399470}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 1.371, y: 1, z: 1.32}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6432449861884651575}
