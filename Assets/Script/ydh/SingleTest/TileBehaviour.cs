@@ -1,6 +1,7 @@
 using INab.Common;
 using Photon.Pun;
 using System;
+using System.Collections;
 using System.Diagnostics;
 using UnityEngine;
 public class TileBehaviour : MonoBehaviourPun
@@ -8,11 +9,11 @@ public class TileBehaviour : MonoBehaviourPun
     public TileState _tileState { get; private set; } = TileState.None;
     public TileAccessType _accessType { get; private set; } = TileAccessType.Everyone;
     private Renderer _renderer;
+    private InteractiveEffect _effect;
     private Color _originalColor;
     private bool _isSelected = false;
     public int CoordX { get; private set; }
     public int CoordZ { get; private set; }
-    public Transform _customMaskTransform;
 
     public static event Action OnAnyTileChanged;
     private void Awake()
@@ -26,31 +27,20 @@ public class TileBehaviour : MonoBehaviourPun
             }
             else
             {
-                UnityEngine.Debug.LogError("TileContext를 찾을 수 없습니다.");
+                UnityEngine.Debug.Log("TileContext를 찾을 수 없습니다.");
             }
         }
     }
     void Start()
     {
         _renderer = GetComponent<Renderer>();
-        _originalColor = _renderer.material.color;
-
-        var effect = GetComponent<InteractiveEffect>();
-        if (effect != null && _customMaskTransform != null && effect.mask != null)
-        {
-            // 마스크 이동 애니메이션 설정
-            effect.usePositionTransform = true;
-            effect.useScaleTransform = false;
-
-            // 위치 설정
-            effect.initialPosition = _customMaskTransform.position;
-            effect.finalPosition = _customMaskTransform.position + new Vector3(0f, 0f, 2f); // 또는 원하는 방향
-
-            // 마스크 위치 초기화
-            effect.mask.transform.position = _customMaskTransform.position;
-
-            effect.PlayEffect();
-        }
+        _effect = GetComponentInChildren<InteractiveEffect>();
+        _effect.GetRendererMaterials();
+        _effect.initialPosition = new Vector3(0f, 0f, 0f);
+        _effect.finalPosition = new Vector3(0f, -2.5f, -1.0f);
+        _effect.mask.transform.localPosition = _effect.initialPosition;
+        _effect.PlayEffect();
+        //_originalColor = _renderer.material.color;
         //UnityEngine.Debug.Log($"[TileBehaviour] ViewID: {photonView.ViewID}");
     }
     public void SetTileState(TileState state)
@@ -170,5 +160,27 @@ public class TileBehaviour : MonoBehaviourPun
             var gridManager = FindFirstObjectByType<GridManager>();
             gridManager?.RegisterTile(this);
         }
+    }
+    public void PlayRevealEffect()
+    {
+        var effect = GetComponentInChildren<InteractiveEffect>(true);//비활성화된 자식 오브젝트까지 포함해서 InteractiveEffect를 찾는다
+        if (effect == null || effect.mask == null)
+        {
+            UnityEngine.Debug.LogWarning("[TileBehaviour] 이펙트 없음");
+            return;
+        }
+
+        effect.initialPosition = new Vector3(0f, 0f, 0f);
+        effect.finalPosition = new Vector3(0f, -2.7f, -2.0f);
+        effect.mask.transform.localPosition = effect.initialPosition;
+
+        effect.gameObject.SetActive(true);
+        effect.PlayEffect();
+    }
+
+    private IEnumerator DisableEffectComponent(InteractiveEffect effect, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        effect.enabled = false;    // 이펙트만 비활성화
     }
 }

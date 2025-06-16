@@ -21,7 +21,7 @@ public class TowerBuildButtonHandler : MonoBehaviour
 
             Vector3 targetPos = tile.transform.position;
 
-            _activeTurret.transform.position = targetPos + Vector3.up * 0.01f;
+            //_activeTurret.transform.position = targetPos + Vector3.up * 0.01f;
 
             if (Input.GetMouseButtonDown(0))
             {
