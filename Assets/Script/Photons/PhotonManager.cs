@@ -2,6 +2,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using ExitGames.Client.Photon;
+using System.Collections;
 public class PhotonManager : MonoBehaviourPunCallbacks
 {
     public const byte BID_EVENT = 1;
@@ -33,15 +34,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             Debug.Log("룸에 접속하였습니다.");
-
-            //for (int x = 0; x < 4; x++)
-            //{
-            //    for (int z = 0; z < 4; z++)
-            //    {
-            //        Vector3 pos = new Vector3(x + 0.5f, 0, z + 0.5f);
-            //        PhotonNetwork.Instantiate("Tile", pos, Quaternion.identity);
-            //    }
-            //}
         }
     }
     // Instantiate - 생성자

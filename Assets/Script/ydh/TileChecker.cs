@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
+using System.Collections;
 
-public class TileChecker : MonoBehaviour
+public class TileChecker : MonoBehaviourPun
 {
     [SerializeField] private TileContext tileContext;
     public void HideNoneTiles()
@@ -20,5 +21,18 @@ public class TileChecker : MonoBehaviour
         }
 
         Debug.Log("None 상태인 모든 타일을 렌더러/콜라이더 비활성화 처리했습니다.");
+    }
+    [PunRPC]
+    public void RPC_HideNoneTiles()
+    {
+        StartCoroutine(DelayHideNoneTiles());
+    }
+
+    private IEnumerator DelayHideNoneTiles()
+    {
+        // 동기화 시간이 충분하도록 약간 대기
+        yield return new WaitForSeconds(0.5f);
+
+        HideNoneTiles();
     }
 }

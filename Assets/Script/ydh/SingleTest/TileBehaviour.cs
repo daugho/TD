@@ -161,6 +161,17 @@ public class TileBehaviour : MonoBehaviourPun
             gridManager?.RegisterTile(this);
         }
     }
+    [PunRPC]
+    public void RPC_RevealTile()
+    {
+        var renderer = GetComponent<Renderer>();
+        if (renderer != null) renderer.enabled = true;
+
+        var collider = GetComponent<Collider>();
+        if (collider != null) collider.enabled = true;
+
+        UnityEngine.Debug.Log($"[TileBehaviour] Reveal RPC 동기화 완료: {gameObject.name}");
+    }
     public void PlayRevealEffect()
     {
         var effect = GetComponentInChildren<InteractiveEffect>(true);//비활성화된 자식 오브젝트까지 포함해서 InteractiveEffect를 찾는다

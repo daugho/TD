@@ -3,7 +3,7 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TileRevealcontroller : MonoBehaviour
+public class TileRevealcontroller : MonoBehaviourPun
 {
     [SerializeField] private TileContext _tileContext;
     [SerializeField] private Button _activateModeButton;
@@ -46,6 +46,8 @@ public class TileRevealcontroller : MonoBehaviour
 
                 tile.photonView.RPC(nameof(TileBehaviour.RPC_SetTileState), RpcTarget.AllBuffered,
                     (int)TileState.Installable, (int)access);
+
+                tile.photonView.RPC(nameof(TileBehaviour.RPC_RevealTile), RpcTarget.AllBuffered);
 
                 renderer.enabled = true;
                 if (collider != null) collider.enabled = true;

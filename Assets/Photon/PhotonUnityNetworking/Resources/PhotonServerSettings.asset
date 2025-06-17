@@ -60,6 +60,9 @@ MonoBehaviour:
   - RPC_RegisterTurret
   - RPC_RegisterClientTurret
   - RPC_RegisterMasterTurret
+  - RPC_HideNoneTiles
+  - RPC_RevealTile
+  - RPC_ClientLoadScene
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -174,6 +174,7 @@ public class GridManager : MonoBehaviour
         if (tileChecker != null)
         {
             tileChecker.HideNoneTiles();
+            tileChecker.photonView.RPC(nameof(TileChecker.RPC_HideNoneTiles), RpcTarget.AllBuffered);
             Debug.Log("[GridManager] TileChecker가 None 상태 타일을 처리했습니다.");
         }
         else
