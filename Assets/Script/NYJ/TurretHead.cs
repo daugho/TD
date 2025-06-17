@@ -38,14 +38,6 @@ public class TurretHead : MonoBehaviour
 
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * _rotationSpeed);
-
-        _photonView.RPC("RPC_SetRotation", RpcTarget.Others, transform.rotation);
-    }
-
-    [PunRPC]
-    public void RPC_SetRotation(Quaternion rot)
-    {
-        transform.rotation = rot;
     }
     public void SetTarget(Monster target)
     {

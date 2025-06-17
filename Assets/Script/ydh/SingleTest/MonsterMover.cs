@@ -16,6 +16,7 @@ public class MonsterMover : MonoBehaviour
     private TileBehaviour[,] tiles;
     private int width, height;
     private Coroutine moveCoroutine;
+    private float _moveSpeed;
 
     private void Awake()
     {
@@ -37,6 +38,11 @@ public class MonsterMover : MonoBehaviour
     {
         Owner = owner;
     }
+    
+    public void SetMonsterSpeed(float speed)
+    {
+        _moveSpeed = speed; 
+    }    
 
     private void HandleTileChanged()
     {
@@ -111,9 +117,16 @@ public class MonsterMover : MonoBehaviour
         {
             while (Vector3.Distance(transform.position, targetPos) > 0.05f)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, 2f * Time.deltaTime);
+                Vector3 direction = (targetPos - transform.position).normalized;
+                if (direction != Vector3.zero)
+                    transform.rotation = Quaternion.LookRotation(direction);
+
+                transform.position = Vector3.MoveTowards(transform.position, targetPos, _moveSpeed * Time.deltaTime);
+
                 yield return null;
             }
         }
+
+        moveCoroutine = null;
     }
 }

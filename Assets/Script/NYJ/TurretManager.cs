@@ -58,8 +58,6 @@ public class TurretManager : MonoBehaviour
                 _masterTurretPools[type].Add(turret);
             }
         }
-        TowerTypes test = TowerTypes.RifleTower;
-        Debug.Log(_masterTurretPools[test].Count);
     }
 
     private void InitializeClientPools()

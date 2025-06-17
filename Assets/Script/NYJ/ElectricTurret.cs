@@ -1,7 +1,6 @@
 using DigitalRuby.LightningBolt;
 using Photon.Pun;
 using System.Collections.Generic;
-using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 
 public class ElectricTurret : Turret
@@ -16,7 +15,6 @@ public class ElectricTurret : Turret
         {
             _electricEffect = Resources.Load<GameObject>("Prefabs/FireEffects/" + _turretData.FireEffectPath);
         }
-
 
         if (_target == null) return;
 

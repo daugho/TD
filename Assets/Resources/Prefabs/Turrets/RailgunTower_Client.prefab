@@ -397,7 +397,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _firePosition: {x: 0, y: 0, z: 2.53}
-  _range: 5
 --- !u!114 &8675837982496077175
 MonoBehaviour:
   m_ObjectHideFlags: 0

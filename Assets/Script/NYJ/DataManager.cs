@@ -119,13 +119,10 @@ public class DataManager
 
         string text = textAsset.text;
 
-        string[] rowData = text.Split("\r\n");
+        string[] rowData = text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
         for (int i = 1; i < rowData.Length; i++)
         {
-            if (rowData[i].Length == 0)
-                break;
-
             string[] datas = rowData[i].Split(",");
 
             TurretData data;

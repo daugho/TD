@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Overlays;
 using UnityEngine;
 using Photon.Pun;
 
@@ -43,7 +42,7 @@ public class MonsterManager : MonoBehaviour
             for (int i = 0; i < monster.Count; i++)
             {
                 EnemySpawn(monster.Type);
-                yield return new WaitForSeconds(0.2f); 
+                yield return new WaitForSeconds(0.4f); 
             }
         }
     }

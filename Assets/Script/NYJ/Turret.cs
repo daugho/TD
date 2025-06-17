@@ -121,6 +121,12 @@ public class Turret : MonoBehaviour
     {
         gameObject.SetActive(isActive);
     }
+
+    [PunRPC]
+    public void SetTurretPosition(Vector3 position)
+    {
+        gameObject.transform.position = position;
+    }
     public void InitTurret(TowerTypes type)
     {
         _turretData = DataManager.Instance.GetTurretData(type);

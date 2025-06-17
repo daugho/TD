@@ -27,10 +27,10 @@ public class TowerBuildButtonHandler : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 Turret turret = _activeTurret.GetComponent<Turret>();
-                turret.transform.position = targetPos + Vector3.up * 1.0f;
-
+             
                 PhotonView turretView = turret.GetComponent<PhotonView>();
                 turretView.RPC("ActivateTurret", RpcTarget.AllBuffered, true);
+                turretView.RPC("SetTurretPosition", RpcTarget.AllBuffered, targetPos);
 
                 _activeTurret = null;
                 _isClickBtn = false;

@@ -50,6 +50,9 @@ public class Monster : MonoBehaviourPun, IPunInstantiateMagicCallback
         CurHp = monsterData.HP;
         _hpSlider.SetMaxHp(MaxHp); 
         _monsterData.MoveSpeed *= speedMultiplier;
+
+        MonsterMover mover = GetComponent<MonsterMover>();
+        mover.SetMonsterSpeed(_monsterData.MoveSpeed);   
     }
 
     [PunRPC]
@@ -63,8 +66,6 @@ public class Monster : MonoBehaviourPun, IPunInstantiateMagicCallback
         }
 
         CurHp -= damageAmount;
-
-        Debug.Log(CurHp);
 
         _hpSlider.SetHp(CurHp);
     }
