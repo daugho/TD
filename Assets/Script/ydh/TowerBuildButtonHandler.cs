@@ -9,34 +9,31 @@ public class TowerBuildButtonHandler : MonoBehaviour
 
     private void Update()
     {
-        if (InputManager.Instance.CurrentMode != ClickMode.TileReveal) return;
+        if (!_isClickBtn) return;
 
         Vector3 mousePos = Input.mousePosition;
+       
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Tile")))
         {
             TileBehaviour tile = hit.collider.GetComponent<TileBehaviour>();
             if (tile == null) return;
 
             Vector3 targetPos = tile.transform.position;
-
-            //_activeTurret.transform.position = targetPos + Vector3.up * 0.01f;
+            _activeTurret.transform.position = targetPos + Vector3.up * 1.0f;
 
             if (Input.GetMouseButtonDown(0))
             {
-                bool isMaster = PhotonNetwork.IsMasterClient;
-                TileAccessType access = isMaster ? TileAccessType.MasterOnly : TileAccessType.ClientOnly;
-
-                tile.photonView.RPC(nameof(TileBehaviour.RPC_SetTileState), RpcTarget.AllBuffered,
-                    (int)TileState.Installable, (int)access);
-
-                Collider col = tile.GetComponent<Collider>();
-                if (col != null) col.enabled = true;
-
-                InputManager.Instance.ResetClickMode(); // 설치 후 모드 종료
+                _activeTurret.transform.position = targetPos + Vector3.up * 1.0f;
+                _activeTurret = null;
+                _isClickBtn = false;
             }
-            
+        }
+        else
+        {
+            Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 10f));
+            _activeTurret.transform.position = worldPos;
         }
     }
     public void OnTowerBuildButtonClicked()

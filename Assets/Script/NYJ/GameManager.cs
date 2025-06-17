@@ -5,10 +5,8 @@ public class GameManager : MonoBehaviour
     public bool isGameStart = false;
     private static GameManager _instance;
 
-    [SerializeField] private EnemyPath _enemyPath;
     [SerializeField] private Transform _monsterGuiCanvas;
     public Transform GetMonsterCanvas () { return _monsterGuiCanvas; }
-    public EnemyPath GetMonsterPath () { return _enemyPath; }
 
     public static GameManager Instance
     {
