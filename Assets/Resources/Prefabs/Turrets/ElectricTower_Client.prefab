@@ -69,6 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _firePosition: {x: 0, y: 0, z: 2.31}
+  _chainRangeSqr: 5
 --- !u!1001 &1843742590263695137
 PrefabInstance:
   m_ObjectHideFlags: 0

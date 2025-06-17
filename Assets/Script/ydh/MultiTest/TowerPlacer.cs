@@ -58,10 +58,6 @@ public class TowerPlacer : MonoBehaviour
                 return;
             }
 
-            // 설치 수행
-            Vector3 spawnPos = tile.transform.position + Vector3.up * 0.5f;
-            PhotonNetwork.Instantiate("TestTower", spawnPos, Quaternion.identity);
-
             tile.photonView.RPC(nameof(TileBehaviour.RPC_SetTileState), RpcTarget.AllBuffered,
                 (int)TileState.Installed, (int)tile._accessType);
 

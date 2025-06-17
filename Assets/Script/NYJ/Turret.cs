@@ -61,6 +61,7 @@ public class Turret : MonoBehaviour
     {
         if (_target != null)
         {
+            
             float distSqr = (_target.transform.position - transform.position).sqrMagnitude;
             if (distSqr > _rangeSqr)
             {
@@ -68,14 +69,16 @@ public class Turret : MonoBehaviour
             }
             else
             {
+                Debug.Log("Å¸°Ù ½ÇÆÐ");
                 return; 
             }
         }
-
+        Debug.Log("Å¸°Ù Å½»ö");
         List<Monster> allMonsters = MonsterManager.Monsters;
         float closestDist = float.MaxValue;
         Monster closest = null;
-
+        
+        Debug.Log(allMonsters.Count);
         foreach (Monster m in allMonsters)
         {
             if (m == null) continue;
@@ -89,7 +92,7 @@ public class Turret : MonoBehaviour
         }
 
         _target = closest;
-        //_turretHead.SetTarget(_target);
+        _turretHead.SetTarget(_target);
     }
 
     public bool GetTarget()
@@ -107,10 +110,16 @@ public class Turret : MonoBehaviour
     }
 
     [PunRPC]
-    public void OnBuildComplete(int towerTypeInt)
+    public void OnBuildComplete(TowerTypes type)
     {
-        TowerTypes type = (TowerTypes)towerTypeInt;
+        gameObject.SetActive(false);
         InitTurret(type);
+    }
+
+    [PunRPC]
+    public void ActivateTurret(bool isActive)
+    {
+        gameObject.SetActive(isActive);
     }
     public void InitTurret(TowerTypes type)
     {
@@ -128,19 +137,6 @@ public class Turret : MonoBehaviour
         _bullet = Resources.Load<Bullet>("Prefabs/Bullets/" + _turretData.Bullet);
         _fireEffectPrefab = Resources.Load<GameObject>("Prefabs/FireEffects/" + _turretData.FireEffectPath);
     }
-    public void BuildTurret(string turretName, Vector3 position)
-    {
-        GameObject turretPrefab = Resources.Load<GameObject>("Prefabs/Turrets/" + turretName);
-
-        GameObject turretInstance = PhotonNetwork.Instantiate("Prefabs/Turrets/" + turretName, position, Quaternion.identity);
-
-        PhotonView turretView = turretInstance.GetComponent<PhotonView>();
-        if (turretView.IsMine)
-        {
-            turretView.RPC("OnBuildComplete", RpcTarget.AllBuffered);
-        }
-    }
-
     [PunRPC]
     public void OnBuildComplete()
     {

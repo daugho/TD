@@ -6,6 +6,7 @@ public class TowerBuildButtonHandler : MonoBehaviour
     private bool _isClickBtn = false;
     private GameObject _activeTurret;
     private GameObject currentPreviewTile;
+    private TowerTypes _curType;
 
     private void Update()
     {
@@ -25,7 +26,12 @@ public class TowerBuildButtonHandler : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
-                _activeTurret.transform.position = targetPos + Vector3.up * 1.0f;
+                Turret turret = _activeTurret.GetComponent<Turret>();
+                turret.transform.position = targetPos + Vector3.up * 1.0f;
+
+                PhotonView turretView = turret.GetComponent<PhotonView>();
+                turretView.RPC("ActivateTurret", RpcTarget.AllBuffered, true);
+
                 _activeTurret = null;
                 _isClickBtn = false;
             }
@@ -45,6 +51,7 @@ public class TowerBuildButtonHandler : MonoBehaviour
         turret.SetActive(true);
 
         _activeTurret = turret;
+        _curType = type;
 
         _isClickBtn = true;
 

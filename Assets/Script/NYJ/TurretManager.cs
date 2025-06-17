@@ -46,16 +46,15 @@ public class TurretManager : MonoBehaviour
         {
             TowerTypes type = (TowerTypes)System.Enum.Parse(typeof(TowerTypes), turretName);
 
-            GameObject masterPrefab = Resources.Load<GameObject>($"Prefabs/Turrets/{turretName}" + "_Master");
-   
             _masterTurretPools[type] = new List<GameObject>();
     
             for (int i = 0; i < _poolSize; i++)
             {
-                GameObject turret = Instantiate(masterPrefab);
+                GameObject turret = PhotonNetwork.Instantiate($"Prefabs/Turrets/{turretName}" + "_Master"
+                    , Vector3.zero, Quaternion.identity);
                 PhotonView view = turret.GetComponent<PhotonView>();
-                view.ViewID = PhotonNetwork.AllocateViewID(true); 
-                turret.SetActive(false);
+               
+                view.RPC("OnBuildComplete", RpcTarget.AllBuffered, type);
                 _masterTurretPools[type].Add(turret);
             }
         }
@@ -69,16 +68,15 @@ public class TurretManager : MonoBehaviour
         {
             TowerTypes type = (TowerTypes)System.Enum.Parse(typeof(TowerTypes), turretName);
 
-            GameObject clientPrefab = Resources.Load<GameObject>($"Prefabs/Turrets/{turretName}" + "_Client");
-
             _clientTurretPools[type] = new List<GameObject>();
 
             for (int i = 0; i < _poolSize; i++)
             {
-                GameObject turret = Instantiate(clientPrefab);
+                GameObject turret = PhotonNetwork.Instantiate($"Prefabs/Turrets/{turretName}" + "_Client"
+                    , Vector3.zero, Quaternion.identity);
                 PhotonView view = turret.GetComponent<PhotonView>();
-                view.ViewID = PhotonNetwork.AllocateViewID(true);
-                turret.SetActive(false);
+                
+                view.RPC("OnBuildComplete", RpcTarget.AllBuffered, type);
                 _clientTurretPools[type].Add(turret);
             }
         }
