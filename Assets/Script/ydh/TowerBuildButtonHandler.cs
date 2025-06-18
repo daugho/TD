@@ -1,6 +1,7 @@
 using Photon.Pun;
 using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TowerBuildButtonHandler : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class TowerBuildButtonHandler : MonoBehaviour
     private GameObject _activeTurret;
     private GameObject currentPreviewTile;
     private TowerTypes _curType;
+    public UnityEvent OnBuildEvent;
+
+
 
     private void Awake()
     {
@@ -78,6 +82,7 @@ public class TowerBuildButtonHandler : MonoBehaviour
             _activeTurret.transform.position = worldPos;
         }
     }
+
     public void OnTowerBuildButtonClicked()
     {
         TowerTypes[] allTypes = (TowerTypes[])System.Enum.GetValues(typeof(TowerTypes));
@@ -93,6 +98,8 @@ public class TowerBuildButtonHandler : MonoBehaviour
 
         InputManager.Instance.SetClickMode(ClickMode.TowerBuild);
         Debug.Log("[UI] 타워 설치 모드 활성화됨");
+
+        OnBuildEvent?.Invoke();
     }
 
 }

@@ -10,6 +10,8 @@ public class MonsterManager : MonoBehaviour
     private PhotonView _photonView;
 
     public static List<Monster> Monsters = new List<Monster>();
+    
+    public static Dictionary<(int,int), List<Monster>> ActiveMonsters = new Dictionary<(int, int), List<Monster>>();
 
     private HPBar _hpBar;
     private int _stage = 1;
@@ -22,11 +24,22 @@ public class MonsterManager : MonoBehaviour
         _photonView = GetComponent<PhotonView>();
     }
 
-
     public void OnClickSpawn()
     {
         _photonView.RPC("SpawnMonsterRPC", RpcTarget.AllBuffered);
     }
+
+    public void CreateMonsterPool(RoundData roundData)
+    {
+        foreach (MonsterSpawnInfo monster in roundData.Monsters)
+        {
+            for (int i = 0; i < monster.Count; i++)
+            {
+                MonsterSpawn(monster.Type);
+            }
+        }
+    }
+
     [PunRPC]
     public void SpawnMonsterRPC()
     {
@@ -41,12 +54,12 @@ public class MonsterManager : MonoBehaviour
         {
             for (int i = 0; i < monster.Count; i++)
             {
-                EnemySpawn(monster.Type);
+                MonsterSpawn(monster.Type);
                 yield return new WaitForSeconds(0.4f); 
             }
         }
     }
-    private void EnemySpawn(DroneTypes type)
+    private void MonsterSpawn(DroneTypes type)
     {
         TileBehaviour startTile = FindMyStartPoint();
         if (startTile == null)
