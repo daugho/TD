@@ -13,12 +13,11 @@ public static class PathChecker
 
         foreach (Transform t in tileContext.TileParent)
         {
-            var tb = t.GetComponent<TileBehaviour>();
+            TileBehaviour tb = t.GetComponent<TileBehaviour>();
             if (tb == null) continue;
 
-            string[] parts = tb.name.Split('_');
-            int x = int.Parse(parts[1]);
-            int z = int.Parse(parts[2]);
+            int x = tb.CoordX;
+            int z = tb.CoordZ;
 
             tiles[x, z] = tb;
         }

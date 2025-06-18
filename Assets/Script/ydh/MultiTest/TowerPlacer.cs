@@ -15,13 +15,13 @@ public class TowerPlacer : MonoBehaviour
 
     private void OnEnable()
     {
-        InputManager.Instance.OnTowerBuildClick += HandleTowerPlacementClick;
+        //InputManager.Instance.OnTowerBuildClick += HandleTowerPlacementClick;
     }
 
     private void OnDisable()
     {
-        if (InputManager.Instance != null)
-            InputManager.Instance.OnTowerBuildClick -= HandleTowerPlacementClick;
+        //if (InputManager.Instance != null)
+        //    InputManager.Instance.OnTowerBuildClick -= HandleTowerPlacementClick;
     }
 
     private void HandleTowerPlacementClick(Vector3 clickPosition)

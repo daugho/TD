@@ -1,13 +1,19 @@
 using Photon.Pun;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class TowerBuildButtonHandler : MonoBehaviour
 {
+    private TileContext _tileContext;
     private bool _isClickBtn = false;
     private GameObject _activeTurret;
     private GameObject currentPreviewTile;
     private TowerTypes _curType;
 
+    private void Awake()
+    {
+        _tileContext = GetComponent<TileContext>();
+    }
     private void Update()
     {
         if (!_isClickBtn) return;
@@ -19,13 +25,38 @@ public class TowerBuildButtonHandler : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Tile")))
         {
             TileBehaviour tile = hit.collider.GetComponent<TileBehaviour>();
-            if (tile == null) return;
-
+            
             Vector3 targetPos = tile.transform.position;
             _activeTurret.transform.position = targetPos + Vector3.up * 1.0f;
 
             if (Input.GetMouseButtonDown(0))
             {
+                if (tile == null || tile._tileState != TileState.Installable) return;
+
+                bool isMasterClient = PhotonNetwork.IsMasterClient;
+                bool hasAccess = tile._accessType switch
+                {
+                    TileAccessType.Everyone => true,
+                    TileAccessType.MasterOnly => isMasterClient,
+                    TileAccessType.ClientOnly => !isMasterClient,
+                    _ => false
+                };
+                if (!hasAccess) return;
+                
+                TileState originalState = tile._tileState;
+                TileAccessType originalAccess = tile._accessType;
+                tile.SetTileState(TileState.Uninstallable);
+                
+                bool pathValid = PathChecker.IsPathAvailable(_tileContext);
+                
+                tile.SetTileState(originalState, originalAccess);
+                
+                if (!pathValid)
+                {
+                    Debug.Log("? 경로가 막혀 설치할 수 없습니다.");
+                    return;
+                }
+
                 Turret turret = _activeTurret.GetComponent<Turret>();
              
                 PhotonView turretView = turret.GetComponent<PhotonView>();
@@ -34,6 +65,11 @@ public class TowerBuildButtonHandler : MonoBehaviour
 
                 _activeTurret = null;
                 _isClickBtn = false;
+
+                tile.photonView.RPC(nameof(TileBehaviour.RPC_SetTileState), RpcTarget.AllBuffered,
+                (int)TileState.Installed, (int)tile._accessType);
+
+                InputManager.Instance.ResetClickMode();
             }
         }
         else
