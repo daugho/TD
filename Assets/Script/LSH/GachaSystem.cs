@@ -1,21 +1,15 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GachaSystem : MonoBehaviour
 {
     [SerializeField]
-    private Sprite _circleSprite;
-    [SerializeField]
-    private Sprite _triangleSprite;
-    [SerializeField]
-    private Sprite _squareSprite;
-    [SerializeField]
-    private Sprite _starSprite;
+    private Transform _content; // 보관함(Content)
 
     [SerializeField]
-    private Transform _content; // 보관함(Content)
-    [SerializeField]
-    private GameObject _shapeButtonPrefab; // 버튼 Prefab
+    private TowerBuildButtonHandler _towerBuildButtonHandler;
+
     [SerializeField]
     private int _invenMaxCount = 10;
 
@@ -28,30 +22,33 @@ public class GachaSystem : MonoBehaviour
             Debug.Log("인벤토리가 가득 찼습니다.");
             return;
         }
+        TowerTypes towerTypes = TowerTypes.RifleTower;
 
         int randomValue = Random.Range(1, 101);
-        Sprite selectedSprite = null;
-
+   
         if (randomValue <= 40)
-            selectedSprite = _circleSprite;
+            towerTypes = TowerTypes.RifleTower;
         else if (randomValue <= 70)
-            selectedSprite = _triangleSprite;
+            towerTypes = TowerTypes.MachinegunTower;
         else if (randomValue <= 90)
-            selectedSprite = _squareSprite;
+            towerTypes = TowerTypes.GrenadeTower;
         else
-            selectedSprite = _starSprite;
+            towerTypes = TowerTypes.ElectricTower;
 
-        CreateShapeButton(selectedSprite);
+
+        CreateButton(towerTypes);
     }
 
-    private void CreateShapeButton(Sprite shapeSprite)
+    private void CreateButton(TowerTypes type)
     {
-        // 버튼 생성
-        GameObject newButton = Instantiate(_shapeButtonPrefab, _content);
+        TurretData turretData = DataManager.Instance.GetTurretData(type);   
+        GameObject buttonprefab = Resources.Load<GameObject>("Prefabs/UI/TowerButtonPrefab");
 
-        // 버튼의 이미지 설정
-        Image buttonImage = newButton.GetComponent<Image>();
-        buttonImage.sprite = shapeSprite;
+        GameObject newButton = Instantiate(buttonprefab, _content);
+        Button button = newButton.GetComponent<Button>();
+        TowerPlaceBtn newButtonComponent = newButton.GetComponent<TowerPlaceBtn>();
+        button.onClick.AddListener(() =>_towerBuildButtonHandler.OnTowerBuildButtonClicked(type));
+        newButtonComponent.SetImage(turretData.GachaPath);
 
         _curButtonCount++;
         Debug.Log($"버튼 생성 완료! 현재 버튼 수: {_curButtonCount}/{_invenMaxCount}");

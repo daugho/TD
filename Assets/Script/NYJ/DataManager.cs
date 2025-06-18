@@ -8,6 +8,7 @@ using UnityEngine;
 public struct TurretData
 {
     public TowerTypes Name;
+    public string GachaPath;
     public TurretType Type;
     public TowerRarity Rarity;
     public string Bullet;
@@ -127,6 +128,7 @@ public class DataManager
 
             TurretData data;
             data.Name = Enum.Parse<TowerTypes>(datas[0]);
+            data.GachaPath = datas[0];
             data.Type = Enum.Parse<TurretType> (datas[1]);
             data.Rarity = Enum.Parse<TowerRarity>(datas[2]);
             data.Bullet = datas[3];

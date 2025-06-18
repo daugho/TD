@@ -1,4 +1,5 @@
 using Photon.Pun;
+using System;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,9 +11,8 @@ public class TowerBuildButtonHandler : MonoBehaviour
     private GameObject _activeTurret;
     private GameObject currentPreviewTile;
     private TowerTypes _curType;
-    public UnityEvent OnBuildEvent;
-
-
+    public UnityAction OnBuildEvent;
+   
 
     private void Awake()
     {
@@ -83,11 +83,8 @@ public class TowerBuildButtonHandler : MonoBehaviour
         }
     }
 
-    public void OnTowerBuildButtonClicked()
+    public void OnTowerBuildButtonClicked(TowerTypes type)
     {
-        TowerTypes[] allTypes = (TowerTypes[])System.Enum.GetValues(typeof(TowerTypes));
-        TowerTypes type = allTypes[Random.Range(0, allTypes.Length)];
-
         GameObject turret = TurretManager.Instance.GetAvailableTurret(type);
         turret.SetActive(true);
 
