@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,7 +25,7 @@ public class GachaSystem : MonoBehaviour
         }
         TowerTypes towerTypes = TowerTypes.RifleTower;
 
-        int randomValue = Random.Range(1, 101);
+        float randomValue = Random.Range(1.0f, 101.0f);
    
         if (randomValue <= 40)
             towerTypes = TowerTypes.RifleTower;
@@ -53,4 +54,55 @@ public class GachaSystem : MonoBehaviour
         _curButtonCount++;
         Debug.Log($"버튼 생성 완료! 현재 버튼 수: {_curButtonCount}/{_invenMaxCount}");
     }
+
+    private void SetTotalTower()
+    {
+        weightedTowers.Clear(); // 기존 목록 초기화
+
+        foreach (var group in allTowers.Values.GroupBy(t => t.Rarity))
+        {
+            float rarityWeight = rarityWeights[group.Key];
+            float weightPerTower = rarityWeight / group.Count();
+
+            foreach (var tower in group)
+            {
+                // TowerTypes 키를 가져오기 위해 Dictionary 검색
+                TowerTypes type = allTowers.First(kvp => kvp.Value == tower).Key;
+                weightedTowers.Add((type, weightPerTower));
+            }
+        }
+    }
+
+    public TowerTypes GetRandomTower()
+    {
+        float totalWeight = weightedTowers.Sum(x => x.weight);
+        float rand = UnityEngine.Random.Range(0f, totalWeight);
+        float cumulative = 0f;
+
+        foreach (var entry in weightedTowers)
+        {
+            cumulative += entry.weight;
+            if (rand <= cumulative)
+                return entry.type;
+        }
+
+        return weightedTowers[0].GetType; // fallback
+    }
+    List<(TowerData tower, float weight)> weightedTowers = new();
+
+    private Dictionary<TowerTypes, TurretData> allTowers = DataManager.Instance.TurretDatas;
+
+    Dictionary<TowerRarity, float> rarityWeights = new()
+    {
+    { TowerRarity.Normal, 0.5f },
+    { TowerRarity.Rare, 0.35f },
+    { TowerRarity.Epic, 0.15f },
+    { TowerRarity.Legendary, 0.05f }
+    };
+    public class TowerData
+{
+    public TowerRarity Rarity;
+    public string Name;
+    // 기타 정보
+}
 }
