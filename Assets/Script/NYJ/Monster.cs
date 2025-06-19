@@ -2,9 +2,12 @@ using JetBrains.Annotations;
 using UnityEngine;
 using Photon.Pun;
 using static UnityEngine.GraphicsBuffer;
+using Photon.Pun.Demo.PunBasics;
 
 public class Monster : MonoBehaviourPun, IPunInstantiateMagicCallback
 {
+    [SerializeField] private PlayerGUI _playerGUI;
+
     private int _currentIndex = 0;
     private HPBar _hpSlider;
     private MonsterData _monsterData;
@@ -12,6 +15,14 @@ public class Monster : MonoBehaviourPun, IPunInstantiateMagicCallback
     private bool _isDebuffed = false;
     public int CurHp { get; set; }
 
+    private void Start()
+    {
+        GameObject guiObject = GameObject.Find("MainCanvas/Gold");
+        if (guiObject != null)
+        {
+            _playerGUI = guiObject.GetComponent<PlayerGUI>();
+        }
+    }
     private void LateUpdate()
     {
         if (_hpSlider != null)
@@ -60,6 +71,8 @@ public class Monster : MonoBehaviourPun, IPunInstantiateMagicCallback
     {
         if (CurHp <= 0)
         { // 풀링때 변경 
+            _playerGUI.AddPlayerGold(_monsterData.MonsterReward);
+
             Destroy(gameObject);
             Destroy(_hpSlider);  
             return;

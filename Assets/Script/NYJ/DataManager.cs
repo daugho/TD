@@ -44,6 +44,7 @@ public struct MonsterData
     public DroneSize DroneSize;
     public int HP;
     public float MoveSpeed;
+    public int MonsterReward;
     public string PrefabPath;
 }
 
@@ -168,7 +169,8 @@ public class DataManager
             data.DroneSize = Enum.Parse<DroneSize>(datas[2]);
             data.HP = int.Parse(datas[3]);
             data.MoveSpeed = float.Parse(datas[4]);
-            data.PrefabPath = datas[5];
+            data.MonsterReward = int.Parse(datas[5]);
+            data.PrefabPath = datas[6];
    
             _monsterDatas.Add(data.Key, data);
         }

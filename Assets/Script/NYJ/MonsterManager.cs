@@ -15,7 +15,7 @@ public class MonsterManager : MonoBehaviour
 
     private HPBar _hpBar;
     private int _stage = 1;
-    private int _wave = 2;
+    private int _wave = 1;
 
 
     private void Awake()
