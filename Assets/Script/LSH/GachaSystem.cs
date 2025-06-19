@@ -16,6 +16,12 @@ public class GachaSystem : MonoBehaviour
 
     private int _curButtonCount = 0;
 
+    private void Start()
+    {
+        allTowers = DataManager.Instance.TurretDatas;
+
+        SetTotalTower();
+    }
     public void OnGachaButtonClick()
     {
         if(_curButtonCount >= _invenMaxCount)
@@ -23,21 +29,8 @@ public class GachaSystem : MonoBehaviour
             Debug.Log("인벤토리가 가득 찼습니다.");
             return;
         }
-        TowerTypes towerTypes = TowerTypes.RifleTower;
-
-        float randomValue = Random.Range(1.0f, 101.0f);
-   
-        if (randomValue <= 40)
-            towerTypes = TowerTypes.RifleTower;
-        else if (randomValue <= 70)
-            towerTypes = TowerTypes.MachinegunTower;
-        else if (randomValue <= 90)
-            towerTypes = TowerTypes.GrenadeTower;
-        else
-            towerTypes = TowerTypes.ElectricTower;
-
-
-        CreateButton(towerTypes);
+       
+        CreateButton(GetRandomTower());
     }
 
     private void CreateButton(TowerTypes type)
@@ -58,17 +51,16 @@ public class GachaSystem : MonoBehaviour
     private void SetTotalTower()
     {
         weightedTowers.Clear(); // 기존 목록 초기화
+        var grouped = allTowers.GroupBy(kvp => kvp.Value.Rarity);
 
-        foreach (var group in allTowers.Values.GroupBy(t => t.Rarity))
+        foreach (var group in grouped)
         {
             float rarityWeight = rarityWeights[group.Key];
             float weightPerTower = rarityWeight / group.Count();
 
-            foreach (var tower in group)
+            foreach (var kvp in group)
             {
-                // TowerTypes 키를 가져오기 위해 Dictionary 검색
-                TowerTypes type = allTowers.First(kvp => kvp.Value == tower).Key;
-                weightedTowers.Add((type, weightPerTower));
+                weightedTowers.Add((kvp.Key, weightPerTower));
             }
         }
     }
@@ -79,18 +71,19 @@ public class GachaSystem : MonoBehaviour
         float rand = UnityEngine.Random.Range(0f, totalWeight);
         float cumulative = 0f;
 
-        foreach (var entry in weightedTowers)
+        foreach ((TowerTypes type, float weight) entry in weightedTowers)
         {
             cumulative += entry.weight;
             if (rand <= cumulative)
                 return entry.type;
         }
 
-        return weightedTowers[0].GetType; // fallback
+        return weightedTowers[0].type; // fallback
     }
-    List<(TowerData tower, float weight)> weightedTowers = new();
 
-    private Dictionary<TowerTypes, TurretData> allTowers = DataManager.Instance.TurretDatas;
+    List<(TowerTypes type, float weight)> weightedTowers = new();
+
+    private Dictionary<TowerTypes, TurretData> allTowers = new Dictionary<TowerTypes, TurretData>();
 
     Dictionary<TowerRarity, float> rarityWeights = new()
     {
@@ -99,10 +92,4 @@ public class GachaSystem : MonoBehaviour
     { TowerRarity.Epic, 0.15f },
     { TowerRarity.Legendary, 0.05f }
     };
-    public class TowerData
-{
-    public TowerRarity Rarity;
-    public string Name;
-    // 기타 정보
-}
 }

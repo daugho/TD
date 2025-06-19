@@ -78,7 +78,6 @@ public class Turret : MonoBehaviour
         float closestDist = float.MaxValue;
         Monster closest = null;
         
-        Debug.Log(allMonsters.Count);
         foreach (Monster m in allMonsters)
         {
             if (m == null) continue;
