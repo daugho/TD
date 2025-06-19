@@ -185,7 +185,7 @@ public class GridManager : MonoBehaviour
     private IEnumerator DelayedSpawnPathTracer()
     {
         // 최소한 1 프레임 기다림 (RPC 반영 대기)
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(3.0f);
 
         PathVisualizerSpawner.Instance?.SpawnPathTracer();
     }

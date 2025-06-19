@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: a259e8612404cc645b7c656dc20f30b4, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -1360,11 +1360,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 988668455}
-  - component: {fileID: 988668456}
   - component: {fileID: 988668457}
-  - component: {fileID: 988668458}
   - component: {fileID: 988668459}
-  - component: {fileID: 988668460}
   - component: {fileID: 988668461}
   m_Layer: 0
   m_Name: Manager
@@ -1388,20 +1385,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &988668456
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 988668454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e7476630d584084198913ecea4b4a9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isGameStart: 0
-  _monsterGuiCanvas: {fileID: 0}
 --- !u!114 &988668457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1414,28 +1397,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 779c061b000607a46a4905d6b140e298, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &988668458
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 988668454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bcce2f732f62c046adf7240bea75670, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _turretNames:
-  - ElectricTower
-  - FlameTower
-  - GravityTower
-  - GrenadeTower
-  - LaserTower
-  - MachinegunTower
-  - MissileTower
-  - RailgunTower
-  - RifleTower
 --- !u!114 &988668459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1450,20 +1411,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _turrets: []
   tileContext: {fileID: 1437550490}
---- !u!114 &988668460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 988668454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e7476630d584084198913ecea4b4a9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isGameStart: 0
-  _monsterGuiCanvas: {fileID: 794331099}
 --- !u!114 &988668461
 MonoBehaviour:
   m_ObjectHideFlags: 0

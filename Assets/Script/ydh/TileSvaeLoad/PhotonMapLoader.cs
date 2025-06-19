@@ -15,29 +15,14 @@ public class PhotonMapLoader : MonoBehaviourPunCallbacks
             Debug.Log($"[PhotonMapLoader] MapName 변경 감지: {mapName}");
             if (PhotonNetwork.IsMasterClient)
             {
-                StartCoroutine(DelayedMapLoadAndSync(mapName));
+                StartCoroutine(LoadMapAndSync(mapName));
             }
         }
     }
-    private IEnumerator DelayedMapLoadAndSync(string mapName)
-    {
-        yield return new WaitForSeconds(1.5f); // 씬 로드 완료 후 딜레이
-
-        var downloadTask = downloader.DownloadMap(mapName + ".json");
-        while (!downloadTask.IsCompleted) yield return null;
-
-        string json = downloadTask.Result;
-        if (string.IsNullOrEmpty(json))
-        {
-            Debug.LogError("[PhotonMapLoader] 맵 데이터가 비어 있음");
-            yield break;
-        }
-
-        // RPC 호출로 클라이언트도 타일 동기화
-        photonView.RPC(nameof(RPC_LoadMap), RpcTarget.AllBuffered, json);
-    }
     public IEnumerator LoadMapAndSync(string mapName)
     {
+        yield return new WaitForSeconds(0.2f);
+
         var downloadTask = downloader.DownloadMap(mapName + ".json");
         while (!downloadTask.IsCompleted) yield return null;
 
@@ -47,8 +32,10 @@ public class PhotonMapLoader : MonoBehaviourPunCallbacks
             Debug.LogError("맵 데이터가 비어 있음");
             yield break;
         }
-
         photonView.RPC(nameof(RPC_LoadMap), RpcTarget.AllBuffered, json);
+        //gridManager.LoadMapFromFirebase(json);
+        //yield return new WaitForSeconds(1.5f);
+        // ? 클라이언트는 나중에 이걸 수신하고 실행
     }
 
     [PunRPC]

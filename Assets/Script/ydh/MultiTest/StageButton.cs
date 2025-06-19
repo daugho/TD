@@ -17,8 +17,11 @@ public class StageButton : MonoBehaviour
         {
             { "MapName", mapName }
         };
+
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
 
         PhotonNetwork.LoadLevel("daughoPlayTest");
     }
+
 }
+
