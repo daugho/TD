@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Resources/Prefabs/HitEffects/GunHit.prefab.meta
 guid: 4a2832aefdd426c41a76cad8aeea4063
 PrefabImporter:
+========
+guid: 490463e4ad509054992ceb0cb56dc340
+folderAsset: yes
+DefaultImporter:
+>>>>>>>> Stashed changes:Assets/Resources/TEXTURES.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

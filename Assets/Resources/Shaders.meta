@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Resources/Shaders.meta
 guid: aa776e2321780dc4f857ce7cc49d48e4
+========
+guid: a73bc430b3510e541963e3cf36bba601
+>>>>>>>> Stashed changes:Assets/Vefects.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
