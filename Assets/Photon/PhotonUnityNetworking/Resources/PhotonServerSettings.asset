@@ -67,6 +67,7 @@ MonoBehaviour:
   - SpawnMonsterRPC
   - SetTurretPosition
   - InitLifeRPC
+  - DecreaseLifeRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

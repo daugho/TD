@@ -130,7 +130,7 @@ public class MonsterMover : MonoBehaviour
 
         if (PhotonNetwork.IsMasterClient)
         {
-            Lifepoint.Instance.DecreaseLife(); 
+            LifeManager.Instance.photonView.RPC("DecreaseLifeRPC", RpcTarget.AllBuffered);
         }
 
         gameObject.SetActive(false);

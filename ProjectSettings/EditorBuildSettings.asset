@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/YDH/StageSelectScene.unity
     guid: 671bf15c979f06942a4032a3c6548ba9
   - enabled: 1
-    path: Assets/Scenes/YDH/daughoPlayTest.unity
+    path: Assets/Scenes/YDH/InGameScene.unity
     guid: bfb000b020f0fc643b5d3be78807d88b
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
