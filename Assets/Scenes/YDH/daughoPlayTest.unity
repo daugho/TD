@@ -1185,10 +1185,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0e52e1e23a7a0d4a93a22db8eaaf5c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heartPrefab: {fileID: 1610851595382877373, guid: 176bc799fcc1d4142b978ba1008c1127, type: 3}
-  filledHeart: {fileID: 21300000, guid: f9a890d689f95844db1c2480c9974b6f, type: 3}
-  emptyHeart: {fileID: 21300000, guid: 2ec2ce6d09a13c04a9ca3e753ab2c965, type: 3}
-  maxLife: 10
+  _heartPrefab: {fileID: 0}
+  _filledHeart: {fileID: 0}
+  _emptyHeart: {fileID: 0}
+  _maxLife: 10
 --- !u!114 &1075783000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1370,6 +1370,8 @@ GameObject:
   - component: {fileID: 1437550499}
   - component: {fileID: 1437550500}
   - component: {fileID: 1437550501}
+  - component: {fileID: 1437550504}
+  - component: {fileID: 1437550503}
   - component: {fileID: 1437550502}
   m_Layer: 0
   m_Name: GridSystem
@@ -1532,12 +1534,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 1437550488}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 906e364ef1ae16345810517725613b40, type: 3}
+  m_Script: {fileID: 11500000, guid: 7398e9c5be6027242b5e0da8360131e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lineMaterial: {fileID: 2100000, guid: 6883dd81f5908ff48afc2564782336ed, type: 2}
-  gridSize: 20
-  tileSize: 1
+  testLineMaterial: {fileID: 2100000, guid: 22fef59e7cd064f41ada668261893990, type: 2}
+--- !u!114 &1437550503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1437550488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f87542e34b16d90489641408f254e7c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 3
+--- !u!114 &1437550504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1437550488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f26def8d8db4ea459584eda5f61a027, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1469850865
 GameObject:
   m_ObjectHideFlags: 0
@@ -1991,7 +2016,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -400, y: 151.50064}
+  m_AnchoredPosition: {x: -399.9991, y: 151.50064}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1833882287
@@ -2533,7 +2558,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1744165318}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.9606552
+  m_Size: 0.99999154
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
