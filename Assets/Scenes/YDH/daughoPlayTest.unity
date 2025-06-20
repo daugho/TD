@@ -1363,6 +1363,7 @@ GameObject:
   - component: {fileID: 988668457}
   - component: {fileID: 988668459}
   - component: {fileID: 988668461}
+  - component: {fileID: 988668462}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -1433,6 +1434,20 @@ MonoBehaviour:
   sceneViewId: 2
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &988668462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 988668454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e7476630d584084198913ecea4b4a9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGameStart: 0
+  _monsterGuiCanvas: {fileID: 794331099}
 --- !u!1 &1016441209
 GameObject:
   m_ObjectHideFlags: 0
@@ -3007,7 +3022,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -400.00003, y: 151.50064}
+  m_AnchoredPosition: {x: -399.99942, y: 151.50064}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1833882287
@@ -3547,7 +3562,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1744165318}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9999817
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

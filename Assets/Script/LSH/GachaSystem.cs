@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -16,10 +17,17 @@ public class GachaSystem : MonoBehaviour
 
     private int _curButtonCount = 0;
 
-    private void Start()
+    private void OnEnable()
     {
-        allTowers = DataManager.Instance.TurretDatas;
+        StartCoroutine(WaitForDataManager());
+    }
 
+    private IEnumerator WaitForDataManager()
+    {
+        while (DataManager.Instance.TurretDatas == null || DataManager.Instance.TurretDatas.Count == 0)
+            yield return null;
+
+        allTowers = DataManager.Instance.TurretDatas;
         SetTotalTower();
     }
     public void OnGachaButtonClick()
@@ -64,7 +72,6 @@ public class GachaSystem : MonoBehaviour
             }
         }
     }
-
     public TowerTypes GetRandomTower()
     {
         float totalWeight = weightedTowers.Sum(x => x.weight);
