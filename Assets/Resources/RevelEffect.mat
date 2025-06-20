@@ -144,7 +144,7 @@ Material:
     - _BurnColor: {r: 0, g: 0, b: 0, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmberColor: {r: 0.20942387, g: 9.999999, b: 9.093194, a: 1}
-    - _EmissionColor: {r: 0, g: 1, b: 0.9024, a: 1}
+    - _EmissionColor: {r: 0, g: 1, b: 0.9301295, a: 1}
     - _ForwardVector: {r: 0, g: 0, b: 1, a: 0}
     - _Offset: {r: 0, g: 0, b: 0, a: 0}
     - _PositionVector: {r: 9.5, g: 0, b: 9.499999, a: 0}

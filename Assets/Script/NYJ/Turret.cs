@@ -67,13 +67,7 @@ public class Turret : MonoBehaviour
             {
                 _target = null;
             }
-            else
-            {
-                Debug.Log("Å¸°Ù ½ÇÆÐ");
-                return; 
-            }
         }
-        Debug.Log("Å¸°Ù Å½»ö");
         List<Monster> allMonsters = MonsterManager.Monsters;
         float closestDist = float.MaxValue;
         Monster closest = null;

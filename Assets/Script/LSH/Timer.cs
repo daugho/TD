@@ -1,31 +1,63 @@
 using UnityEngine;
-using TMPro; 
+using TMPro;
+using Unity.VisualScripting;
 
 public class Timer : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI _timerText;
 
-    private float timer = 60f;
-    private bool isRunning = true;
+    private MonsterManager _monsterManager;
 
-    void Update()
+    private float _waveStartTimer = 20.0f;
+    private float _waveTimer = 60f;
+    private float _waveWaitingTimer = 30.0f;
+
+    private float _timer = 0.0f;
+    private bool _isRunning = false;
+    private bool _isGameStart = false;
+    
+    private RoundState _currentState;
+
+    public enum RoundState
     {
-        if (isRunning)
-        {
-            timer -= Time.deltaTime;
-            if (timer <= 0)
-            {
-                timer = 0;
-                isRunning = false;
-            }
-            UpdateTimerText(timer);
-        }
+        WaitingToStart, InWave, BreakTime 
+    }
+    private void Awake()
+    {
+        _monsterManager = GetComponent<MonsterManager>();
+    }
 
-        // 탭 키를 누르면 타이머 초기화
-        if (Input.GetKeyDown(KeyCode.Tab))
+    private void Start()
+    {
+        ChangeTimerState(RoundState.WaitingToStart);    
+    }
+
+    private void Update()
+    {
+        if (_isRunning)
         {
-            ResetTimer();
+            _timer -= Time.deltaTime;
+            if (_timer <= 0)
+            {
+                _timer = 0;
+                _isRunning = false;
+
+                switch (_currentState)
+                {
+                    case RoundState.WaitingToStart:
+                        ChangeTimerState(RoundState.InWave);
+                        break;
+                    case RoundState.InWave:
+                        ChangeTimerState(RoundState.BreakTime);
+                        break;
+                    case RoundState.BreakTime:
+                        ChangeTimerState(RoundState.InWave);
+                        break;
+                }
+            }
+
+            UpdateTimerText(_timer);
         }
     }
 
@@ -41,18 +73,33 @@ public class Timer : MonoBehaviour
 
     public void StartTimer()
     {
-        isRunning = true;
+        _isRunning = true;
     }
 
     public void StopTimer()
     {
-        isRunning = false;
+        _isRunning = false;
     }
 
-    public void ResetTimer()
+    public void ChangeTimerState(RoundState state)
     {
-        timer = 60f;
-        isRunning = true;
-        UpdateTimerText(timer);
+        _currentState = state;
+
+        switch (state)
+        {
+            case RoundState.WaitingToStart:
+                _timer = _waveStartTimer;
+                break;
+            case RoundState.InWave:
+                _monsterManager.SpawnMonsters();
+                _timer = _waveTimer;
+                break;
+            case RoundState.BreakTime:
+                _timer = _waveWaitingTimer;
+                break;
+        }
+
+        UpdateTimerText(_timer);
+        StartTimer();
     }
 }

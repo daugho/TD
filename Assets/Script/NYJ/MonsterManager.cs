@@ -24,7 +24,7 @@ public class MonsterManager : MonoBehaviour
         _photonView = GetComponent<PhotonView>();
     }
 
-    public void OnClickSpawn()
+    public void SpawnMonsters()
     {
         _photonView.RPC("SpawnMonsterRPC", RpcTarget.AllBuffered);
     }

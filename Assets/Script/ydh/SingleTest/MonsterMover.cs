@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public enum OwnerRole
 {
@@ -126,6 +127,13 @@ public class MonsterMover : MonoBehaviour
                 yield return null;
             }
         }
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Lifepoint.Instance.DecreaseLife(); 
+        }
+
+        gameObject.SetActive(false);
 
         moveCoroutine = null;
     }

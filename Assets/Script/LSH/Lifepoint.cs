@@ -1,59 +1,55 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class Lifepoint : MonoBehaviour
 {
-    public GameObject heartPrefab; 
-    public Sprite filledHeart; 
-    public Sprite emptyHeart; 
-    public int maxLife = 10; 
+    public static Lifepoint Instance;
 
-    private Image[] hearts; 
-    private int currentLife;
+    [SerializeField] private GameObject _heartPrefab;
+    [SerializeField] private Sprite _filledHeart;
+    [SerializeField] private Sprite _emptyHeart;
+    [SerializeField] private int _maxLife = 10; 
 
-    void Start()
+    private Image[] _hearts; 
+    private int _currentLife;
+
+    private void Awake()
     {
-        currentLife = maxLife;
-        hearts = new Image[maxLife];
-
-        // 하트 생성
-        for (int i = 0; i < maxLife; i++)
-        {
-            GameObject heart = Instantiate(heartPrefab, transform); 
-            hearts[i] = heart.GetComponent<Image>(); 
-            hearts[i].sprite = filledHeart; 
-        }
+        Instance = this;
     }
 
-    void Update()
+
+    private void Start()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        _currentLife = _maxLife;
+
+        _hearts = new Image[_maxLife];
+
+        for (int i = 0; i < _maxLife; i++)
         {
-            DecreaseLife();
+            GameObject heart = Instantiate(_heartPrefab, transform);
+            _hearts[i] = heart.GetComponent<Image>();
+            _hearts[i].sprite = _filledHeart;
         }
     }
 
     public void DecreaseLife()
     {
-        //if (currentLife > 0)
-        //{
-        //    currentLife--; 
-        //    hearts[currentLife].sprite = emptyHeart; 
-        //}
-        if (currentLife > 0)
+        if (_currentLife > 0)
         {
-            int deletedir = maxLife - currentLife; // 왼쪽부터 빈 하트를 설정
-            hearts[deletedir].sprite = emptyHeart;
-            currentLife--;
+            int deletedir = _maxLife - _currentLife; // 왼쪽부터 빈 하트를 설정
+            _hearts[deletedir].sprite = _emptyHeart;
+            _currentLife--;
         }
     }
 
     public void ResetLife()
     {
-        currentLife = maxLife; 
-        for (int i = 0; i < maxLife; i++)
+        _currentLife = _maxLife; 
+        for (int i = 0; i < _maxLife; i++)
         {
-            hearts[i].sprite = filledHeart; 
+            _hearts[i].sprite = _filledHeart; 
         }
     }
 }
