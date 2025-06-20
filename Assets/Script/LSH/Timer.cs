@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
+using Photon.Pun;
 
 public class Timer : MonoBehaviour
 {
@@ -10,12 +11,17 @@ public class Timer : MonoBehaviour
     private MonsterManager _monsterManager;
 
     private float _waveStartTimer = 20.0f;
-    private float _waveTimer = 60f;
-    private float _waveWaitingTimer = 30.0f;
+    private float _waveTimer = 30f;
+    private float _waveWaitingTimer = 15.0f;
 
     private float _timer = 0.0f;
     private bool _isRunning = false;
-    private bool _isGameStart = false;
+    private bool _isWaveStart = false;
+
+    private int _stage = 1;
+    private int _wave = 1;
+    private int _maxWave = 10;
+
     
     private RoundState _currentState;
 
@@ -91,10 +97,21 @@ public class Timer : MonoBehaviour
                 _timer = _waveStartTimer;
                 break;
             case RoundState.InWave:
-                _monsterManager.SpawnMonsters();
+                _isWaveStart = true;
+                _monsterManager.SetStageAndWave(_stage, _wave);
+                _wave++;
+
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    _monsterManager.SpawnMonsters();
+                }
                 _timer = _waveTimer;
                 break;
             case RoundState.BreakTime:
+                if(_wave > _maxWave)
+                {
+                    PhotonNetwork.LoadLevel("StageScene");
+                }
                 _timer = _waveWaitingTimer;
                 break;
         }

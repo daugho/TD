@@ -10,6 +10,7 @@ public class Monster : MonoBehaviourPun, IPunInstantiateMagicCallback
     private MonsterData _monsterData;
     private float _originSpeed;
     private bool _isDebuffed = false;
+    private MonsterMover _mover;
     public int CurHp { get; set; }
 
     private void Start()
@@ -59,8 +60,8 @@ public class Monster : MonoBehaviourPun, IPunInstantiateMagicCallback
         _hpSlider.SetMaxHp(MaxHp); 
         _monsterData.MoveSpeed *= speedMultiplier;
 
-        MonsterMover mover = GetComponent<MonsterMover>();
-        mover.SetMonsterSpeed(_monsterData.MoveSpeed);   
+        _mover = GetComponent<MonsterMover>();
+        _mover.SetMonsterSpeed(_monsterData.MoveSpeed);   
     }
 
     [PunRPC]
@@ -92,12 +93,15 @@ public class Monster : MonoBehaviourPun, IPunInstantiateMagicCallback
 
         _isDebuffed = true;
 
+        _mover.SetMonsterSpeed(_monsterData.MoveSpeed);
+
         Invoke(nameof(ClearDebuffs), 4.0f);
     }
 
     public void ClearDebuffs()
     {
         _monsterData.MoveSpeed = _originSpeed;
+        _mover.SetMonsterSpeed(_monsterData.MoveSpeed);
         _isDebuffed = false;
     }
 }

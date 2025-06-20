@@ -34,16 +34,15 @@ public class Lifepoint : MonoBehaviour
         }
     }
 
-    public void DecreaseLife()
+    public void UpdateLifeUI(int newLife)
     {
-        if (_currentLife > 0)
+        _currentLife = newLife;
+
+        for (int i = 0; i < _maxLife; i++)
         {
-            int deletedir = _maxLife - _currentLife; // ¿ÞÂÊºÎÅÍ ºó ÇÏÆ®¸¦ ¼³Á¤
-            _hearts[deletedir].sprite = _emptyHeart;
-            _currentLife--;
+            _hearts[i].sprite = (i < _maxLife - _currentLife) ? _emptyHeart : _filledHeart;
         }
     }
-
     public void ResetLife()
     {
         _currentLife = _maxLife; 

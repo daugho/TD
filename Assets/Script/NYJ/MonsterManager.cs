@@ -5,7 +5,6 @@ using Photon.Pun;
 
 public class MonsterManager : MonoBehaviour
 {
-    [SerializeField] private Turret[] _turrets;
     [SerializeField] private TileContext tileContext;
     private PhotonView _photonView;
 
@@ -38,6 +37,12 @@ public class MonsterManager : MonoBehaviour
                 MonsterSpawn(monster.Type);
             }
         }
+    }
+
+    public void SetStageAndWave(int stage, int wave)
+    {
+        _stage = stage;
+        _wave = wave;
     }
 
     [PunRPC]

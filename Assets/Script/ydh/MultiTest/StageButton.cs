@@ -20,7 +20,7 @@ public class StageButton : MonoBehaviour
 
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
 
-        PhotonNetwork.LoadLevel("daughoPlayTest");
+        PhotonNetwork.LoadLevel("InGameScene");
     }
 
 }
