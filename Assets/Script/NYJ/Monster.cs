@@ -1,8 +1,5 @@
-using JetBrains.Annotations;
 using UnityEngine;
 using Photon.Pun;
-using static UnityEngine.GraphicsBuffer;
-using Photon.Pun.Demo.PunBasics;
 
 public class Monster : MonoBehaviourPun, IPunInstantiateMagicCallback
 {

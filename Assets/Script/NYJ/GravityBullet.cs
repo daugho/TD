@@ -1,6 +1,4 @@
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
-
 public class GravityBullet : Bullet
 {
     protected override void Update()
