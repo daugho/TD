@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 4044089337140882000}
   - component: {fileID: 3079933021771544193}
   - component: {fileID: 5104091025651540221}
+  - component: {fileID: 6569352212353513215}
+  - component: {fileID: 1255375500507618849}
   m_Layer: 0
   m_Name: ElectricTower_Client
   m_TagString: Untagged
@@ -70,6 +72,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _firePosition: {x: 0, y: 0, z: 2.31}
   _chainRangeSqr: 5
+--- !u!114 &6569352212353513215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986678107629987373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 868638872ea391c468dcffca270b9725, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!135 &1255375500507618849
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986678107629987373}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.5
+  m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!1001 &1843742590263695137
 PrefabInstance:
   m_ObjectHideFlags: 0
