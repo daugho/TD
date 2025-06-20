@@ -1,6 +1,5 @@
 using Photon.Pun;
 using UnityEngine;
-using static UnityEngine.UI.GridLayoutGroup;
 
 public class PathVisualizerSpawner : MonoBehaviour
 {

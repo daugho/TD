@@ -1,8 +1,6 @@
-using NUnit.Framework;
 using Photon.Pun;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.UI.Image;
 
 public class DebuffSystem : MonoBehaviour
 {

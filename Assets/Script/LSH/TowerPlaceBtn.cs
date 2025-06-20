@@ -1,4 +1,3 @@
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -9,7 +8,6 @@ public class TowerPlaceBtn : MonoBehaviour
     [SerializeField]
     private Transform _content;
 
-    private Sprite _sprite;
 
     private UnityEvent _event;
     private Button _button;
@@ -17,7 +15,6 @@ public class TowerPlaceBtn : MonoBehaviour
     private void Awake()
     {
         _image = GetComponent<Image>(); 
-        _sprite = GetComponent<Sprite>();
         _button = GetComponent<Button>();
     }
     public void SetEvent(UnityEvent eventData)

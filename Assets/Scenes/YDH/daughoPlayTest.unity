@@ -596,7 +596,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1437550496}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameStarter, Assembly-CSharp
         m_MethodName: OnClickStartButton
         m_Mode: 1
@@ -1364,6 +1364,7 @@ GameObject:
   - component: {fileID: 988668459}
   - component: {fileID: 988668461}
   - component: {fileID: 988668462}
+  - component: {fileID: 988668463}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -1448,6 +1449,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isGameStart: 0
   _monsterGuiCanvas: {fileID: 794331099}
+--- !u!114 &988668463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 988668454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bcce2f732f62c046adf7240bea75670, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _turretNames:
+  - ElectricTower
+  - FlameTower
+  - GravityTower
+  - GrenadeTower
+  - LaserTower
+  - MachinegunTower
+  - MissileTower
+  - RailgunTower
+  - RifleTower
 --- !u!1 &1016441209
 GameObject:
   m_ObjectHideFlags: 0
@@ -2246,8 +2269,6 @@ GameObject:
   - component: {fileID: 1437550491}
   - component: {fileID: 1437550490}
   - component: {fileID: 1437550494}
-  - component: {fileID: 1437550496}
-  - component: {fileID: 1437550495}
   - component: {fileID: 1437550497}
   - component: {fileID: 1437550498}
   - component: {fileID: 1437550499}
@@ -2353,33 +2374,6 @@ MonoBehaviour:
   sceneViewId: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &1437550495
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1437550488}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e71cdc0e5b5d043419f2386d82d3e765, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tileContext: {fileID: 1437550490}
---- !u!114 &1437550496
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1437550488}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ce513a1359a2b24fbff84654ae06966, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemySpawner: {fileID: 1437550495}
-  tileContext: {fileID: 1437550490}
 --- !u!114 &1437550497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3022,7 +3016,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -399.99942, y: 151.50064}
+  m_AnchoredPosition: {x: -400.00006, y: 151.50064}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1833882287
@@ -3562,7 +3556,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1744165318}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.9999817
+  m_Size: 0.9999637
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

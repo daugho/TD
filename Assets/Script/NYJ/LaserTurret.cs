@@ -1,7 +1,5 @@
 using Photon.Pun;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
-
 public class LaserTurret : Turret
 {
     private LineRenderer _lineRenderer;
