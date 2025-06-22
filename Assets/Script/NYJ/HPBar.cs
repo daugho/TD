@@ -8,7 +8,6 @@ public class HPBar : MonoBehaviour
     private void Awake()
     {
         _slider = GetComponent<Slider>();
-        Debug.Log("HPBAR");
     }
 
     public void SetMaxHp(float maxHp)
