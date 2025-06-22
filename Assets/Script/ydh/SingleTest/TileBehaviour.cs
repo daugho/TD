@@ -187,10 +187,4 @@ public class TileBehaviour : MonoBehaviourPun
         effect.gameObject.SetActive(true);
         effect.PlayEffect();
     }
-
-    private IEnumerator DisableEffectComponent(InteractiveEffect effect, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        effect.enabled = false;    // 이펙트만 비활성화
-    }
 }

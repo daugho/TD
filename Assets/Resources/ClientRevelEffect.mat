@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: RevelEffect
+  m_Name: ClientRevelEffect
   m_Shader: {fileID: -6465566751694194690, guid: cfde6535f2c558443a9f7147fe365d07, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -18,7 +18,7 @@ Material:
   - _TYPE_ELLIPSE
   m_InvalidKeywords: []
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 1
+  m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3000
   stringTagMap:
@@ -132,7 +132,7 @@ Material:
     - _SrcBlendAlpha: 1
     - _Surface: 1
     - _UseBackColor: 0
-    - _Use_Emission: 0
+    - _Use_Emission: 1
     - _Use_Metallic_Texture: 0
     - _WorkflowMode: 1
     - _ZTest: 4
@@ -144,10 +144,10 @@ Material:
     - _BurnColor: {r: 0, g: 0, b: 0, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmberColor: {r: 0.20942387, g: 9.999999, b: 9.093194, a: 1}
-    - _EmissionColor: {r: 0, g: 1, b: 0.9301295, a: 1}
+    - _EmissionColor: {r: 1, g: 0.95686066, b: 0, a: 1}
     - _ForwardVector: {r: 0, g: 0, b: 1, a: 0}
     - _Offset: {r: 0, g: 0, b: 0, a: 0}
-    - _PositionVector: {r: 9.5, g: 0, b: 9.499999, a: 0}
+    - _PositionVector: {r: 9.5, g: -6.3499756, b: 9.499999, a: 0}
     - _RightVector: {r: 1, g: 0, b: 0, a: 0}
     - _ScaleVector: {r: 2, g: 2, b: 2, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
