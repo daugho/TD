@@ -43,7 +43,7 @@ public class PathVisualizerSpawner : MonoBehaviour
             return;
         }
 
-        Vector3 spawnPos = startTile.transform.position + Vector3.up;
+        Vector3 spawnPos = startTile.transform.position + Vector3.up * 0.3f;
         GameObject tracer = PhotonNetwork.Instantiate("PathVisualer", spawnPos, Quaternion.identity);
 
         PathTracer mover = tracer.GetComponent<PathTracer>();
