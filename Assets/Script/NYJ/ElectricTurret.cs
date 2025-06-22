@@ -13,7 +13,7 @@ public class ElectricTurret : Turret
     {
         if (_electricEffect == null)
         {
-            _electricEffect = Resources.Load<GameObject>("Prefabs/FireEffects/" + _turretData.FireEffectPath);
+            _electricEffect = Resources.Load<GameObject>("Prefabs/FireEffects/" + MyTurretData.FireEffectPath);
         }
 
         if (_target == null) return;
@@ -65,7 +65,7 @@ public class ElectricTurret : Turret
                 bolt.EndPosition = end;
             }
 
-            targetView.RPC("TakeDamage", RpcTarget.AllBuffered, _turretData.Atk);
+            targetView.RPC("TakeDamage", RpcTarget.AllBuffered, MyTurretData.Atk);
 
             Destroy(effectInstance, 0.5f);
         }

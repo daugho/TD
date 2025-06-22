@@ -48,7 +48,7 @@ public class LaserTurret : Turret
         PhotonView targetView = _target.GetComponent<PhotonView>();
         if (targetView != null)
         {
-            targetView.RPC("TakeDamage", RpcTarget.AllBuffered, _turretData.Atk);
+            targetView.RPC("TakeDamage", RpcTarget.AllBuffered, MyTurretData.Atk);
         }
     }
 }

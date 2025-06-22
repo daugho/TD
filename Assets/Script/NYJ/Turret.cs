@@ -10,7 +10,7 @@ public class Turret : MonoBehaviour
     private float _searchInterval = 0.2f;
     private float _searchTimer = 0.0f;
 
-    protected TurretData _turretData = new TurretData();
+    public TurretData MyTurretData = new TurretData();
     protected TurretHead _turretHead;
     protected Bullet _bullet;
     [SerializeField] protected Vector3 _firePosition = Vector3.forward;
@@ -101,7 +101,7 @@ public class Turret : MonoBehaviour
         Bullet bulletInstance = Instantiate(_bullet, firePosition, Quaternion.identity);
         //bulletInstance.SetBulletTargetPosition(targetPosition); // 타겟이 아닌 위치로
         bulletInstance.SetBulletTarget(_target);
-        bulletInstance.SetBullet(_turretData.BulletSpeed, _turretData.Atk, _turretData.HitEffectPath);
+        bulletInstance.SetBullet(MyTurretData.BulletSpeed, MyTurretData.Atk, MyTurretData.HitEffectPath);
     }
 
     [PunRPC]
@@ -125,20 +125,20 @@ public class Turret : MonoBehaviour
     }
     public void InitTurret(TowerTypes type)
     {
-        _turretData = DataManager.Instance.GetTurretData(type);
-        _bulletSpawnTimer = 1.0f / _turretData.AtkSpeed;
+        MyTurretData = DataManager.Instance.GetTurretData(type);
+        _bulletSpawnTimer = 1.0f / MyTurretData.AtkSpeed;
 
         GameObject rarityPrefab = Resources.Load<GameObject>("Prefabs/Turrets/RarityCircle");
         GameObject instance = Instantiate(rarityPrefab, transform);
         _turretRarity = instance.GetComponent<TurretRarity>();
-        _turretRarity.SetRarityVisual(_turretData.Rarity);
+        _turretRarity.SetRarityVisual(MyTurretData.Rarity);
 
-        _rangeSqr = _turretData.Range * _turretData.Range;
-        AtkRange = _turretData.Range;
-        _turretHead.SetTurretType(_turretData.Type);
+        _rangeSqr = MyTurretData.Range * MyTurretData.Range;
+        AtkRange = MyTurretData.Range;
+        _turretHead.SetTurretType(MyTurretData.Type);
 
-        _bullet = Resources.Load<Bullet>("Prefabs/Bullets/" + _turretData.Bullet);
-        _fireEffectPrefab = Resources.Load<GameObject>("Prefabs/FireEffects/" + _turretData.FireEffectPath);
+        _bullet = Resources.Load<Bullet>("Prefabs/Bullets/" + MyTurretData.Bullet);
+        _fireEffectPrefab = Resources.Load<GameObject>("Prefabs/FireEffects/" + MyTurretData.FireEffectPath);
     }
     [PunRPC]
     public void OnBuildComplete()
@@ -156,6 +156,6 @@ public class Turret : MonoBehaviour
     private void OnDrawGizmos() // 범위 체크 
     {
         Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, Mathf.Sqrt(_turretData.Range));
+        Gizmos.DrawWireSphere(transform.position, Mathf.Sqrt(MyTurretData.Range));
     }
 }

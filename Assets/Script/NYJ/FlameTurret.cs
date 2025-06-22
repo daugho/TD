@@ -75,7 +75,7 @@ public class FlameTurret : Turret
                 PhotonView view = hit.GetComponent<PhotonView>();
                 if (view != null)
                 {
-                    view.RPC("TakeDamage", RpcTarget.AllBuffered, _turretData.Atk);
+                    view.RPC("TakeDamage", RpcTarget.AllBuffered, MyTurretData.Atk);
                 }
             }
         }

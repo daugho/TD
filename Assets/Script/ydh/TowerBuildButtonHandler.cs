@@ -5,7 +5,7 @@ using UnityEngine.Events;
 public class TowerBuildButtonHandler : MonoBehaviour
 {
     private TileContext _tileContext;
-    private bool _isClickBtn = false;
+    public bool _isClickBtn = false;
     private GameObject _activeTurret;
     private GameObject currentPreviewTile;
     private TowerTypes _curType;

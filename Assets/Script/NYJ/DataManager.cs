@@ -18,6 +18,7 @@ public struct TurretData
     public int Range;
     public int Price;
     public int Upgrade;
+    public int Level;
     public string FireEffectPath;
     public string HitEffectPath;
     public int CommonSummonTicket;
@@ -145,6 +146,7 @@ public class DataManager
             data.HitEffectPath = datas[13];
             data.CommonSummonTicket = int.Parse(datas[14]);
             data.RareSummonTicket = int.Parse(datas[15]);
+            data.Level = 1;
 
             _turretDatas.Add(data.Name, data);
         }
