@@ -2,7 +2,7 @@
 - Project name: TD
 - Unity version: Unity 6000.0.32f1
 - Active game object:
-  - Name: AlertPannel
+  - Name: PreviewTIle
   - Tag: Untagged
-  - Layer: UI
+  - Layer: PreviewTile
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
