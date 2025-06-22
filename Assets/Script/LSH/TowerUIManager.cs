@@ -5,8 +5,16 @@ public class TowerUIManager : MonoBehaviour
     public static TowerUIManager Instance { get; private set; }
 
     [SerializeField]
-    private GameObject towerUI; // UI GameObject
-    private Transform targetTower; // 현재 UI가 활성화된 타워
+    private GameObject _towerUI;
+
+    [SerializeField]
+    private GameObject _towerAtkRangePrefab;
+    private TurretRange _currentRangeIndicator;
+
+    private Vector3 _offset = new Vector3(270.0f, 170.0f, 0f);
+
+    private Transform _targetTower; 
+    private bool _isTowerUIActive = false;
 
     private void Awake()
     {
@@ -20,34 +28,60 @@ public class TowerUIManager : MonoBehaviour
         }
     }
 
+    public bool IsTowerUIActiveFor(Transform tower)
+    {
+        return _towerUI.activeSelf && _targetTower == tower;
+    }
+
     public void ShowUI(Transform tower)
     {
-        if (towerUI == null)
+        if (_towerUI == null)
         {
             Debug.LogError("Tower UI Prefab is not assigned!");
             return;
         }
+        _isTowerUIActive = true;
 
-        targetTower = tower;
+        _targetTower = tower;
 
-        // UI 활성화
-        towerUI.SetActive(true);
+        _towerUI.SetActive(true);
 
-        // UI 위치를 타워 위로 이동
-        Vector3 offset = new Vector3(0, 2.0f, -1.0f); // Z 값을 -1로 조정
-        towerUI.transform.position = tower.position + offset;
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(_targetTower.position);
 
+        _towerUI.transform.position = screenPos + _offset;
 
-        // 디버그 로그 추가
-        Debug.Log($"UI Activated. World Position: {towerUI.transform.position}");
-        Vector3 viewportPosition = Camera.main.WorldToViewportPoint(towerUI.transform.position);
-        Debug.Log($"Viewport Position: {viewportPosition}");
+        if (_currentRangeIndicator == null)
+        {
+            GameObject turretRangePrefab = Instantiate(_towerAtkRangePrefab);
+            _currentRangeIndicator = turretRangePrefab.GetComponent<TurretRange>();
+        }
+
+        _currentRangeIndicator.transform.SetParent(_targetTower, false);
+        _currentRangeIndicator.transform.localPosition = Vector3.zero;
+        _currentRangeIndicator.gameObject.SetActive(true);
+        
+        Turret turret = _targetTower.GetComponent<Turret>();
+
+        if(turret.TurretType == TowerTypes.FlameTower)
+        {
+            _currentRangeIndicator.ShowRangeCone(turret.transform, turret.AtkRange);
+        }
+        else
+        {
+            _currentRangeIndicator.ShowRangeCircle(turret.transform.position, turret.AtkRange);
+        }
     }
-
+    
 
     public void HideUI()
     {
-        targetTower = null;
-        towerUI.SetActive(false);
+        _isTowerUIActive = false;
+        _targetTower = null;
+        _towerUI.SetActive(false);
+
+        if (_currentRangeIndicator != null)
+        {
+            _currentRangeIndicator.Hide();  
+        }
     }
 }

@@ -27,9 +27,11 @@ public class TowerBuildButtonHandler : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Tile")))
         {
             TileBehaviour tile = hit.collider.GetComponent<TileBehaviour>();
-            
-            Vector3 targetPos = tile.transform.position;
-            _activeTurret.transform.position = targetPos + Vector3.up * 1.0f;
+
+            float tileHeight = hit.collider.bounds.size.y;
+            Vector3 targetPos = hit.collider.transform.position + Vector3.up * (tileHeight * 0.5f);
+
+            _activeTurret.transform.position = targetPos ;
 
             if (Input.GetMouseButtonDown(0))
             {

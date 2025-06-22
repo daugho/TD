@@ -32,13 +32,21 @@ public class GachaSystem : MonoBehaviour
     }
     public void OnGachaButtonClick()
     {
-        if(_curButtonCount >= _invenMaxCount)
+        if (_curButtonCount >= _invenMaxCount)
         {
             Debug.Log("¿Œ∫•≈‰∏Æ∞° ∞°µÊ √°Ω¿¥œ¥Ÿ.");
             return;
         }
-       
-        CreateButton(GetRandomTower());
+
+        var (type, chance) = GetRandomTowerWithChance();
+        CreateButton(type);
+
+        TurretData turretData = DataManager.Instance.GetTurretData(type);
+        string rarity = turretData.Rarity.ToString();
+        string sender = Photon.Pun.PhotonNetwork.NickName;
+        string message = $"<color=yellow>{sender}</color>¥‘¿Ã <color=orange>{chance:F1}%</color> »Æ∑¸∑Œ <b>{rarity}</b> µÓ±ﬁ¿« <color=cyan>{type}</color>¿ª »πµÊ«ﬂΩ¿¥œ¥Ÿ!";
+
+        AlerManager.instance.SendMeesageToChat(message);
     }
 
     private void CreateButton(TowerTypes type)
@@ -72,20 +80,25 @@ public class GachaSystem : MonoBehaviour
             }
         }
     }
-    public TowerTypes GetRandomTower()
+    private (TowerTypes type, float chance) GetRandomTowerWithChance()
     {
         float totalWeight = weightedTowers.Sum(x => x.weight);
         float rand = UnityEngine.Random.Range(0f, totalWeight);
         float cumulative = 0f;
 
-        foreach ((TowerTypes type, float weight) entry in weightedTowers)
+        foreach (var entry in weightedTowers)
         {
             cumulative += entry.weight;
             if (rand <= cumulative)
-                return entry.type;
+            {
+                float chance = (entry.weight / totalWeight) * 100f;
+                return (entry.type, chance);
+            }
         }
 
-        return weightedTowers[0].type; // fallback
+        var fallback = weightedTowers[0];
+        float fallbackChance = (fallback.weight / totalWeight) * 100f;
+        return (fallback.type, fallbackChance);
     }
 
     List<(TowerTypes type, float weight)> weightedTowers = new();
@@ -94,9 +107,9 @@ public class GachaSystem : MonoBehaviour
 
     Dictionary<TowerRarity, float> rarityWeights = new()
     {
-    { TowerRarity.Normal, 0.5f },
-    { TowerRarity.Rare, 0.35f },
-    { TowerRarity.Epic, 0.15f },
-    { TowerRarity.Legendary, 0.05f }
+    { TowerRarity.Normal, 0.5f },//2∞≥
+    { TowerRarity.Rare, 0.35f },//4∞≥
+    { TowerRarity.Epic, 0.15f },//2∞≥
+    { TowerRarity.Legendary, 0.05f }//1∞≥
     };
 }

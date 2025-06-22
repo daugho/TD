@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5516559138472933428}
   - component: {fileID: 4667018634144732718}
   - component: {fileID: 3633686760030941242}
+  - component: {fileID: 7534372683068346795}
   m_Layer: 0
   m_Name: RangeCircle
   m_TagString: Untagged
@@ -101,3 +102,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotateSpeed: 3
+--- !u!114 &7534372683068346795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5318685411796802955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 868638872ea391c468dcffca270b9725, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

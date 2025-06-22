@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 6525810315914797978}
   - component: {fileID: 7430521017009958424}
   - component: {fileID: 8873651176712214692}
+  - component: {fileID: -2503187071011186143}
+  - component: {fileID: 4470847641393391563}
   m_Layer: 0
   m_Name: RifleTower_Client
   m_TagString: Untagged
@@ -47,6 +49,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _firePosition: {x: 0, y: 0, z: 1.04}
+  TurretType: 0
+  AtkRange: 0
 --- !u!114 &8873651176712214692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,6 +73,39 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &-2503187071011186143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8202240840514863597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 868638872ea391c468dcffca270b9725, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!135 &4470847641393391563
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8202240840514863597}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.35
+  m_Center: {x: 0, y: 1.04, z: -0.18}
 --- !u!1001 &1478576559263447312
 PrefabInstance:
   m_ObjectHideFlags: 0
