@@ -3257,7 +3257,11 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   m_AnchoredPosition: {x: -400, y: 151.50064}
+=======
+  m_AnchoredPosition: {x: -399.9998, y: 151.50064}
+>>>>>>> Stashed changes
 =======
   m_AnchoredPosition: {x: -399.9998, y: 151.50064}
 >>>>>>> Stashed changes
@@ -4367,7 +4371,11 @@ MonoBehaviour:
   m_Direction: 0
   m_Value: 0
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   m_Size: 1
+=======
+  m_Size: 0.99995834
+>>>>>>> Stashed changes
 =======
   m_Size: 0.99995834
 >>>>>>> Stashed changes
