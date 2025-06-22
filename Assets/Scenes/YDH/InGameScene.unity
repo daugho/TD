@@ -1395,11 +1395,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 988668454}
   m_Enabled: 1
   m_EditorHideFlags: 0
+<<<<<<< Updated upstream
   m_Script: {fileID: 11500000, guid: e50602bb5397e184e9210964a5dc81f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _towerUI: {fileID: 1822425368}
   _towerAtkRangePrefab: {fileID: 6141736389802815185, guid: f0cbacd31370f814aa57d33248302e65, type: 3}
+=======
+  m_Script: {fileID: 11500000, guid: c31104d43205f544ab637dbb7eae7b87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+>>>>>>> Stashed changes
 --- !u!1 &1016441209
 GameObject:
   m_ObjectHideFlags: 0
@@ -2396,7 +2402,11 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
+<<<<<<< Updated upstream
   m_AnchoredPosition: {x: -399.99988, y: 151.50064}
+=======
+  m_AnchoredPosition: {x: -399.9998, y: 151.50064}
+>>>>>>> Stashed changes
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1833882287
@@ -3212,7 +3222,11 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1744165318}
   m_Direction: 0
   m_Value: 0
+<<<<<<< Updated upstream
   m_Size: 0.99659055
+=======
+  m_Size: 1
+>>>>>>> Stashed changes
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
