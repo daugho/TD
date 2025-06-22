@@ -1,12 +1,15 @@
 using UnityEngine;
 using TMPro;
-using Unity.VisualScripting;
 using Photon.Pun;
 
 public class Timer : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI _timerText;
+    [SerializeField]
+    private TextMeshProUGUI _stageText;
+    [SerializeField]
+    private TextMeshProUGUI _waveText;
 
     private MonsterManager _monsterManager;
 
@@ -36,6 +39,7 @@ public class Timer : MonoBehaviour
 
     private void Start()
     {
+        UpdateStageAndWaveText();
         ChangeTimerState(RoundState.WaitingToStart);    
     }
 
@@ -117,6 +121,14 @@ public class Timer : MonoBehaviour
         }
 
         UpdateTimerText(_timer);
+        UpdateStageAndWaveText();
         StartTimer();
     }
+
+    private void UpdateStageAndWaveText()
+    {
+        _stageText.text = $"{_stage}";
+        _waveText.text = $"{_wave - 1}";
+    }
+
 }
