@@ -33,9 +33,6 @@ public class PhotonMapLoader : MonoBehaviourPunCallbacks
             yield break;
         }
         photonView.RPC(nameof(RPC_LoadMap), RpcTarget.AllBuffered, json);
-        //gridManager.LoadMapFromFirebase(json);
-        //yield return new WaitForSeconds(1.5f);
-        // ? 클라이언트는 나중에 이걸 수신하고 실행
     }
 
     [PunRPC]

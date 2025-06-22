@@ -68,6 +68,7 @@ MonoBehaviour:
   - SetTurretPosition
   - InitLifeRPC
   - DecreaseLifeRPC
+  - RPC_ClientDelayedLoad
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
