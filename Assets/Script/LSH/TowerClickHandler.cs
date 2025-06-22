@@ -4,9 +4,14 @@ public class TowerClickHandler : MonoBehaviour
 {
     private void OnMouseDown()
     {
-        if (TowerUIManager.Instance != null)
+        if (TowerUIManager.Instance == null)
+            return;
+        if (TowerUIManager.Instance.IsTowerUIActiveFor(transform))
         {
-            Debug.Log("clcked");
+            TowerUIManager.Instance.HideUI();
+        }
+        else
+        {
             TowerUIManager.Instance.ShowUI(transform);
         }
     }

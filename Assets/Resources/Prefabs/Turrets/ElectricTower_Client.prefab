@@ -71,6 +71,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _firePosition: {x: 0, y: 0, z: 2.31}
+  TurretType: 0
+  AtkRange: 0
   _chainRangeSqr: 5
 --- !u!114 &6569352212353513215
 MonoBehaviour:

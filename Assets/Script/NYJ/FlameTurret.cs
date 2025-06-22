@@ -80,40 +80,4 @@ public class FlameTurret : Turret
             }
         }
     }
-
-    private void OnDrawGizmosSelected()
-    {
-        if (_turretHead == null) return;
-
-        Vector3 origin = _turretHead.transform.position;
-        Vector3 forward = _turretHead.transform.forward;
-
-        float range = _turretData.Range;
-        float angle = _flameAngle;
-        int segmentCount = 30;
-
-        Gizmos.color = new Color(1f, 0.5f, 0f, 0.3f); 
-
-        for (int i = 0; i <= segmentCount; i++)
-        {
-            float currentAngle = -angle + (i * (2 * angle / segmentCount));
-            Quaternion rotation = Quaternion.AngleAxis(currentAngle, Vector3.up);
-            Vector3 direction = rotation * forward;
-            Gizmos.DrawRay(origin, direction.normalized * range);
-        }
-
-        for (int i = 0; i < segmentCount; i++)
-        {
-            float angleA = -angle + (i * (2 * angle / segmentCount));
-            float angleB = -angle + ((i + 1) * (2 * angle / segmentCount));
-
-            Vector3 dirA = Quaternion.AngleAxis(angleA, Vector3.up) * forward;
-            Vector3 dirB = Quaternion.AngleAxis(angleB, Vector3.up) * forward;
-
-            Vector3 pointA = origin + dirA.normalized * range;
-            Vector3 pointB = origin + dirB.normalized * range;
-
-            Gizmos.DrawLine(pointA, pointB);
-        }
-    }
 }

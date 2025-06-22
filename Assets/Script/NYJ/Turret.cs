@@ -22,6 +22,8 @@ public class Turret : MonoBehaviour
 
     protected PhotonView _photonView;
     private TurretRarity _turretRarity;
+    public TowerTypes TurretType;
+    public float AtkRange;
 
     private void Awake()
     {
@@ -105,6 +107,7 @@ public class Turret : MonoBehaviour
     [PunRPC]
     public void OnBuildComplete(TowerTypes type)
     {
+        TurretType = type;
         gameObject.SetActive(false);
         InitTurret(type);
     }
@@ -131,6 +134,7 @@ public class Turret : MonoBehaviour
         _turretRarity.SetRarityVisual(_turretData.Rarity);
 
         _rangeSqr = _turretData.Range * _turretData.Range;
+        AtkRange = _turretData.Range;
         _turretHead.SetTurretType(_turretData.Type);
 
         _bullet = Resources.Load<Bullet>("Prefabs/Bullets/" + _turretData.Bullet);

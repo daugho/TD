@@ -1,7 +1,7 @@
 using Photon.Pun;
 using UnityEngine;
 
-public enum TurretType
+public enum AttackType
 {
     Direct, Indirect
 }
@@ -9,7 +9,7 @@ public class TurretHead : MonoBehaviour
 {
     private Monster _target;
     private PhotonView _photonView;
-    private TurretType _type;
+    private AttackType _type;
      
     [SerializeField] private float _rotationSpeed = 5.0f;
 
@@ -24,7 +24,7 @@ public class TurretHead : MonoBehaviour
         Vector3 direction = _target.transform.position - transform.position;
         float yAngle = 0f;
 
-        if (_type == TurretType.Indirect)
+        if (_type == AttackType.Indirect)
         {
             float dist = Vector3.Distance(transform.position, _target.transform.position);
             float t = Mathf.Clamp01(dist / 10.0f); // 거리에 따라 0~1로 정규화
@@ -44,7 +44,7 @@ public class TurretHead : MonoBehaviour
         _target = target;
     }
 
-    public void SetTurretType(TurretType type)
+    public void SetTurretType(AttackType type)
     {
         _type = type;
     }

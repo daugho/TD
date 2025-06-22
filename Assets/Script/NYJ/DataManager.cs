@@ -7,7 +7,7 @@ public struct TurretData
 {
     public TowerTypes Name;
     public string GachaPath;
-    public TurretType Type;
+    public AttackType Type;
     public TowerRarity Rarity;
     public string Bullet;
     public float BulletSpeed;
@@ -128,7 +128,7 @@ public class DataManager
             TurretData data;
             data.Name = Enum.Parse<TowerTypes>(datas[0]);
             data.GachaPath = datas[0];
-            data.Type = Enum.Parse<TurretType> (datas[1]);
+            data.Type = Enum.Parse<AttackType> (datas[1]);
             data.Rarity = Enum.Parse<TowerRarity>(datas[2]);
             data.Bullet = datas[3];
             data.BulletSpeed = float.Parse(datas[4]);

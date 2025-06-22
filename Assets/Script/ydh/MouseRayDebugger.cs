@@ -9,7 +9,7 @@ public class MouseRayDebugger : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, 100f))
         {
-            Debug.Log($"[Raycast] Hit: {hit.collider.name}, Position: {hit.point}");
+            //Debug.Log($"[Raycast] Hit: {hit.collider.name}, Position: {hit.point}");
         }
     }
 }

@@ -6,6 +6,7 @@ public class TowerUI : MonoBehaviour
     [SerializeField] private GameObject _uiPanel;   // 타워 정보 UI 패널
     private Turret _currentTower;
 
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0)) // 클릭 시

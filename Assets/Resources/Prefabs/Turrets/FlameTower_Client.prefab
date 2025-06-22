@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 4021515841018475037}
   - component: {fileID: 7842044800411961225}
   - component: {fileID: 4395592222081046871}
+  - component: {fileID: -6293147668734095402}
+  - component: {fileID: 2982592211916256781}
   m_Layer: 0
   m_Name: FlameTower_Client
   m_TagString: Untagged
@@ -69,8 +71,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _firePosition: {x: 0, y: 0, z: 1}
+  TurretType: 0
+  AtkRange: 0
   _flameAngle: 45
   _testLength: 5
+--- !u!114 &-6293147668734095402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2408198903414254266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 868638872ea391c468dcffca270b9725, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!135 &2982592211916256781
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2408198903414254266}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.38
+  m_Center: {x: 0, y: 1.56, z: 0}
 --- !u!1001 &6350120877852032949
 PrefabInstance:
   m_ObjectHideFlags: 0
