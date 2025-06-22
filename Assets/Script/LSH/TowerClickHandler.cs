@@ -1,18 +1,39 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class TowerClickHandler : MonoBehaviour
 {
-    private void OnMouseDown()
+    private Camera _mainCamera;
+
+    private void Awake()
     {
-        if (TowerUIManager.Instance == null)
-            return;
-        if (TowerUIManager.Instance.IsTowerUIActiveFor(transform))
+        _mainCamera = Camera.main;
+    }
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
         {
-            TowerUIManager.Instance.HideUI();
-        }
-        else
-        {
-            TowerUIManager.Instance.ShowUI(transform);
+            if (EventSystem.current.IsPointerOverGameObject())
+                return;
+
+            Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                if (hit.transform == transform)
+                {
+                    if (TowerUIManager.Instance == null)
+                        return;
+
+                    if (TowerUIManager.Instance.IsTowerUIActiveFor(transform))
+                    {
+                        TowerUIManager.Instance.HideUI();
+                    }
+                    else
+                    {
+                        TowerUIManager.Instance.ShowUI(transform);
+                    }
+                }
+            }
         }
     }
 }

@@ -21,8 +21,10 @@ public class TowerUIManager : MonoBehaviour
     private Transform _targetTower; 
     private bool _isTowerUIActive = false;
 
-    private Button _upgradeBtn;
-    private Button _sellBtn;
+    [SerializeField] private Button _upgradeBtn;
+    [SerializeField] private Button _sellBtn;
+
+    private int _maxLevel = 10;
 
 
     private void Awake()
@@ -82,7 +84,18 @@ public class TowerUIManager : MonoBehaviour
             _currentRangeIndicator.ShowRangeCircle(turret.transform.position, turret.AtkRange);
         }
 
-        _upgradeBtn.onClick.AddListener(() => turret.UpgradeTurret());
+        _upgradeBtn.onClick.AddListener(() =>
+        {
+            turret.UpgradeTurret();
+            if(turret.MyTurretData.Level == _maxLevel)
+            {
+                Sprite maxUpgrade = Resources.Load<Sprite>("Prefabs/UI/MaxLevelBtn");
+                Image btnImage = _upgradeBtn.GetComponent<Image>();
+                btnImage.sprite = maxUpgrade;
+            }
+            _turretInfoUI.SetTurretInfoUI(turret);
+        });
+
     }
     
     public void HideUI()

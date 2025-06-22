@@ -143,8 +143,6 @@ public class Turret : MonoBehaviour
 
         MyTurretData.Atk = _baseAtk + upgradeAtk;
         MyTurretData.AtkSpeed = newAtkSpeed;
-
-        Debug.Log($"터렛 업그레이드 완료! 현재 레벨: {MyTurretData.Level}, 공격력: {MyTurretData.Atk}, 공격속도: {MyTurretData.AtkSpeed:F1}");
     }
     public void InitTurret(TowerTypes type)
     {
