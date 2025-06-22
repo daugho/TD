@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TowerUIManager : MonoBehaviour
 {
@@ -15,10 +16,14 @@ public class TowerUIManager : MonoBehaviour
     private TurretRange _currentRangeIndicator;
     private TurretInfoUI _turretInfoUI;
 
-    private Vector3 _offset = new Vector3(270.0f, 170.0f, 0f);
+    private Vector3 _offset = new Vector3(340.0f, 200.0f, 0f);
 
     private Transform _targetTower; 
     private bool _isTowerUIActive = false;
+
+    private Button _upgradeBtn;
+    private Button _sellBtn;
+
 
     private void Awake()
     {
@@ -59,7 +64,6 @@ public class TowerUIManager : MonoBehaviour
             _currentRangeIndicator = turretRangePrefab.GetComponent<TurretRange>();
             _turretInfoUI = _towerUI.GetComponent<TurretInfoUI>();
         }
-
        
         _currentRangeIndicator.transform.SetParent(_targetTower, false);
         _currentRangeIndicator.transform.localPosition = Vector3.zero;
@@ -77,6 +81,8 @@ public class TowerUIManager : MonoBehaviour
         {
             _currentRangeIndicator.ShowRangeCircle(turret.transform.position, turret.AtkRange);
         }
+
+        _upgradeBtn.onClick.AddListener(() => turret.UpgradeTurret());
     }
     
     public void HideUI()

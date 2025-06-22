@@ -33,4 +33,28 @@ public class TurretRarity : MonoBehaviour
         }
         spriteRenderer.color = rarityColor;
     }
+
+    public Color GetRarityColor(TowerRarity rarity)
+    {
+        Color rarityColor = Color.white;
+        switch (rarity)
+        {
+            case TowerRarity.Normal:
+                rarityColor = Color.white;
+                break;
+            case TowerRarity.Rare:
+                rarityColor = Color.green;
+                break;
+            case TowerRarity.Epic:
+                rarityColor = Color.cyan;
+                break;
+            case TowerRarity.Legendary:
+                rarityColor = Color.red;
+                break;
+            default:
+                Debug.LogWarning("Unknown rarity: " + rarity);
+                break;
+        }
+        return rarityColor;
+    }
 }

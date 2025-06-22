@@ -71,6 +71,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _firePosition: {x: 0, y: 0, z: 1}
+  TurretRarity: {fileID: 0}
   TurretType: 0
   AtkRange: 0
   _flameAngle: 45

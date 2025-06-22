@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _firePosition: {x: 0, y: 0.12, z: 2.41}
+  TurretRarity: {fileID: 0}
   TurretType: 0
   AtkRange: 0
 --- !u!114 &5387400705155291407

@@ -16,13 +16,11 @@ public class InteractionUIAnim : MonoBehaviour
 
         if (_isOpen)
         {
-            Debug.Log("Trigger: HideTrig");
-            _animator.SetTrigger("HideTrigger");
+            _animator.SetBool("IsUIActive", true);
         }
         else
         {
-            Debug.Log("Trigger: OpenTrig");
-            _animator.SetTrigger("OpenTrigger");
+            _animator.SetBool("IsUIActive", false);
         }
 
         _isOpen = !_isOpen;

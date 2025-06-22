@@ -1,15 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class TurretInfoUI : MonoBehaviour
 {
     private Image _turretImage;
-    private Text _turretName;
+    private TextMeshProUGUI _turretName;
 
     private GameObject _turretInfoPanel; 
-    private Text _levelText;
-    private Text _atkText;
-    private Text _speedText;
+    private TextMeshProUGUI _levelText;
+    private TextMeshProUGUI _atkText;
+    private TextMeshProUGUI _speedText;
 
     private float _atkSpeedAmount = 0.1f;
 
@@ -22,21 +23,24 @@ public class TurretInfoUI : MonoBehaviour
         Transform panel = transform.Find("TowerInfo");
 
         _turretImage = transform.Find("TowerImage").GetComponent<Image>();
-        _turretName = transform.Find("TowerName").GetComponent<Text>();
+        _turretName = transform.Find("TowerName").GetComponent<TextMeshProUGUI>();
 
-        _levelText = panel.Find("Level").GetComponent<Text>();
-        _atkText = panel.Find("Atk").GetComponent<Text>();
-        _speedText = panel.Find("AtkSpeed").GetComponent<Text>();
+        _levelText = panel.Find("Level").GetComponent<TextMeshProUGUI>();
+        _atkText = panel.Find("Atk").GetComponent<TextMeshProUGUI>();
+        _speedText = panel.Find("AtkSpeed").GetComponent<TextMeshProUGUI>();
 
         _isInitialized = true;
     }
     public void SetTurretInfoUI(Turret turret)
     {
-        TurretData data = DataManager.Instance.GetTurretData(turret.TurretType);
-        Sprite turretSpite = Resources.Load<Sprite>("Prefabs/UI/Tower" + data.GachaPath);
+        TurretData data = turret.MyTurretData;
+        Sprite turretSpite = Resources.Load<Sprite>("Prefabs/UI/Tower/" + data.GachaPath);
         _turretImage.sprite = turretSpite;
+        
+        Color rarityColor = turret.TurretRarity.GetRarityColor(data.Rarity);
+        string hexColor = ColorUtility.ToHtmlStringRGB(rarityColor);
 
-        _turretName.text = data.KoreanName + " 타워";
+        _turretName.text = $"{data.KoreanName} 타워\n<color=#{hexColor}>{data.Rarity} 등급</color></size>";
 
         SetTurretStatInfo(turret);
     }

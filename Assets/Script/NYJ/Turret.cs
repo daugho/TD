@@ -21,10 +21,11 @@ public class Turret : MonoBehaviour
     protected float _rangeSqr;
 
     protected PhotonView _photonView;
-    private TurretRarity _turretRarity;
+    public TurretRarity TurretRarity;
     public TowerTypes TurretType;
     public float AtkRange;
-
+    private int _baseAtk;
+   
     private void Awake()
     {
         _turretHead = GetComponentInChildren<TurretHead>();
@@ -123,15 +124,39 @@ public class Turret : MonoBehaviour
     {
         gameObject.transform.position = position;
     }
+
+    public void UpgradeTurret()
+    {
+        int maxLevel = 10;
+        if (MyTurretData.Level >= maxLevel)
+        {
+            Debug.Log("최대 레벨에 도달했습니다.");
+            return;
+        }
+
+        MyTurretData.Level++;
+
+        int upgradeAtk = MyTurretData.Upgrade * MyTurretData.Level;
+
+        float newAtkSpeed = MyTurretData.AtkSpeed + 0.1f;
+        _bulletSpawnTimer = 1.0f / newAtkSpeed;
+
+        MyTurretData.Atk = _baseAtk + upgradeAtk;
+        MyTurretData.AtkSpeed = newAtkSpeed;
+
+        Debug.Log($"터렛 업그레이드 완료! 현재 레벨: {MyTurretData.Level}, 공격력: {MyTurretData.Atk}, 공격속도: {MyTurretData.AtkSpeed:F1}");
+    }
     public void InitTurret(TowerTypes type)
     {
         MyTurretData = DataManager.Instance.GetTurretData(type);
         _bulletSpawnTimer = 1.0f / MyTurretData.AtkSpeed;
 
+        _baseAtk = MyTurretData.Atk;
+
         GameObject rarityPrefab = Resources.Load<GameObject>("Prefabs/Turrets/RarityCircle");
         GameObject instance = Instantiate(rarityPrefab, transform);
-        _turretRarity = instance.GetComponent<TurretRarity>();
-        _turretRarity.SetRarityVisual(MyTurretData.Rarity);
+        TurretRarity = instance.GetComponent<TurretRarity>();
+        TurretRarity.SetRarityVisual(MyTurretData.Rarity);
 
         _rangeSqr = MyTurretData.Range * MyTurretData.Range;
         AtkRange = MyTurretData.Range;

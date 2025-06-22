@@ -16,7 +16,7 @@ public struct TurretData
     public int Atk;
     public float AtkSpeed;
     public int Range;
-    public int Price;
+    public int ResellPrice;
     public int Upgrade;
     public int Level;
     public string FireEffectPath;
@@ -140,7 +140,7 @@ public class DataManager
             data.Atk = int.Parse(datas[7]);
             data.AtkSpeed = float.Parse(datas[8]);
             data.Range = int.Parse(datas[9]);
-            data.Price = int.Parse(datas[10]);
+            data.ResellPrice = int.Parse(datas[10]);
             data.Upgrade = int.Parse(datas[11]);
             data.FireEffectPath = datas[12];
             data.HitEffectPath = datas[13];
