@@ -9,6 +9,8 @@ public class TileContext : MonoBehaviour
     [Header("타일 공통 참조")]
     [SerializeField] private Transform _tileParent;
     [SerializeField] private GameObject _tilePrefab;
+    [SerializeField] private GameObject _startPointPrefab;
+    [SerializeField] private GameObject _endPointPrefab;
     [SerializeField] private TMP_InputField _xInputField;
     [SerializeField] private TMP_InputField _zInputField;
 
@@ -16,6 +18,8 @@ public class TileContext : MonoBehaviour
     private int _height = 0;
     public Transform TileParent => _tileParent;
     public GameObject TilePrefab=> _tilePrefab;
+    public GameObject StartPointPrefab => _startPointPrefab;
+    public GameObject EndPointPrefab => _endPointPrefab;
     //InputField 없이도 값이 유지됨
     public int Width => _isEditMode
         ? int.TryParse(_xInputField.text, out int val) ? val : 0

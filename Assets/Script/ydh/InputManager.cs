@@ -11,7 +11,7 @@ public enum ClickMode
 public class InputManager : MonoBehaviour
 {
     public static InputManager Instance { get; private set; }
-
+    [SerializeField] private TilePreviewController previewController;
     public event Action<Vector3> OnTileRevealClick;
     public event Action<Vector3> OnTowerBuildClick;
 

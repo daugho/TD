@@ -6,9 +6,11 @@ public class TileRevealcontroller : MonoBehaviourPun
 {
     [SerializeField] private TileContext _tileContext;
     [SerializeField] private Button _activateModeButton;
+    [SerializeField] private TilePreviewController previewController;
 
     private Camera _mainCamera;
     private bool isStructMode = false;
+    public bool IsStructMode => isStructMode;
 
     private void Awake()
     {
@@ -53,6 +55,7 @@ public class TileRevealcontroller : MonoBehaviourPun
 
                 Debug.Log($"[TileRevealController] 타일 복원 완료: {tile.name}, 권한: {access}");
                 tile.PlayRevealEffect();
+                previewController.HidePreview();
                 //  StructMode 종료
                 isStructMode = false;
 
