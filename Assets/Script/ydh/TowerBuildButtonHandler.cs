@@ -10,6 +10,7 @@ public class TowerBuildButtonHandler : MonoBehaviour
     private GameObject currentPreviewTile;
     private TowerTypes _curType;
     public UnityAction OnBuildEvent;
+    private GameObject _btnObject;
    
 
     private void Awake()

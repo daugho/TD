@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -101,6 +102,8 @@ public class TowerUIManager : MonoBehaviour
 
             _upgradeBtn.onClick.AddListener(() =>
         {
+            int playerLevel = turret.MyTurretData.Level - 1;
+            int totalPrice = _upgradePrice + playerLevel * _nextUpgradePrice;
             turret.UpgradeTurret();
             if(turret.MyTurretData.Level == _maxLevel)
             {
@@ -111,6 +114,7 @@ public class TowerUIManager : MonoBehaviour
                 _upgradeBtnImage.sprite = _upgradeSprite;
             }
                 _turretInfoUI.SetTurretInfoUI(turret);
+            PlayerGUI.Instance.RemovePlayerGold(totalPrice);
         });
 
         _sellBtn.onClick.AddListener(() => { ResellTower(); });
@@ -124,7 +128,9 @@ public class TowerUIManager : MonoBehaviour
             + turret.MyTurretData.Level * _upgradePrice;    
 
         PlayerGUI.Instance.AddPlayerGold(totalResellPrice);
-        turret.gameObject.SetActive(false);
+
+        PhotonView turretView = turret.GetComponent<PhotonView>();
+        turretView.RPC("ActivateTurret", RpcTarget.AllBuffered, false);
 
         HideUI();
     }
