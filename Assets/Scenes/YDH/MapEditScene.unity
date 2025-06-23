@@ -2705,8 +2705,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2038592505}
-        m_TargetAssemblyTypeName: GridManager, Assembly-CSharp
+      - m_Target: {fileID: 2038592514}
+        m_TargetAssemblyTypeName: LocalMapSerializer, Assembly-CSharp
         m_MethodName: SaveGridToJson
         m_Mode: 1
         m_Arguments:
@@ -6771,6 +6771,7 @@ GameObject:
   - component: {fileID: 2038592511}
   - component: {fileID: 2038592512}
   - component: {fileID: 2038592513}
+  - component: {fileID: 2038592514}
   m_Layer: 0
   m_Name: GridSystem
   m_TagString: Untagged
@@ -6821,6 +6822,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tileContext: {fileID: 2038592509}
   FileName: {fileID: 128782595}
+  cameraTargetSetter: {fileID: 0}
 --- !u!114 &2038592506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6863,7 +6865,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tileParent: {fileID: 1722441821}
-  _tilePrefab: {fileID: 6865660136274553626, guid: 27d46cc87b084484bb55f34fcf6e9489, type: 3}
+  _tilePrefab: {fileID: 6508253223496988000, guid: 836677b94dc34fe42a82a246c1e14bdc, type: 3}
+  _startPointPrefab: {fileID: 0}
+  _endPointPrefab: {fileID: 0}
   _xInputField: {fileID: 2099121468}
   _zInputField: {fileID: 706780386}
 --- !u!114 &2038592510
@@ -6878,7 +6882,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e71cdc0e5b5d043419f2386d82d3e765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileContext: {fileID: 2038592509}
 --- !u!114 &2038592511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6905,7 +6908,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileContext: {fileID: 2038592509}
-  checkButton: {fileID: 1888717493}
 --- !u!114 &2038592513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6920,6 +6922,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tileContext: {fileID: 2038592509}
   _activateModeButton: {fileID: 2060977474}
+  previewController: {fileID: 0}
+--- !u!114 &2038592514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038592502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eae83d299b8a6d64a81fc272e3e9969d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileContext: {fileID: 2038592509}
+  fileNameInput: {fileID: 128782595}
 --- !u!1 &2060977472
 GameObject:
   m_ObjectHideFlags: 0
@@ -7925,8 +7942,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2038592505}
-        m_TargetAssemblyTypeName: GridManager, Assembly-CSharp
+      - m_Target: {fileID: 2038592514}
+        m_TargetAssemblyTypeName: LocalMapSerializer, Assembly-CSharp
         m_MethodName: LoadGridFromJson
         m_Mode: 1
         m_Arguments:

@@ -10,17 +10,22 @@ public class TilePreviewController : MonoBehaviour
 
     private void Start()
     {
-        if (currentPreviewTile == null)
+        if (previewTilePrefab != null)
         {
             currentPreviewTile = Instantiate(previewTilePrefab);
+            currentPreviewTile.SetActive(false);
         }
-        currentPreviewTile.SetActive(false);
+        else
+        {
+            Debug.LogError("[TilePreviewController] previewTilePrefab이 비어 있습니다!");
+        }
     }
+
     private void Update()
     {
-        if (!revealController.IsStructMode) return;
+        if (currentPreviewTile == null || !revealController.IsStructMode) return;
         if (InputManager.Instance.CurrentMode != ClickMode.TileReveal) return;
-        currentPreviewTile.SetActive(true);
+
         Vector3 mousePos = Input.mousePosition;
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
@@ -32,28 +37,39 @@ public class TilePreviewController : MonoBehaviour
             var renderer = tile.GetComponent<Renderer>();
             if (renderer != null && !renderer.enabled)
             {
+                currentPreviewTile.SetActive(true);
                 Vector3 targetPos = tile.transform.position;
                 currentPreviewTile.transform.position = targetPos + Vector3.up * 0.01f;
+            }
+            else
+            {
+                SafeHidePreview(); // 타일은 있지만 이미 활성화된 경우
             }
         }
         else
         {
-            if (currentPreviewTile != null)
-                currentPreviewTile.SetActive(false);
+            SafeHidePreview(); // 아무것도 안 맞았을 때
         }
     }
+
+    private void SafeHidePreview()
+    {
+        if (currentPreviewTile != null && currentPreviewTile.TryGetComponent(out Renderer _))
+        {
+            currentPreviewTile.SetActive(false);
+        }
+    }
+
     public void ActivePreview()
     {
-        if (currentPreviewTile != null)
+        if (currentPreviewTile != null && !currentPreviewTile.activeSelf)
         {
             currentPreviewTile.SetActive(true);
         }
     }
+
     public void HidePreview()
     {
-        if (currentPreviewTile != null)
-        {
-            currentPreviewTile.SetActive(false);
-        }
+        SafeHidePreview();
     }
 }
