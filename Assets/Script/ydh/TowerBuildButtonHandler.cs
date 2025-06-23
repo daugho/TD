@@ -66,7 +66,6 @@ public class TowerBuildButtonHandler : MonoBehaviour
                 PhotonView turretView = turret.GetComponent<PhotonView>();
                 turretView.RPC("ActivateTurret", RpcTarget.AllBuffered, true);
                 turretView.RPC("SetTurretPosition", RpcTarget.AllBuffered, targetPos);
-
                 _activeTurret = null;
                 _isClickBtn = false;
 

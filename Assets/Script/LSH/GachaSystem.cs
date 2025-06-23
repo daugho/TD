@@ -17,6 +17,8 @@ public class GachaSystem : MonoBehaviour
 
     private int _curButtonCount = 0;
 
+    private int _gachaPrice = 200;
+
     private void OnEnable()
     {
         StartCoroutine(WaitForDataManager());
@@ -37,6 +39,7 @@ public class GachaSystem : MonoBehaviour
             Debug.Log("인벤토리가 가득 찼습니다.");
             return;
         }
+        PlayerGUI.Instance.RemovePlayerGold(_gachaPrice);
 
         var (type, chance) = GetRandomTowerWithChance();
         CreateButton(type);

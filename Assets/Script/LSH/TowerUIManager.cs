@@ -24,7 +24,13 @@ public class TowerUIManager : MonoBehaviour
     [SerializeField] private Button _upgradeBtn;
     [SerializeField] private Button _sellBtn;
 
+    private Sprite _maxUpgradeSprite;
+    private Sprite _upgradeSprite;
+    private Image _upgradeBtnImage;
+
     private int _maxLevel = 10;
+    private int _upgradePrice = 50;
+    private int _nextUpgradePrice = 25;
 
 
     private void Awake()
@@ -37,6 +43,10 @@ public class TowerUIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        _upgradeSprite = Resources.Load<Sprite>("Prefabs/UI/LevelUpBtn");
+        _maxUpgradeSprite = Resources.Load<Sprite>("Prefabs/UI/MaxLevelBtn");
+        _upgradeBtnImage = _upgradeBtn.GetComponent<Image>();
     }
 
     public bool IsTowerUIActiveFor(Transform tower)
@@ -84,18 +94,39 @@ public class TowerUIManager : MonoBehaviour
             _currentRangeIndicator.ShowRangeCircle(turret.transform.position, turret.AtkRange);
         }
 
-        _upgradeBtn.onClick.AddListener(() =>
+        if (turret.MyTurretData.Level < _maxLevel)
+        {
+            _upgradeBtnImage.sprite = _upgradeSprite;
+        }
+
+            _upgradeBtn.onClick.AddListener(() =>
         {
             turret.UpgradeTurret();
             if(turret.MyTurretData.Level == _maxLevel)
             {
-                Sprite maxUpgrade = Resources.Load<Sprite>("Prefabs/UI/MaxLevelBtn");
-                Image btnImage = _upgradeBtn.GetComponent<Image>();
-                btnImage.sprite = maxUpgrade;
+                _upgradeBtnImage.sprite = _maxUpgradeSprite;
             }
-            _turretInfoUI.SetTurretInfoUI(turret);
+            else
+            {
+                _upgradeBtnImage.sprite = _upgradeSprite;
+            }
+                _turretInfoUI.SetTurretInfoUI(turret);
         });
 
+        _sellBtn.onClick.AddListener(() => { ResellTower(); });
+
+    }
+
+    public void ResellTower()
+    {
+        Turret turret = _targetTower.GetComponent<Turret>();
+        int totalResellPrice = turret.MyTurretData.ResellPrice 
+            + turret.MyTurretData.Level * _upgradePrice;    
+
+        PlayerGUI.Instance.AddPlayerGold(totalResellPrice);
+        turret.gameObject.SetActive(false);
+
+        HideUI();
     }
     
     public void HideUI()
