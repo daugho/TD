@@ -20,12 +20,12 @@ public class PriorityQueue<T> where T : IHeapItem<T>//HeapIndex는 int타입을 저장
         SortUp(item); //정렬.
     }
 
-    public T Dequeue()
+    public T Dequeue()//항목을 items 리스트에서 제거하고,SortDown(item) 호출로 올바른 위치로 내림
     {
         if (items.Count == 0)
             throw new InvalidOperationException("큐가 비어 있습니다.");
 
-        T firstItem = items[0];
+        T firstItem = items[0];// items[0]는 항상 우선순위가 가장 높은 항목
         int lastIndex = items.Count - 1;
 
         if (lastIndex == 0)
@@ -59,17 +59,20 @@ public class PriorityQueue<T> where T : IHeapItem<T>//HeapIndex는 int타입을 저장
     {
         while (true)
         {
-            int leftChild = item.HeapIndex * 2 + 1;
-            int rightChild = item.HeapIndex * 2 + 2;
+            int leftChild = item.HeapIndex * 2 + 1;// 왼쪽 자식 노드 인덱스는 현재 노드 인덱스 * 2 + 1
+            int rightChild = item.HeapIndex * 2 + 2;// 오른쪽 자식 노드 인덱스는 현재 노드 인덱스 * 2 + 2
             int swapIndex = item.HeapIndex;
 
             if (leftChild < Count && items[leftChild].CompareTo(items[swapIndex]) < 0)
+                // 왼쪽 자식 노드가 현재 노드보다 우선순위가 높으면 swapIndex를 왼쪽 자식 인덱스로 설정
                 swapIndex = leftChild;
 
             if (rightChild < Count && items[rightChild].CompareTo(items[swapIndex]) < 0)
+                // 오른쪽 자식 노드가 현재 노드보다 우선순위가 높으면 swapIndex를 오른쪽 자식 인덱스로 설정
                 swapIndex = rightChild;
 
             if (swapIndex != item.HeapIndex)
+                // 현재 노드와 swapIndex에 해당하는 노드를 비교하여 우선순위가 낮은 노드를 위로 올림
                 Swap(item, items[swapIndex]);
             else
                 break;
