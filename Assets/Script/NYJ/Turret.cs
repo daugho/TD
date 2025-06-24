@@ -1,4 +1,5 @@
 using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,6 +26,8 @@ public class Turret : MonoBehaviour
     public TowerTypes TurretType;
     public float AtkRange;
     private int _baseAtk;
+
+    public bool SetTurretBuildEarly = false;
    
     private void Awake()
     {
@@ -180,5 +183,17 @@ public class Turret : MonoBehaviour
     {
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, Mathf.Sqrt(MyTurretData.Range));
+    }
+
+    public void SetStateWhenBuildTurret()
+    {
+        SetTurretBuildEarly = true; 
+        StartCoroutine(DelayedSetStateCoroutine());
+    }
+
+    private IEnumerator DelayedSetStateCoroutine()
+    {
+        yield return new WaitForSeconds(0.1f);
+        SetTurretBuildEarly = false;
     }
 }

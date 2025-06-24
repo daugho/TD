@@ -65,22 +65,28 @@ public class Monster : MonoBehaviourPun, IPunInstantiateMagicCallback
     }
 
     [PunRPC]
-    public void TakeDamage(int damageAmount)
+    public void TakeDamage(int damageAmount, int attackerActorNumber)
     {
         if (CurHp <= 0)
-        { // 풀링때 변경 
-            _playerGUI.AddPlayerGold(_monsterData.MonsterReward);
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                photonView.RPC(nameof(GivePlayerGold), PhotonNetwork.CurrentRoom.GetPlayer(attackerActorNumber), _monsterData.MonsterReward);
+            }
 
-            Destroy(gameObject);
-            Destroy(_hpSlider);  
+            Destroy(_hpSlider);
+            PhotonNetwork.Destroy(gameObject);
             return;
         }
 
         CurHp -= damageAmount;
-
         _hpSlider.SetHp(CurHp);
     }
 
+    public void GivePlayerGold()
+    {
+        _playerGUI.AddPlayerGold(_monsterData.MonsterReward);
+    }
     [PunRPC]
     public void TakeSlowDebuff(float slowAmount)
     {

@@ -1,11 +1,12 @@
 using Photon.Pun;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class TowerBuildButtonHandler : MonoBehaviour
 {
     private TileContext _tileContext;
-    public bool _isClickBtn = false;
+    public bool IsClickBtn = false;
     private GameObject _activeTurret;
     private GameObject currentPreviewTile;
     private TowerTypes _curType;
@@ -19,7 +20,7 @@ public class TowerBuildButtonHandler : MonoBehaviour
     }
     private void Update()
     {
-        if (!_isClickBtn) return;
+        if (!IsClickBtn) return;
 
         Vector3 mousePos = Input.mousePosition;
        
@@ -67,13 +68,19 @@ public class TowerBuildButtonHandler : MonoBehaviour
                 PhotonView turretView = turret.GetComponent<PhotonView>();
                 turretView.RPC("ActivateTurret", RpcTarget.AllBuffered, true);
                 turretView.RPC("SetTurretPosition", RpcTarget.AllBuffered, targetPos);
+
+                turret.SetStateWhenBuildTurret();
                 _activeTurret = null;
-                _isClickBtn = false;
+
+                IsClickBtn = false;
 
                 tile.photonView.RPC(nameof(TileBehaviour.RPC_SetTileState), RpcTarget.AllBuffered,
                 (int)TileState.Installed, (int)tile._accessType);
 
                 InputManager.Instance.ResetClickMode();
+
+                _btnObject.SetActive(false);
+                _btnObject = null;
             }
         }
         else
@@ -83,7 +90,7 @@ public class TowerBuildButtonHandler : MonoBehaviour
         }
     }
 
-    public void OnTowerBuildButtonClicked(TowerTypes type)
+    public void OnTowerBuildButtonClicked(TowerTypes type, GameObject btn)
     {
         GameObject turret = TurretManager.Instance.GetAvailableTurret(type);
         turret.SetActive(true);
@@ -91,7 +98,9 @@ public class TowerBuildButtonHandler : MonoBehaviour
         _activeTurret = turret;
         _curType = type;
 
-        _isClickBtn = true;
+        IsClickBtn = true;
+
+        _btnObject = btn;
 
         InputManager.Instance.SetClickMode(ClickMode.TowerBuild);
         Debug.Log("[UI] 타워 설치 모드 활성화됨");

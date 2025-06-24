@@ -38,8 +38,11 @@ public class Bullet : MonoBehaviour
     {
         if (_targetView != null)
         {
-            _targetView.RPC("TakeDamage", RpcTarget.AllBuffered, _atk);
+            int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+
+            _targetView.RPC(nameof(Monster.TakeDamage), RpcTarget.MasterClient, _atk, actorNumber);
         }
+
 
         Destroy(gameObject);
         

@@ -39,6 +39,12 @@ public class GachaSystem : MonoBehaviour
             Debug.Log("인벤토리가 가득 찼습니다.");
             return;
         }
+
+        if (PlayerGUI.Instance.PlayerGold < _gachaPrice)
+        {
+            return;
+        }
+
         PlayerGUI.Instance.RemovePlayerGold(_gachaPrice);
 
         var (type, chance) = GetRandomTowerWithChance();
@@ -60,13 +66,14 @@ public class GachaSystem : MonoBehaviour
         GameObject newButton = Instantiate(buttonprefab, _content);
         Button button = newButton.GetComponent<Button>();
         TowerPlaceBtn newButtonComponent = newButton.GetComponent<TowerPlaceBtn>();
-        button.onClick.AddListener(() =>_towerBuildButtonHandler.OnTowerBuildButtonClicked(type));
+        button.onClick.AddListener(() =>_towerBuildButtonHandler.OnTowerBuildButtonClicked(type, newButton));
         newButtonComponent.SetImage(turretData.GachaPath);
 
         _curButtonCount++;
         Debug.Log($"버튼 생성 완료! 현재 버튼 수: {_curButtonCount}/{_invenMaxCount}");
     }
 
+    
     private void SetTotalTower()
     {
         weightedTowers.Clear(); // 기존 목록 초기화

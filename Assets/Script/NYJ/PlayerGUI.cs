@@ -7,7 +7,9 @@ public class PlayerGUI : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI _playerGoldUI;
 
-    private int _playerGold = 400;
+    public int PlayerGold;
+
+    private int _playerGold = 0;
 
     private void Awake()
     {
@@ -18,11 +20,14 @@ public class PlayerGUI : MonoBehaviour
         }
 
         Instance = this;
+
+        AddPlayerGold(400);
     }
 
     public void SetGoldUI()
     {
         _playerGoldUI.text = _playerGold.ToString();
+        PlayerGold = _playerGold;
     }
 
     public void AddPlayerGold(int goldAmount)

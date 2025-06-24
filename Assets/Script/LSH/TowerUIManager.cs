@@ -19,7 +19,7 @@ public class TowerUIManager : MonoBehaviour
 
     private Vector3 _offset = new Vector3(340.0f, 200.0f, 0f);
 
-    private Transform _targetTower; 
+    private Turret _targetTower; 
     private bool _isTowerUIActive = false;
 
     [SerializeField] private Button _upgradeBtn;
@@ -57,17 +57,19 @@ public class TowerUIManager : MonoBehaviour
 
     public void ShowUI(Transform tower)
     {
-        if (_towerUI == null || _towerBuildButtonHandler._isClickBtn)
+        Turret turret = tower.GetComponent<Turret>();
+
+        if (_towerUI == null || turret.SetTurretBuildEarly)
         {
             return;
         }
         _isTowerUIActive = true;
 
-        _targetTower = tower;
+        _targetTower = turret;
 
         _towerUI.SetActive(true);
 
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(_targetTower.position);
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(_targetTower.transform.position);
 
         _towerUI.transform.position = screenPos + _offset;
 
@@ -78,12 +80,10 @@ public class TowerUIManager : MonoBehaviour
             _turretInfoUI = _towerUI.GetComponent<TurretInfoUI>();
         }
        
-        _currentRangeIndicator.transform.SetParent(_targetTower, false);
+        _currentRangeIndicator.transform.SetParent(_targetTower.transform, false);
         _currentRangeIndicator.transform.localPosition = Vector3.zero;
         _currentRangeIndicator.gameObject.SetActive(true);
-        
-        Turret turret = _targetTower.GetComponent<Turret>();
-
+      
         _turretInfoUI.SetTurretInfoUI(turret);
         
         if (turret.TurretType == TowerTypes.FlameTower)
@@ -105,9 +105,15 @@ public class TowerUIManager : MonoBehaviour
             int playerLevel = turret.MyTurretData.Level - 1;
             int totalPrice = _upgradePrice + playerLevel * _nextUpgradePrice;
             turret.UpgradeTurret();
+            if(PlayerGUI.Instance.PlayerGold < totalPrice)
+            {
+                return;
+            }
+
             if(turret.MyTurretData.Level == _maxLevel)
             {
                 _upgradeBtnImage.sprite = _maxUpgradeSprite;
+                return;
             }
             else
             {
