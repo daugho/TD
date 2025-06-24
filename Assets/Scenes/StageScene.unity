@@ -164,7 +164,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1279.9993, y: 701}
+  m_AnchoredPosition: {x: -1280, y: 701}
   m_SizeDelta: {x: 4000, y: 1440}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &47011370
@@ -2708,10 +2708,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parentImage: {fileID: 1025608966}
-  _childSprites:
-  - {fileID: 21300000, guid: 4cb03067d369daa4497eebef6658e86b, type: 3}
-  - {fileID: 21300000, guid: 413ced3b4c2ab4c4b8212a652c7cf86e, type: 3}
-  - {fileID: 21300000, guid: c1b1b7b363c30e54fa442770c865c831, type: 3}
   _spacing: 100
   _fixedY: 0
   _childImageSize: {x: 100, y: 100}
@@ -3111,8 +3107,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 507792195}
   m_HandleRect: {fileID: 507792194}
   m_Direction: 0
-  m_Value: -0.00000050862633
-  m_Size: 0.6226923
+  m_Value: 0
+  m_Size: 0.63997513
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3274,6 +3270,10 @@ PrefabInstance:
     - target: {fileID: 3508718712785966473, guid: cacc7cf707e0985489135b0cbacdeddb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8938367950568383386, guid: cacc7cf707e0985489135b0cbacdeddb, type: 3}
+      propertyPath: m_text
+      value: STAGE 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3634,10 +3634,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parentImage: {fileID: 1444993852}
-  _childSprites:
-  - {fileID: 21300000, guid: b2f0ecd9a37bae6408fbc19dfa274d7b, type: 3}
-  - {fileID: 21300000, guid: 349b73c38d3a60e4eb5466b59d207893, type: 3}
-  - {fileID: 21300000, guid: 2266994e34ddbe54ea48d93006dbaff2, type: 3}
   _spacing: 100
   _fixedY: 0
   _childImageSize: {x: 100, y: 100}
