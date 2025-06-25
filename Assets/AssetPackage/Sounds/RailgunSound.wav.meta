@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 455e7971089fbaa4db89446ebc2337bf
+guid: 1f1e3b8463b78c4499abcb5a864ef003
 AudioImporter:
   externalObjects: {}
   serializedVersion: 6
@@ -25,5 +25,5 @@ AssetOrigin:
   productId: 304937
   packageName: Stylized Sound Effects Bundle
   packageVersion: 1.0.0
-  assetPath: Assets/Vefects/Stylized Sound Effects Bundle/Stylized VFX/Magic Attacks/SFX_Vefects_Stylized_Magic_Attack_Earth_Cast.wav
+  assetPath: Assets/Vefects/Stylized Sound Effects Bundle/Stylized VFX/Magic Attacks/SFX_Vefects_Stylized_Magic_Attack_Electric_Cast.wav
   uploadId: 716447

@@ -65,11 +65,15 @@ public class ElectricTurret : Turret
                 bolt.EndPosition = end;
             }
 
-            targetView.RPC("TakeDamage", RpcTarget.AllBuffered, MyTurretData.Atk);
+            if (targetView != null)
+            {
+                int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+                targetView.RPC(nameof(Monster.TakeDamage), RpcTarget.MasterClient, MyTurretData.Atk, actorNumber);
+            }
 
             Destroy(effectInstance, 0.5f);
         }
 
-        SoundManager.Instance.PlaySFX("ElectricSound", 0.1f, false);
+        SoundManager.Instance.PlaySFX("ElectricSound", 0.05f, false);
     }
 }

@@ -11,27 +11,48 @@ public class TowerClickHandler : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        Vector2 inputPosition = Vector2.zero;
+
+        if (Input.touchCount > 0)
         {
-            if (EventSystem.current.IsPointerOverGameObject())
+            Touch touch = Input.GetTouch(0);
+
+            if (touch.phase != TouchPhase.Began)
                 return;
 
-            Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit))
-            {
-                if (hit.transform == transform)
-                {
-                    if (TowerUIManager.Instance == null)
-                        return;
+            inputPosition = touch.position;
 
-                    if (TowerUIManager.Instance.IsTowerUIActiveFor(transform))
-                    {
-                        TowerUIManager.Instance.HideUI();
-                    }
-                    else
-                    {
-                        TowerUIManager.Instance.ShowUI(transform);
-                    }
+            if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+                return;
+        }
+        else if (Input.GetMouseButtonDown(0))
+        {
+            inputPosition = Input.mousePosition;
+
+            if (EventSystem.current.IsPointerOverGameObject())
+                return;
+        }
+        else
+        {
+            return; 
+        }
+
+        Ray ray = _mainCamera.ScreenPointToRay(inputPosition);
+
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            if (hit.transform == transform)
+            {
+                if (TowerUIManager.Instance == null)
+                    return;
+
+                if (TowerUIManager.Instance.IsTowerUIActiveFor(transform))
+                {
+                    TowerUIManager.Instance.HideUI();
+                }
+                else
+                {
+                    TowerUIManager.Instance.ShowUI(transform);
                 }
             }
         }

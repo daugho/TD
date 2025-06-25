@@ -64,24 +64,24 @@ public class Turret : MonoBehaviour
                     switch (TurretType)
                     {
                         case TowerTypes.RifleTower:
-                            SoundManager.Instance.PlaySFX("RifleSound", 0.1f, false);
+                            SoundManager.Instance.PlaySFX("RifleSound", 0.05f, false);
                             break;
                         case TowerTypes.MachinegunTower:
-                            SoundManager.Instance.PlaySFX("MachinegunSound", 0.1f, false);
+                            SoundManager.Instance.PlaySFX("MachinegunSound", 0.05f, false);
                             break;
                         case TowerTypes.FlameTower:
                             break;
                         case TowerTypes.MissileTower:
-                            SoundManager.Instance.PlaySFX("NormalShootSound", 0.1f, false);
+                            SoundManager.Instance.PlaySFX("NormalShootSound", 0.05f, false);
                             break;
                         case TowerTypes.RailgunTower:
-                            SoundManager.Instance.PlaySFX("RailgunSound", 0.1f, false);
+                            SoundManager.Instance.PlaySFX("RailgunSound", 0.05f, false);
                             break;
                         case TowerTypes.GravityTower:
-                            SoundManager.Instance.PlaySFX("NormalShootSound", 0.1f, false);
+                            SoundManager.Instance.PlaySFX("NormalShootSound", 0.05f, false);
                             break;
                         case TowerTypes.GrenadeTower:
-                            SoundManager.Instance.PlaySFX("NormalShootSound", 0.1f, false);
+                            SoundManager.Instance.PlaySFX("NormalShootSound", 0.05f, false);
                             break;
                         case TowerTypes.ElectricTower:
                             break;
