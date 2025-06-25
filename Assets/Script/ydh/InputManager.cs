@@ -11,7 +11,7 @@ public enum ClickMode
 public class InputManager : MonoBehaviour
 {
     public static InputManager Instance { get; private set; }
-    [SerializeField] private TilePreviewController previewController;
+    [SerializeField] private MobileTilePrevController previewController;
     public event Action<Vector3> OnTileRevealClick;
     public event Action<Vector3> OnTowerBuildClick;
 
@@ -32,12 +32,9 @@ public class InputManager : MonoBehaviour
         {
             clickPos = Input.GetTouch(0).position;
             isClick = true;
+            Debug.Log("ÅÍÄ¡ °¨ÁöµÊ: " + Input.GetTouch(0).position);
         }
-        else if (Input.GetMouseButtonDown(0))
-        {
-            clickPos = Input.mousePosition;
-            isClick = true;
-        }
+
 
         if (!isClick) return;
 

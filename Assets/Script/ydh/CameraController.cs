@@ -1,16 +1,31 @@
 using UnityEngine;
+using UnityEngine.InputSystem.EnhancedTouch;
+using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
+using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 
 public class CameraController : MonoBehaviour
 {
     private Transform target;
     private Vector3 offset;
     private float currentZoom;
-    private Vector2 prevTouchPosition;
     private bool isDragging = false;
+    private Vector2 prevTouchPosition;
+    private float prevPinchDistance = 0f;
+
     public float rotationSpeed = 50f;
     public float zoomSpeed = 2f;
     public float minZoom = 5f;
     public float maxZoom = 20f;
+
+    private void OnEnable()
+    {
+        EnhancedTouchSupport.Enable();
+    }
+
+    private void OnDisable()
+    {
+        EnhancedTouchSupport.Disable();
+    }
 
     private void Start()
     {
@@ -30,6 +45,10 @@ public class CameraController : MonoBehaviour
 
         HandleRotation();
         HandleZoom();
+
+        offset = offset.normalized * currentZoom;
+        transform.position = target.position + offset;
+        transform.LookAt(target);
     }
 
     public void SetTarget(Transform newTarget)
@@ -41,43 +60,57 @@ public class CameraController : MonoBehaviour
 
     private void HandleRotation()
     {
-#if UNITY_EDITOR
-        if (Input.GetKey(KeyCode.LeftArrow)) RotateAroundTarget(-1);
-        if (Input.GetKey(KeyCode.RightArrow)) RotateAroundTarget(1);
-#else
-    if (Input.touchCount == 1)
-    {
-        Touch touch = Input.GetTouch(0);
-        switch (touch.phase)
+        var touches = Touch.activeTouches;
+        if (touches.Count == 1)
         {
-            case TouchPhase.Began:
-                prevTouchPosition = touch.position;
+            var touch = touches[0];
+            if (touch.phase == TouchPhase.Began)
+            {
                 isDragging = true;
-                break;
+                prevTouchPosition = touch.screenPosition;
+            }
+            else if (touch.phase == TouchPhase.Moved && isDragging)
+            {
+                float deltaX = touch.screenPosition.x - prevTouchPosition.x;
+                float angle = deltaX * rotationSpeed * Time.deltaTime * 0.1f;
 
-            case TouchPhase.Moved:
-                if (isDragging)
-                {
-                    float deltaX = touch.position.x - prevTouchPosition.x;
-                    float direction = Mathf.Sign(deltaX); // 오른쪽이면 양수, 왼쪽이면 음수
-                    float angle = direction * rotationSpeed * Time.deltaTime * Mathf.Abs(deltaX) * 0.1f;
+                Quaternion rotation = Quaternion.Euler(0f, angle, 0f);
+                offset = rotation * offset;
+                transform.position = target.position + offset;
+                transform.LookAt(target);
 
-                    Quaternion rotation = Quaternion.Euler(0f, angle, 0f);
-                    offset = rotation * offset;
-                    transform.position = target.position + offset;
-                    transform.LookAt(target);
-
-                    prevTouchPosition = touch.position;
-                }
-                break;
-
-            case TouchPhase.Ended:
-            case TouchPhase.Canceled:
+                prevTouchPosition = touch.screenPosition;
+            }
+            else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+            {
                 isDragging = false;
-                break;
+            }
         }
     }
-#endif
+
+    private void HandleZoom()
+    {
+        var touches = Touch.activeTouches;
+        if (touches.Count == 2)
+        {
+            Vector2 pos0 = touches[0].screenPosition;
+            Vector2 pos1 = touches[1].screenPosition;
+
+            float curDist = Vector2.Distance(pos0, pos1);
+
+            if (prevPinchDistance > 0)
+            {
+                float delta = prevPinchDistance - curDist;
+                currentZoom += delta * zoomSpeed * 0.01f;
+                currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
+            }
+
+            prevPinchDistance = curDist;
+        }
+        else
+        {
+            prevPinchDistance = 0f;
+        }
     }
 
     public void RotateLeft() => RotateAroundTarget(-1);
@@ -88,30 +121,6 @@ public class CameraController : MonoBehaviour
         float angle = rotationSpeed * direction * Time.deltaTime;
         Quaternion rotation = Quaternion.Euler(0f, angle, 0f);
         offset = rotation * offset;
-        transform.position = target.position + offset;
-        transform.LookAt(target);
-    }
-
-    private void HandleZoom()
-    {
-#if UNITY_ANDROID || UNITY_IOS
-        if (Input.touchCount == 2)
-        {
-            Touch t0 = Input.GetTouch(0);
-            Touch t1 = Input.GetTouch(1);
-
-            Vector2 prev0 = t0.position - t0.deltaPosition;
-            Vector2 prev1 = t1.position - t1.deltaPosition;
-
-            float prevDist = Vector2.Distance(prev0, prev1);
-            float curDist = Vector2.Distance(t0.position, t1.position);
-            float delta = prevDist - curDist;
-
-            currentZoom += delta * zoomSpeed * 0.01f;
-            currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
-        }
-#endif
-        offset = offset.normalized * currentZoom;
         transform.position = target.position + offset;
         transform.LookAt(target);
     }
