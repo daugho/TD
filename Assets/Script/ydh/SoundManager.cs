@@ -54,7 +54,7 @@ public class SoundManager : MonoBehaviour
 
     // ----------- Public Methods -----------
 
-    public void PlaySFX(string clipName, float volume = 1f)
+    public void PlaySFX(string clipName, float volume = 1f, bool loop = false)
     {
         if (!sfxDict.TryGetValue(clipName, out var clip))
         {
@@ -68,6 +68,7 @@ public class SoundManager : MonoBehaviour
             {
                 channel.volume = volume;
                 channel.clip = clip;
+                channel.loop = loop;
                 channel.Play();
                 return;
             }
@@ -77,7 +78,20 @@ public class SoundManager : MonoBehaviour
         sfxChannels[0].Stop();
         sfxChannels[0].volume = volume;
         sfxChannels[0].clip = clip;
+        sfxChannels[0].loop = loop;
         sfxChannels[0].Play();
+    }
+
+    public void StopSFX(string clipName)
+    {
+        foreach (var channel in sfxChannels)
+        {
+            if (channel.isPlaying && channel.clip != null && channel.clip.name == clipName)
+            {
+                channel.Stop();
+                channel.loop = false;
+            }
+        }
     }
 
     public void PlayBGM(AudioClip clip, float volume = 1f, bool loop = true)

@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour
     protected Monster _target;
     private float _hitThreshold = 0.1f;
     private PhotonView _targetView;
+    private TowerTypes _type;
 
     private void Awake()
     {
@@ -31,6 +32,33 @@ public class Bullet : MonoBehaviour
         if (Vector3.Distance(_target.transform.position, transform.position) <= _excuteRange)
         {
             ExecuteAttack();
+
+            switch (_type)
+            {
+                case TowerTypes.RifleTower:
+                    break;
+                case TowerTypes.MachinegunTower:
+                    break;
+                case TowerTypes.FlameTower:
+                    break;
+                case TowerTypes.MissileTower:
+                    SoundManager.Instance.PlaySFX("BombHitSound", 0.1f, true);
+                    break;
+                case TowerTypes.RailgunTower:
+                    SoundManager.Instance.PlaySFX("RailgunHitSound", 0.1f, true);
+                    break;
+                case TowerTypes.GravityTower:
+                    break;
+                case TowerTypes.GrenadeTower:
+                    SoundManager.Instance.PlaySFX("BombHitSound", 0.1f, true);
+                    break;
+                case TowerTypes.ElectricTower:
+                    break;
+                case TowerTypes.LaserTower:
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -49,10 +77,11 @@ public class Bullet : MonoBehaviour
         GameObject explosionPrefab = Instantiate<GameObject>(_explosionEffect, transform.position, transform.rotation);
     }
 
-    public void SetBullet(float speed, int atk, string hitEffectPath)
+    public void SetBullet(float speed, int atk, string hitEffectPath, TowerTypes type)
     {
         _moveSpeed = speed;
         _atk = atk;
+        _type = type;
         _explosionEffect = Resources.Load<GameObject>("Prefabs/HitEffects/" + hitEffectPath);
     }
     public void SetBulletTarget(Monster target)

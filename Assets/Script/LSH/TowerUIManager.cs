@@ -9,7 +9,6 @@ public class TowerUIManager : MonoBehaviour
     [SerializeField]
     private GameObject _towerUI;
 
-
     [SerializeField] private TowerBuildButtonHandler _towerBuildButtonHandler;
 
     [SerializeField]

@@ -69,5 +69,7 @@ public class ElectricTurret : Turret
 
             Destroy(effectInstance, 0.5f);
         }
+
+        SoundManager.Instance.PlaySFX("ElectricSound", 0.1f, false);
     }
 }

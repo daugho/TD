@@ -6,7 +6,7 @@ public class SoundTest : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            SoundManager.Instance.PlaySFX("SFX_1");
+            SoundManager.Instance.PlaySFX("SFX_Vefects_Stylized_Magic_Attack_Fire_Projectile", 0.1f);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {

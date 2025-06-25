@@ -73,6 +73,11 @@ public class GachaSystem : MonoBehaviour
         Debug.Log($"버튼 생성 완료! 현재 버튼 수: {_curButtonCount}/{_invenMaxCount}");
     }
 
+    public void RefreshBtnCount()
+    {
+        _curButtonCount--;
+    }
+
     
     private void SetTotalTower()
     {

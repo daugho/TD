@@ -19,6 +19,7 @@ public class LaserTurret : Turret
         if (_target == null)
         {
             _lineRenderer.enabled = false;
+            SoundManager.Instance.StopSFX("LaserSound");
             return;
         }
 
@@ -33,6 +34,7 @@ public class LaserTurret : Turret
         _flameTickTimer += Time.deltaTime;
         if (_flameTickTimer >= _flameTickInterval)
         {
+            SoundManager.Instance.PlaySFX("LaserSound", 0.05f, true);
             _flameTickTimer -= _flameTickInterval;
             ApplyLaserDamage();
         }

@@ -1393,7 +1393,6 @@ MonoBehaviour:
   _timerText: {fileID: 1711590376}
   _stageText: {fileID: 2029729146}
   _waveText: {fileID: 300093971}
-  _blinkAnim: {fileID: 1711590378}
 --- !u!114 &988668465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1448,7 +1447,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgmSource: {fileID: 0}
-  sfxClips: []
+  sfxClips:
+  - {fileID: 8300000, guid: c5d465f97cab22e489bf09509df1bebb, type: 3}
+  - {fileID: 8300000, guid: 40dcbb55fde6b5f4ca756dfb337fec46, type: 3}
+  - {fileID: 8300000, guid: 2ce0c987f044d984cbfb30a5161557e4, type: 3}
+  - {fileID: 8300000, guid: b55059a8ba80f7f4694e729531b08835, type: 3}
+  - {fileID: 8300000, guid: 08f78eba48bb21c44ac5a74ca84efc83, type: 3}
+  - {fileID: 8300000, guid: a01717043a7be524fb4e0fc87ef29945, type: 3}
+  - {fileID: 8300000, guid: 455e7971089fbaa4db89446ebc2337bf, type: 3}
+  - {fileID: 8300000, guid: 5e8f61e0fac38ad4ba3d992ca5141a2f, type: 3}
+  - {fileID: 8300000, guid: b095bcb669300d245bfe7e1840404650, type: 3}
+  - {fileID: 0}
   sfxChannelCount: 10
 --- !u!1 &1016441209
 GameObject:
@@ -3006,7 +3015,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -400, y: 151.50064}
+  m_AnchoredPosition: {x: -399.99936, y: 151.50064}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1833882287

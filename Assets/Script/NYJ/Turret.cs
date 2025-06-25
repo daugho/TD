@@ -48,10 +48,10 @@ public class Turret : MonoBehaviour
 
         if (PhotonNetwork.IsMasterClient)
         {
-            _spawnTimer += Time.deltaTime;
-
             if (_target)
             {
+                _spawnTimer += Time.deltaTime;
+
                 if (_spawnTimer >= _bulletSpawnTimer)
                 {
                     _spawnTimer -= _bulletSpawnTimer;
@@ -60,6 +60,36 @@ public class Turret : MonoBehaviour
                     Vector3 targetPos = _target.transform.position;
 
                     _photonView.RPC("RPC_SpawnBullet", RpcTarget.All, worldPosition, targetPos);
+
+                    switch (TurretType)
+                    {
+                        case TowerTypes.RifleTower:
+                            SoundManager.Instance.PlaySFX("RifleSound", 0.1f, false);
+                            break;
+                        case TowerTypes.MachinegunTower:
+                            SoundManager.Instance.PlaySFX("MachinegunSound", 0.1f, false);
+                            break;
+                        case TowerTypes.FlameTower:
+                            break;
+                        case TowerTypes.MissileTower:
+                            SoundManager.Instance.PlaySFX("NormalShootSound", 0.1f, false);
+                            break;
+                        case TowerTypes.RailgunTower:
+                            SoundManager.Instance.PlaySFX("RailgunSound", 0.1f, false);
+                            break;
+                        case TowerTypes.GravityTower:
+                            SoundManager.Instance.PlaySFX("NormalShootSound", 0.1f, false);
+                            break;
+                        case TowerTypes.GrenadeTower:
+                            SoundManager.Instance.PlaySFX("NormalShootSound", 0.1f, false);
+                            break;
+                        case TowerTypes.ElectricTower:
+                            break;
+                        case TowerTypes.LaserTower:
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         }
@@ -123,7 +153,7 @@ public class Turret : MonoBehaviour
         Bullet bulletInstance = Instantiate(_bullet, firePosition, Quaternion.identity);
         //bulletInstance.SetBulletTargetPosition(targetPosition); // 타겟이 아닌 위치로
         bulletInstance.SetBulletTarget(_target);
-        bulletInstance.SetBullet(MyTurretData.BulletSpeed, MyTurretData.Atk, MyTurretData.HitEffectPath);
+        bulletInstance.SetBullet(MyTurretData.BulletSpeed, MyTurretData.Atk, MyTurretData.HitEffectPath, MyTurretData.Name);
     }
 
     [PunRPC]

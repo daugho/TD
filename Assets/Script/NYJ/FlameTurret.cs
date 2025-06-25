@@ -20,6 +20,7 @@ public class FlameTurret : Turret
             if (_activeFlameEffect != null && _activeFlameEffect.activeSelf)
             {
                 _activeFlameEffect.SetActive(false);
+                SoundManager.Instance.StopSFX("FlameSound");
             }
             return;
         }
@@ -31,6 +32,7 @@ public class FlameTurret : Turret
             {
                 _flameTickTimer -= _flameTickInterval;
                 ApplyFlameConeDamage();
+                SoundManager.Instance.PlaySFX("FlameSound", 0.1f, true);
             }
         }
     }

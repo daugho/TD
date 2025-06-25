@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class TowerBuildButtonHandler : MonoBehaviour
 {
+    [SerializeField] private GachaSystem _gachaSystem;
     private TileContext _tileContext;
     public bool IsClickBtn = false;
     private GameObject _activeTurret;
@@ -82,6 +83,8 @@ public class TowerBuildButtonHandler : MonoBehaviour
 
                 _btnObject.SetActive(false);
                 _btnObject = null;
+
+                _gachaSystem.RefreshBtnCount();
             }
         }
         else
