@@ -28,7 +28,8 @@ public class Turret : MonoBehaviour
     private int _baseAtk;
 
     public bool SetTurretBuildEarly = false;
-   
+    private TileBehaviour _tile;
+
     private void Awake()
     {
         _turretHead = GetComponentInChildren<TurretHead>();
@@ -97,6 +98,23 @@ public class Turret : MonoBehaviour
     public bool GetTarget()
     {
         return _target != null;
+    }
+
+    public void SetMyTile(TileBehaviour tile)
+    {
+        _tile = tile;
+    }
+
+    public void SetMyTileStateInit()
+    {
+        bool isMaster = PhotonNetwork.IsMasterClient;
+        TileAccessType access = isMaster ? TileAccessType.MasterOnly : TileAccessType.ClientOnly;
+
+        TileState originalState = TileState.Installable;
+
+        _tile.photonView.RPC(nameof(TileBehaviour.RPC_SetTileState), RpcTarget.AllBuffered,(int)originalState, (int)access);
+
+        _tile = null;
     }
 
     [PunRPC]

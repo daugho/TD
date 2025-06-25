@@ -70,6 +70,7 @@ public class TowerBuildButtonHandler : MonoBehaviour
                 turretView.RPC("SetTurretPosition", RpcTarget.AllBuffered, targetPos);
 
                 turret.SetStateWhenBuildTurret();
+                turret.SetMyTile(tile);
                 _activeTurret = null;
 
                 IsClickBtn = false;

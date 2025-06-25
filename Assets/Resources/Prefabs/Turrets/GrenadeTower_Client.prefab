@@ -52,6 +52,7 @@ MonoBehaviour:
   TurretRarity: {fileID: 0}
   TurretType: 0
   AtkRange: 0
+  SetTurretBuildEarly: 0
   _grenadeStorages:
   - {x: -0.41, y: 0, z: 0.85}
   - {x: 0.4, y: 0, z: 0.85}

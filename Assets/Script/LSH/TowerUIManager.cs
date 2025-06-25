@@ -130,6 +130,8 @@ public class TowerUIManager : MonoBehaviour
     public void ResellTower()
     {
         Turret turret = _targetTower.GetComponent<Turret>();
+        turret.SetMyTileStateInit();
+
         int totalResellPrice = turret.MyTurretData.ResellPrice 
             + turret.MyTurretData.Level * _upgradePrice;    
 

@@ -69,6 +69,11 @@ MonoBehaviour:
   - InitLifeRPC
   - DecreaseLifeRPC
   - RPC_ClientDelayedLoad
+  - GivePlayerGoldRPC
+  - RemoveHpSlider
+  - RemoveHpSliderRPC
+  - SetHpBarRPC
+  - RemoveFromMonsterListRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

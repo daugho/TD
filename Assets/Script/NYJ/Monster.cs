@@ -1,5 +1,7 @@
 using UnityEngine;
 using Photon.Pun;
+using System.Collections;
+using UnityEditor.Experimental.GraphView;
 
 public class Monster : MonoBehaviourPun, IPunInstantiateMagicCallback
 {
@@ -67,25 +69,64 @@ public class Monster : MonoBehaviourPun, IPunInstantiateMagicCallback
     [PunRPC]
     public void TakeDamage(int damageAmount, int attackerActorNumber)
     {
+        if (!PhotonNetwork.IsMasterClient) return; 
+
         if (CurHp <= 0)
         {
-            if (PhotonNetwork.IsMasterClient)
+            Photon.Realtime.Player attacker = PhotonNetwork.CurrentRoom.GetPlayer(attackerActorNumber);
+            if (attacker != null)
             {
-                photonView.RPC(nameof(GivePlayerGold), PhotonNetwork.CurrentRoom.GetPlayer(attackerActorNumber), _monsterData.MonsterReward);
+                photonView.RPC(nameof(GivePlayerGoldRPC), attacker, _monsterData.MonsterReward);
             }
 
-            Destroy(_hpSlider);
+            photonView.RPC(nameof(RemoveFromMonsterListRPC), RpcTarget.AllBuffered);
+
             PhotonNetwork.Destroy(gameObject);
             return;
         }
-
         CurHp -= damageAmount;
+
+        photonView.RPC(nameof(SetHpBarRPC), RpcTarget.AllBuffered);
+    }
+
+    [PunRPC]
+    public void RemoveFromMonsterListRPC()
+    {
+        if (MonsterManager.Monsters.Contains(this))
+        {
+            MonsterManager.Monsters.Remove(this);
+        }
+
+        if (_hpSlider != null)
+        {
+            Destroy(_hpSlider.gameObject);
+        }
+    }
+
+    [PunRPC]
+    public void GivePlayerGoldRPC(int goldAmount)
+    {
+        _playerGUI.AddPlayerGold(goldAmount);
+       
+        if (_hpSlider != null)
+        {
+            Destroy(_hpSlider);
+        }
+    }
+
+    [PunRPC]
+    public void SetHpBarRPC()
+    {
         _hpSlider.SetHp(CurHp);
     }
 
-    public void GivePlayerGold()
+    [PunRPC]
+    public void RemoveHpSliderRPC()
     {
-        _playerGUI.AddPlayerGold(_monsterData.MonsterReward);
+        if (_hpSlider != null)
+        {
+            Destroy(_hpSlider);
+        }
     }
     [PunRPC]
     public void TakeSlowDebuff(float slowAmount)

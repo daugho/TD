@@ -160,6 +160,7 @@ MonoBehaviour:
   TurretRarity: {fileID: 0}
   TurretType: 0
   AtkRange: 0
+  SetTurretBuildEarly: 0
 --- !u!114 &4165291606310741537
 MonoBehaviour:
   m_ObjectHideFlags: 0

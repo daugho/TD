@@ -48,7 +48,8 @@ public class LaserTurret : Turret
         PhotonView targetView = _target.GetComponent<PhotonView>();
         if (targetView != null)
         {
-            targetView.RPC("TakeDamage", RpcTarget.AllBuffered, MyTurretData.Atk);
+            int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+            targetView.RPC(nameof(Monster.TakeDamage), RpcTarget.MasterClient, MyTurretData.Atk, actorNumber);
         }
     }
 }

@@ -25,7 +25,7 @@ public class MonsterManager : MonoBehaviour
 
     public void SpawnMonsters()
     {
-        _photonView.RPC("SpawnMonsterRPC", RpcTarget.AllBuffered);
+        _photonView.RPC("SpawnMonsterRPC", RpcTarget.MasterClient);
     }
 
     public void CreateMonsterPool(RoundData roundData)
@@ -34,7 +34,8 @@ public class MonsterManager : MonoBehaviour
         {
             for (int i = 0; i < monster.Count; i++)
             {
-                MonsterSpawn(monster.Type);
+                MasterMonsterSpawn(monster.Type, true);
+                MasterMonsterSpawn(monster.Type, false);
             }
         }
     }
@@ -59,14 +60,15 @@ public class MonsterManager : MonoBehaviour
         {
             for (int i = 0; i < monster.Count; i++)
             {
-                MonsterSpawn(monster.Type);
+                MasterMonsterSpawn(monster.Type, true);
+                MasterMonsterSpawn(monster.Type, false);
                 yield return new WaitForSeconds(0.4f); 
             }
         }
     }
-    private void MonsterSpawn(DroneTypes type)
+    private void MasterMonsterSpawn(DroneTypes type, bool isMaster)
     {
-        TileBehaviour startTile = FindMyStartPoint();
+        TileBehaviour startTile = FindMyStartPoint(isMaster);
         if (startTile == null)
         {
             Debug.LogWarning("자신의 역할에 맞는 StartPoint가 없습니다.");
@@ -109,9 +111,8 @@ public class MonsterManager : MonoBehaviour
             mover.MoveByPathfinding();
         }
     }
-    private TileBehaviour FindMyStartPoint()
+    private TileBehaviour FindMyStartPoint(bool isMaster)
     {
-        bool isMaster = PhotonNetwork.IsMasterClient;
         Debug.Log($"[DEBUG] 역할: {(isMaster ? "마스터" : "클라이언트")}");
         foreach (Transform child in tileContext.TileParent)
         {
