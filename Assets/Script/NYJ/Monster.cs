@@ -1,7 +1,6 @@
 using UnityEngine;
 using Photon.Pun;
 using System.Collections;
-using UnityEditor.Experimental.GraphView;
 
 public class Monster : MonoBehaviourPun, IPunInstantiateMagicCallback
 {
@@ -69,7 +68,9 @@ public class Monster : MonoBehaviourPun, IPunInstantiateMagicCallback
     [PunRPC]
     public void TakeDamage(int damageAmount, int attackerActorNumber)
     {
-        if (!PhotonNetwork.IsMasterClient) return; 
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        CurHp -= damageAmount;
 
         if (CurHp <= 0)
         {
@@ -84,8 +85,7 @@ public class Monster : MonoBehaviourPun, IPunInstantiateMagicCallback
             PhotonNetwork.Destroy(gameObject);
             return;
         }
-        CurHp -= damageAmount;
-
+        
         photonView.RPC(nameof(SetHpBarRPC), RpcTarget.AllBuffered);
     }
 
