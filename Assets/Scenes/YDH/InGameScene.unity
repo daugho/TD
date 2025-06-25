@@ -1393,6 +1393,7 @@ MonoBehaviour:
   _timerText: {fileID: 1711590376}
   _stageText: {fileID: 2029729146}
   _waveText: {fileID: 300093971}
+  _blinkAnim: {fileID: 1711590378}
 --- !u!114 &988668465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2751,6 +2752,7 @@ GameObject:
   - component: {fileID: 1711590375}
   - component: {fileID: 1711590377}
   - component: {fileID: 1711590376}
+  - component: {fileID: 1711590378}
   m_Layer: 5
   m_Name: Timer
   m_TagString: Untagged
@@ -2876,6 +2878,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1711590374}
   m_CullTransparentMesh: 1
+--- !u!114 &1711590378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1711590374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76059403aef425d48a212ba57726e418, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _text: {fileID: 1711590376}
+  _blinkSpeed: 1
 --- !u!1 &1744165317
 GameObject:
   m_ObjectHideFlags: 0
@@ -2990,7 +3006,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -397.10382, y: 151.50064}
+  m_AnchoredPosition: {x: -400, y: 151.50064}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1833882287
@@ -3843,7 +3859,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1744165318}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.9587495
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

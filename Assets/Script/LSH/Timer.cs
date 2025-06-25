@@ -14,8 +14,8 @@ public class Timer : MonoBehaviour
     private MonsterManager _monsterManager;
 
     private float _waveStartTimer = 20.0f;
-    private float _waveTimer = 30f;
-    private float _waveWaitingTimer = 15.0f;
+    private float _waveTimer = 40f;
+    private float _waveWaitingTimer = 20.0f;
 
     private float _timer = 0.0f;
     private bool _isRunning = false;
@@ -25,7 +25,6 @@ public class Timer : MonoBehaviour
     private int _wave = 1;
     private int _maxWave = 10;
 
-    
     private RoundState _currentState;
 
     public enum RoundState
@@ -48,6 +47,7 @@ public class Timer : MonoBehaviour
         if (_isRunning)
         {
             _timer -= Time.deltaTime;
+
             if (_timer <= 0)
             {
                 _timer = 0;
