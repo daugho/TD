@@ -42,15 +42,15 @@ public class Bullet : MonoBehaviour
                 case TowerTypes.FlameTower:
                     break;
                 case TowerTypes.MissileTower:
-                    SoundManager.Instance.PlaySFX("BombHitSound", 0.1f, true);
+                    SoundManager.Instance.PlaySFX("BombHitSound", 0.1f, false);
                     break;
                 case TowerTypes.RailgunTower:
-                    SoundManager.Instance.PlaySFX("RailgunHitSound", 0.1f, true);
+                    SoundManager.Instance.PlaySFX("RailgunHitSound", 0.1f, false);
                     break;
                 case TowerTypes.GravityTower:
                     break;
                 case TowerTypes.GrenadeTower:
-                    SoundManager.Instance.PlaySFX("BombHitSound", 0.1f, true);
+                    SoundManager.Instance.PlaySFX("BombHitSound", 0.1f, false);
                     break;
                 case TowerTypes.ElectricTower:
                     break;
