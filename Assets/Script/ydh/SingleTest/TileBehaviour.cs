@@ -40,32 +40,32 @@ public class TileBehaviour : MonoBehaviourPun
         _effect.mask.transform.localPosition = _effect.initialPosition;
         _effect.PlayEffect();
 
-        if(PhotonNetwork.IsMasterClient)
-        {
-            if (_accessType == TileAccessType.MasterOnly)
-            {
-                Material material = Resources.Load<Material>("RevelEffect_Owner");
-                _renderer.material = material;
-            }
-            else
-            {
-                Material material = Resources.Load<Material>("RevelEffect_Other");
-                _renderer.material = material;
-            }
-        }
-        else
-        {
-            if (_accessType == TileAccessType.ClientOnly)
-            {
-                Material material = Resources.Load<Material>("RevelEffect_Owner");
-                _renderer.material = material;
-            }
-            else
-            {
-                Material material = Resources.Load<Material>("RevelEffect_Other");
-                _renderer.material = material;
-            }
-        }
+        //if(PhotonNetwork.IsMasterClient)
+        //{
+        //    if (_accessType == TileAccessType.MasterOnly)
+        //    {
+        //        Material material = Resources.Load<Material>("RevelEffect_Owner");
+        //        _renderer.material = material;
+        //    }
+        //    else
+        //    {
+        //        Material material = Resources.Load<Material>("RevelEffect_Other");
+        //        _renderer.material = material;
+        //    }
+        //}
+        //else
+        //{
+        //    if (_accessType == TileAccessType.ClientOnly)
+        //    {
+        //        Material material = Resources.Load<Material>("RevelEffect_Owner");
+        //        _renderer.material = material;
+        //    }
+        //    else
+        //    {
+        //        Material material = Resources.Load<Material>("RevelEffect_Other");
+        //        _renderer.material = material;
+        //    }
+        //}
         //_originalColor = _renderer.material.color;
         //UnityEngine.Debug.Log($"[TileBehaviour] ViewID: {photonView.ViewID}");
     }

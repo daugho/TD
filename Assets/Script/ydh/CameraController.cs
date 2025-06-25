@@ -5,7 +5,8 @@ public class CameraController : MonoBehaviour
     private Transform target;
     private Vector3 offset;
     private float currentZoom;
-
+    private Vector2 prevTouchPosition;
+    private bool isDragging = false;
     public float rotationSpeed = 50f;
     public float zoomSpeed = 2f;
     public float minZoom = 5f;
@@ -43,6 +44,39 @@ public class CameraController : MonoBehaviour
 #if UNITY_EDITOR
         if (Input.GetKey(KeyCode.LeftArrow)) RotateAroundTarget(-1);
         if (Input.GetKey(KeyCode.RightArrow)) RotateAroundTarget(1);
+#else
+    if (Input.touchCount == 1)
+    {
+        Touch touch = Input.GetTouch(0);
+        switch (touch.phase)
+        {
+            case TouchPhase.Began:
+                prevTouchPosition = touch.position;
+                isDragging = true;
+                break;
+
+            case TouchPhase.Moved:
+                if (isDragging)
+                {
+                    float deltaX = touch.position.x - prevTouchPosition.x;
+                    float direction = Mathf.Sign(deltaX); // 오른쪽이면 양수, 왼쪽이면 음수
+                    float angle = direction * rotationSpeed * Time.deltaTime * Mathf.Abs(deltaX) * 0.1f;
+
+                    Quaternion rotation = Quaternion.Euler(0f, angle, 0f);
+                    offset = rotation * offset;
+                    transform.position = target.position + offset;
+                    transform.LookAt(target);
+
+                    prevTouchPosition = touch.position;
+                }
+                break;
+
+            case TouchPhase.Ended:
+            case TouchPhase.Canceled:
+                isDragging = false;
+                break;
+        }
+    }
 #endif
     }
 

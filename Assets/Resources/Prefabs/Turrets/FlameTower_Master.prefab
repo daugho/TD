@@ -74,6 +74,7 @@ MonoBehaviour:
   TurretRarity: {fileID: 0}
   TurretType: 0
   AtkRange: 0
+  SetTurretBuildEarly: 0
   _flameAngle: 45
   _testLength: 5
 --- !u!114 &6893558408714203520
