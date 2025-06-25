@@ -25,19 +25,31 @@ public class InputManager : MonoBehaviour
 
     private void Update()//타입을나눠 동시에 설치되는 것을 방지.
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector3 clickPos = Input.mousePosition;
-            switch (CurrentMode)
-            {
-                case ClickMode.TileReveal:
-                    OnTileRevealClick?.Invoke(clickPos);
-                    break;
+        Vector3 clickPos = Vector3.zero;
+        bool isClick = false;
 
-                case ClickMode.TowerBuild:
-                    OnTowerBuildClick?.Invoke(clickPos);
-                    break;
-            }
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            clickPos = Input.GetTouch(0).position;
+            isClick = true;
+        }
+        else if (Input.GetMouseButtonDown(0))
+        {
+            clickPos = Input.mousePosition;
+            isClick = true;
+        }
+
+        if (!isClick) return;
+
+        switch (CurrentMode)
+        {
+            case ClickMode.TileReveal:
+                OnTileRevealClick?.Invoke(clickPos);
+                break;
+
+            case ClickMode.TowerBuild:
+                OnTowerBuildClick?.Invoke(clickPos);
+                break;
         }
     }
 
