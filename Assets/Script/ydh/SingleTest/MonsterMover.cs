@@ -133,8 +133,10 @@ public class MonsterMover : MonoBehaviour
             LifeManager.Instance.photonView.RPC("DecreaseLifeRPC", RpcTarget.AllBuffered);
         }
 
-        gameObject.SetActive(false);
-
+        PhotonView monsterView = GetComponent<PhotonView>();
+        monsterView.RPC("RemoveFromMonsterListRPC", RpcTarget.MasterClient);
+        monsterView.RPC("DestroyMonsterRPC", RpcTarget.MasterClient);
+        
         moveCoroutine = null;
     }
 }

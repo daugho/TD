@@ -104,6 +104,14 @@ public class Monster : MonoBehaviourPun, IPunInstantiateMagicCallback
     }
 
     [PunRPC]
+    public void DestroyMonsterRPC()
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        PhotonNetwork.Destroy(gameObject);
+    }
+
+    [PunRPC]
     public void GivePlayerGoldRPC(int goldAmount)
     {
         _playerGUI.AddPlayerGold(goldAmount);

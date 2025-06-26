@@ -11,33 +11,13 @@ public class TowerClickHandler : MonoBehaviour
     }
     private void Update()
     {
-        Vector2 inputPosition = Vector2.zero;
+        var touches = UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches;
+        if (touches.Count == 0) return;
 
-        if (Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
+        var touch = touches[0];
+        Vector2 screenPos = touch.screenPosition;
 
-            if (touch.phase != TouchPhase.Began)
-                return;
-
-            inputPosition = touch.position;
-
-            if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
-                return;
-        }
-        else if (Input.GetMouseButtonDown(0))
-        {
-            inputPosition = Input.mousePosition;
-
-            if (EventSystem.current.IsPointerOverGameObject())
-                return;
-        }
-        else
-        {
-            return; 
-        }
-
-        Ray ray = _mainCamera.ScreenPointToRay(inputPosition);
+        Ray ray = _mainCamera.ScreenPointToRay(screenPos);
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {

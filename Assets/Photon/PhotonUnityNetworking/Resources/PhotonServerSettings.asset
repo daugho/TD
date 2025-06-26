@@ -74,6 +74,7 @@ MonoBehaviour:
   - RemoveHpSliderRPC
   - SetHpBarRPC
   - RemoveFromMonsterListRPC
+  - DestroyMonsterRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

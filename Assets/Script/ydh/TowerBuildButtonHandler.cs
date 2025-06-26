@@ -61,7 +61,11 @@ public class TowerBuildButtonHandler : MonoBehaviour
                     TileAccessType.ClientOnly => !isMasterClient,
                     _ => false
                 };
-                if (!hasAccess) return;
+                if (!hasAccess)
+                {
+                    ResetTowerClickHandler();
+                    return;
+                }
 
                 TileState originalState = tile._tileState;
                 TileAccessType originalAccess = tile._accessType;
@@ -72,7 +76,7 @@ public class TowerBuildButtonHandler : MonoBehaviour
 
                 if (!pathValid)
                 {
-                    Debug.Log("? 경로가 막혀 설치할 수 없습니다.");
+                    ResetTowerClickHandler();
                     return;
                 }
 
@@ -115,5 +119,14 @@ public class TowerBuildButtonHandler : MonoBehaviour
         InputManager.Instance.SetClickMode(ClickMode.TowerBuild);
         Debug.Log("[UI] 타워 설치 모드 활성화됨");
         OnBuildEvent?.Invoke();
+    }
+
+    private void ResetTowerClickHandler()
+    {
+        _activeTurret.SetActive(false);
+        _activeTurret = null;
+        IsClickBtn = false;
+
+        InputManager.Instance.SetClickMode(ClickMode.None);
     }
 }
