@@ -11,7 +11,7 @@ public enum MobileTouchMode
 
 public class MobileTouchHandler : MonoBehaviour
 {
-    [SerializeField] private TilePreviewController previewController;
+    [SerializeField] private MobileTilePrevController previewController;
 
     private MobileTouchMode currentMode = MobileTouchMode.None;
 
