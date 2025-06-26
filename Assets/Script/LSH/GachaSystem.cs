@@ -46,6 +46,7 @@ public class GachaSystem : MonoBehaviour
         }
 
         PlayerGUI.Instance.RemovePlayerGold(_gachaPrice);
+        GameResultData.Instance.AddUsedGold(_gachaPrice);
 
         var (type, chance) = GetRandomTowerWithChance();
         CreateButton(type);

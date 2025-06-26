@@ -51,4 +51,9 @@ public class Lifepoint : MonoBehaviour
             _hearts[i].sprite = _filledHeart; 
         }
     }
+
+    public int GetCurrentLife()
+    {
+        return _currentLife;
+    }
 }

@@ -24,6 +24,8 @@ public class LifeManager : MonoBehaviourPun
     {
         _currentLife = Mathf.Max(0, _currentLife - 1);
         Lifepoint.Instance.UpdateLifeUI(_currentLife);
+
+        GameResultData.Instance.SetLife(_currentLife);
     }
 
     public void RequestDecrease()

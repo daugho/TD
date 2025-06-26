@@ -120,6 +120,7 @@ public class TowerUIManager : MonoBehaviour
             }
                 _turretInfoUI.SetTurretInfoUI(turret);
             PlayerGUI.Instance.RemovePlayerGold(totalPrice);
+            GameResultData.Instance.AddUsedGold(totalPrice);
         });
 
         _sellBtn.onClick.AddListener(() => { ResellTower(); });

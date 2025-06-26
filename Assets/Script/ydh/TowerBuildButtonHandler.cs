@@ -96,6 +96,8 @@ public class TowerBuildButtonHandler : MonoBehaviour
                 _btnObject.SetActive(false);
                 _btnObject = null;
                 _gachaSystem.RefreshBtnCount();
+
+                GameResultData.Instance.AddTowerBuilt();
             }
         }
         else

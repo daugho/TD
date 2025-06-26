@@ -78,11 +78,14 @@ public class Monster : MonoBehaviourPun, IPunInstantiateMagicCallback
             if (attacker != null)
             {
                 photonView.RPC(nameof(GivePlayerGoldRPC), attacker, _monsterData.MonsterReward);
+
+                photonView.RPC(nameof(UpdateKillCountRPC), attacker);
             }
 
             photonView.RPC(nameof(RemoveFromMonsterListRPC), RpcTarget.AllBuffered);
 
             PhotonNetwork.Destroy(gameObject);
+
             return;
         }
         
@@ -101,6 +104,12 @@ public class Monster : MonoBehaviourPun, IPunInstantiateMagicCallback
         {
             Destroy(_hpSlider.gameObject);
         }
+    }
+
+    [PunRPC]
+    public void UpdateKillCountRPC()
+    {
+        GameResultData.Instance.AddMonsterKill();
     }
 
     [PunRPC]
