@@ -17,7 +17,6 @@ public class AddChildImages : MonoBehaviour
     {
         DataManager.Instance.LoadRoundData();
         InitializeMonsterSprites(); // 스프라이트 매핑 초기화
-        LoadAndDisplayMonsters(1, 10); // 예시: 스테이지 1, 웨이브 10
     }
 
     private void InitializeMonsterSprites()
