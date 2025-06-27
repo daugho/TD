@@ -15,9 +15,9 @@ public class Timer : MonoBehaviour
 
     [SerializeField] private GameResult _gameResult;
 
-    private float _waveStartTimer = 20.0f;
-    private float _waveTimer = 40f;
-    private float _waveWaitingTimer = 20.0f;
+    private float _waveStartTimer = 15.0f;
+    private float _waveTimer = 20f;
+    private float _waveWaitingTimer = 10.0f;
 
     private float _timer = 0.0f;
     private bool _isRunning = false;
@@ -114,7 +114,8 @@ public class Timer : MonoBehaviour
                 _timer = _waveTimer;
                 break;
             case RoundState.BreakTime:
-                if(_wave > _maxWave)
+                //if(_wave > _maxWave)
+                if(_wave >= 3)
                 {
                     _gameResult.gameObject.SetActive(true);
                     //PhotonNetwork.LoadLevel("StageScene");

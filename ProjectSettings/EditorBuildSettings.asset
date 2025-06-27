@@ -11,9 +11,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/YDH/MapEditScene.unity
     guid: 338685f7d3092044898fb4642476051c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/YDH/StageSelectScene.unity
     guid: 671bf15c979f06942a4032a3c6548ba9
+  - enabled: 1
+    path: Assets/Scenes/StageScene.unity
+    guid: 9a39bc531aae92742b6a61af2d410d3a
   - enabled: 1
     path: Assets/Scenes/YDH/InGameScene.unity
     guid: bfb000b020f0fc643b5d3be78807d88b

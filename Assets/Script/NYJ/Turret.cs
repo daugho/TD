@@ -154,6 +154,8 @@ public class Turret : MonoBehaviour
         //bulletInstance.SetBulletTargetPosition(targetPosition); // 타겟이 아닌 위치로
         bulletInstance.SetBulletTarget(_target);
         bulletInstance.SetBullet(MyTurretData.BulletSpeed, MyTurretData.Atk, MyTurretData.HitEffectPath, MyTurretData.Name);
+
+        GameObject firePrefab = Instantiate(_fireEffectPrefab, firePosition, Quaternion.identity);
     }
 
     [PunRPC]
@@ -229,8 +231,13 @@ public class Turret : MonoBehaviour
     }
     private void OnDrawGizmos() // 범위 체크 
     {
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, Mathf.Sqrt(MyTurretData.Range));
+        //Gizmos.color = Color.cyan;
+        //Gizmos.DrawWireSphere(transform.position, Mathf.Sqrt(MyTurretData.Range));
+        Vector3 worldPosition = _turretHead.transform.TransformPoint(_firePosition);
+        //Vector3 targetPos = _target.transform.position;
+
+        Gizmos.DrawWireSphere(worldPosition, 0.1f);
+
     }
 
     public void SetStateWhenBuildTurret()
