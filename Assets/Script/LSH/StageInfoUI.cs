@@ -30,12 +30,14 @@ public class StageInfoUI : MonoBehaviour
     {
         for (int i = 1; i <= 10; i++)
         {
+            int capturedIndex = i;
             GameObject newButton = Instantiate(_buttonPrefab, _stageBtnContent);
             Button button = newButton.GetComponent<Button>();
             TowerPlaceBtn newButtonComponent = newButton.GetComponent<TowerPlaceBtn>();
             button.onClick.AddListener(() =>
             {
-                _addChildImages.LoadAndDisplayMonsters(i, 10);
+                _addChildImages.RemoveAllChildren();
+                _addChildImages.LoadAndDisplayMonsters(capturedIndex, 10);
                 ShowStageInfo();
             }); 
         }

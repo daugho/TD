@@ -13,7 +13,7 @@ public class AddChildImages : MonoBehaviour
     // 몬스터 타입과 스프라이트 매핑
     private Dictionary<DroneTypes, Sprite> _monsterSprites;
 
-    void Start()
+    void Awake()
     {
         DataManager.Instance.LoadRoundData();
         InitializeMonsterSprites(); // 스프라이트 매핑 초기화
@@ -30,6 +30,7 @@ public class AddChildImages : MonoBehaviour
             { DroneTypes.Scout, Resources.Load<Sprite>("Prefabs/UI/Monster/Scout1") },
             { DroneTypes.Hunter, Resources.Load<Sprite>("Prefabs/UI/Monster/Hunter1") },
             { DroneTypes.Reaper, Resources.Load<Sprite>("Prefabs/UI/Monster/Reaper1") },
+            { DroneTypes.Vanguard, Resources.Load<Sprite>("Prefabs/UI/Monster/Vanguard1") },
             { DroneTypes.Juggernaut, Resources.Load<Sprite>("Prefabs/UI/Monster/Juggernaut1") },
             { DroneTypes.Dreadnought, Resources.Load<Sprite>("Prefabs/UI/Monster/Dreadnought1") }
         };
@@ -75,5 +76,12 @@ public class AddChildImages : MonoBehaviour
             rectTransform.sizeDelta = _childImageSize;
         }
     }
-
+    public void RemoveAllChildren()
+    {
+        Transform imageTransform = _parentImage.GetComponent<Transform>();
+        foreach (Transform child in imageTransform)
+        {
+            Destroy(child.gameObject);
+        }
+    }
 }
