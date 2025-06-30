@@ -17,14 +17,6 @@ public class StageStar : MonoBehaviour
         ResetStars();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            AddStar();
-        }
-    }
-
     private void ResetStars()
     {
         foreach (Image star in _stars)
