@@ -7,6 +7,7 @@ public class Turret : MonoBehaviour
 {
     protected Monster _target;
     protected GameObject _fireEffectPrefab;
+    private GameObject _fireEffectInstance;
 
     private float _searchInterval = 0.2f;
     private float _searchTimer = 0.0f;
@@ -155,7 +156,29 @@ public class Turret : MonoBehaviour
         bulletInstance.SetBulletTarget(_target);
         bulletInstance.SetBullet(MyTurretData.BulletSpeed, MyTurretData.Atk, MyTurretData.HitEffectPath, MyTurretData.Name);
 
-        GameObject firePrefab = Instantiate(_fireEffectPrefab, firePosition, Quaternion.identity);
+        if (_fireEffectInstance == null)
+        {
+            _fireEffectInstance = Instantiate(_fireEffectPrefab, firePosition, Quaternion.identity);
+            _fireEffectInstance.transform.SetParent(_turretHead.transform);
+            _fireEffectInstance.transform.localPosition = Vector3.zero;
+            _fireEffectInstance.transform.forward = _turretHead.transform.forward;
+        }
+
+        if (!_fireEffectInstance.activeSelf)
+        {
+            _fireEffectInstance.transform.position = firePosition;
+            _fireEffectInstance.transform.forward = _turretHead.transform.forward;
+            _fireEffectInstance.SetActive(true);
+
+            StartCoroutine(DisableEffect(_fireEffectInstance, 1.0f));
+        }
+    }
+
+    private IEnumerator DisableEffect(GameObject effect, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (effect != null)
+            effect.SetActive(false);
     }
 
     [PunRPC]
@@ -231,6 +254,8 @@ public class Turret : MonoBehaviour
     }
     private void OnDrawGizmos() // 범위 체크 
     {
+        _turretHead = GetComponentInChildren<TurretHead>();
+
         //Gizmos.color = Color.cyan;
         //Gizmos.DrawWireSphere(transform.position, Mathf.Sqrt(MyTurretData.Range));
         Vector3 worldPosition = _turretHead.transform.TransformPoint(_firePosition);
