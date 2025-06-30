@@ -11,7 +11,9 @@ public enum ClickMode
 public class InputManager : MonoBehaviour
 {
     public static InputManager Instance { get; private set; }
-    [SerializeField] private MobileTilePrevController previewController;
+
+    [SerializeField] private TilePreviewController previewController;
+
     public event Action<Vector3> OnTileRevealClick;
     public event Action<Vector3> OnTowerBuildClick;
 
@@ -23,18 +25,26 @@ public class InputManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    private void Update()//타입을나눠 동시에 설치되는 것을 방지.
+    private void Update()
     {
         Vector3 clickPos = Vector3.zero;
         bool isClick = false;
 
+#if UNITY_EDITOR || UNITY_STANDALONE
+        if (Input.GetMouseButtonDown(0))
+        {
+            clickPos = Input.mousePosition;
+            isClick = true;
+            Debug.Log("마우스 클릭 감지됨: " + clickPos);
+        }
+#elif UNITY_ANDROID || UNITY_IOS
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
             clickPos = Input.GetTouch(0).position;
             isClick = true;
-            Debug.Log("터치 감지됨: " + Input.GetTouch(0).position);
+            Debug.Log("터치 감지됨: " + clickPos);
         }
-
+#endif
 
         if (!isClick) return;
 

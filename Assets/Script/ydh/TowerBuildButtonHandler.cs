@@ -2,9 +2,13 @@ using Photon.Pun;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+
+#if UNITY_ANDROID || UNITY_IOS
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.EnhancedTouch;
 using TouchPhase = UnityEngine.InputSystem.TouchPhase;
+using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
+#endif
 
 public class TowerBuildButtonHandler : MonoBehaviour
 {
@@ -16,30 +20,35 @@ public class TowerBuildButtonHandler : MonoBehaviour
     public UnityAction OnBuildEvent;
     private GameObject _btnObject;
 
+#if UNITY_ANDROID || UNITY_IOS
+    private void OnEnable() => EnhancedTouchSupport.Enable();
+    private void OnDisable() => EnhancedTouchSupport.Disable();
+#endif
+
     private void Awake()
     {
         _tileContext = GetComponent<TileContext>();
-    }
-
-    private void OnEnable()
-    {
-        EnhancedTouchSupport.Enable();
-    }
-
-    private void OnDisable()
-    {
-        EnhancedTouchSupport.Disable();
     }
 
     private void Update()
     {
         if (!IsClickBtn) return;
 
-        var touches = UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches;
+        Vector2 screenPos;
+
+#if UNITY_EDITOR || UNITY_STANDALONE
+        if (!Input.GetMouseButton(0)) return;
+        screenPos = Input.mousePosition;
+#elif UNITY_ANDROID || UNITY_IOS
+        var touches = Touch.activeTouches;
         if (touches.Count == 0) return;
 
         var touch = touches[0];
-        Vector2 screenPos = touch.screenPosition;
+        screenPos = touch.screenPosition;
+
+        if (touch.phase != TouchPhase.Began && touch.phase != TouchPhase.Moved) return;
+#endif
+
         Ray ray = Camera.main.ScreenPointToRay(screenPos);
 
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Tile")))
@@ -49,7 +58,13 @@ public class TowerBuildButtonHandler : MonoBehaviour
             Vector3 targetPos = hit.collider.transform.position + Vector3.up * (tileHeight * 0.5f);
             _activeTurret.transform.position = targetPos;
 
-            if (touch.phase == TouchPhase.Began)
+#if UNITY_EDITOR || UNITY_STANDALONE
+            bool isTouchConfirmed = Input.GetMouseButtonDown(0);
+#elif UNITY_ANDROID || UNITY_IOS
+            bool isTouchConfirmed = touch.phase == TouchPhase.Began;
+#endif
+
+            if (isTouchConfirmed)
             {
                 if (tile == null || tile._tileState != TileState.Installable) return;
 
@@ -96,7 +111,6 @@ public class TowerBuildButtonHandler : MonoBehaviour
                 _btnObject.SetActive(false);
                 _btnObject = null;
                 _gachaSystem.RefreshBtnCount();
-
                 GameResultData.Instance.AddTowerBuilt();
             }
         }
@@ -128,7 +142,6 @@ public class TowerBuildButtonHandler : MonoBehaviour
         _activeTurret.SetActive(false);
         _activeTurret = null;
         IsClickBtn = false;
-
         InputManager.Instance.SetClickMode(ClickMode.None);
     }
 }

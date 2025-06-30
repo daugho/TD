@@ -1,9 +1,12 @@
 using UnityEngine;
 using Photon.Pun;
+
+#if UNITY_ANDROID || UNITY_IOS
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.EnhancedTouch;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 using TouchPhase = UnityEngine.InputSystem.TouchPhase;
+#endif
 
 public class TilePreviewController : MonoBehaviour
 {
@@ -12,6 +15,7 @@ public class TilePreviewController : MonoBehaviour
     [SerializeField] private TileRevealcontroller revealController;
     private GameObject currentPreviewTile;
 
+#if UNITY_ANDROID || UNITY_IOS
     private void OnEnable()
     {
         EnhancedTouchSupport.Enable();
@@ -21,6 +25,7 @@ public class TilePreviewController : MonoBehaviour
     {
         EnhancedTouchSupport.Disable();
     }
+#endif
 
     private void Start()
     {
@@ -40,6 +45,10 @@ public class TilePreviewController : MonoBehaviour
         if (currentPreviewTile == null || !revealController.IsStructMode) return;
         if (InputManager.Instance.CurrentMode != ClickMode.TileReveal) return;
 
+#if UNITY_EDITOR || UNITY_STANDALONE
+        Vector3 mousePos = Input.mousePosition;
+        HandleRay(mousePos);
+#elif UNITY_ANDROID || UNITY_IOS
         var touches = Touch.activeTouches;
         if (touches.Count == 0)
         {
@@ -51,29 +60,35 @@ public class TilePreviewController : MonoBehaviour
         if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Began)
         {
             Vector2 touchPos = touch.screenPosition;
-            Ray ray = Camera.main.ScreenPointToRay(touchPos);
+            HandleRay(touchPos);
+        }
+#endif
+    }
 
-            if (Physics.Raycast(ray, out RaycastHit hit))
+    private void HandleRay(Vector2 screenPos)
+    {
+        Ray ray = Camera.main.ScreenPointToRay(screenPos);
+
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            TileBehaviour tile = hit.collider.GetComponent<TileBehaviour>();
+            if (tile == null) return;
+
+            var renderer = tile.GetComponent<Renderer>();
+            if (renderer != null && !renderer.enabled)
             {
-                TileBehaviour tile = hit.collider.GetComponent<TileBehaviour>();
-                if (tile == null) return;
-
-                var renderer = tile.GetComponent<Renderer>();
-                if (renderer != null && !renderer.enabled)
-                {
-                    currentPreviewTile.SetActive(true);
-                    Vector3 targetPos = tile.transform.position;
-                    currentPreviewTile.transform.position = targetPos + Vector3.up * 0.01f;
-                }
-                else
-                {
-                    SafeHidePreview(); // 타일은 있지만 이미 보이는 경우
-                }
+                currentPreviewTile.SetActive(true);
+                Vector3 targetPos = tile.transform.position;
+                currentPreviewTile.transform.position = targetPos + Vector3.up * 0.01f;
             }
             else
             {
-                SafeHidePreview(); // 아무것도 안 맞은 경우
+                SafeHidePreview(); // 타일은 있지만 이미 보이는 경우
             }
+        }
+        else
+        {
+            SafeHidePreview(); // 아무것도 안 맞은 경우
         }
     }
 

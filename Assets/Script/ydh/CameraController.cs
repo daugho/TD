@@ -1,7 +1,10 @@
 using UnityEngine;
+
+#if UNITY_ANDROID || UNITY_IOS
 using UnityEngine.InputSystem.EnhancedTouch;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 using TouchPhase = UnityEngine.InputSystem.TouchPhase;
+#endif
 
 public class CameraController : MonoBehaviour
 {
@@ -17,15 +20,10 @@ public class CameraController : MonoBehaviour
     public float minZoom = 5f;
     public float maxZoom = 20f;
 
-    private void OnEnable()
-    {
-        EnhancedTouchSupport.Enable();
-    }
-
-    private void OnDisable()
-    {
-        EnhancedTouchSupport.Disable();
-    }
+#if UNITY_ANDROID || UNITY_IOS
+    private void OnEnable() => EnhancedTouchSupport.Enable();
+    private void OnDisable() => EnhancedTouchSupport.Disable();
+#endif
 
     private void Start()
     {
@@ -60,6 +58,13 @@ public class CameraController : MonoBehaviour
 
     private void HandleRotation()
     {
+#if UNITY_EDITOR || UNITY_STANDALONE
+        // PC에서 방향키 회전
+        if (Input.GetKey(KeyCode.LeftArrow))
+            RotateAroundTarget(-1);
+        if (Input.GetKey(KeyCode.RightArrow))
+            RotateAroundTarget(1);
+#elif UNITY_ANDROID || UNITY_IOS
         var touches = Touch.activeTouches;
         if (touches.Count == 1)
         {
@@ -86,10 +91,17 @@ public class CameraController : MonoBehaviour
                 isDragging = false;
             }
         }
+#endif
     }
 
     private void HandleZoom()
     {
+#if UNITY_EDITOR || UNITY_STANDALONE
+        // 마우스 휠 줌
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        currentZoom -= scroll * zoomSpeed * 10f;
+        currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
+#elif UNITY_ANDROID || UNITY_IOS
         var touches = Touch.activeTouches;
         if (touches.Count == 2)
         {
@@ -111,6 +123,7 @@ public class CameraController : MonoBehaviour
         {
             prevPinchDistance = 0f;
         }
+#endif
     }
 
     public void RotateLeft() => RotateAroundTarget(-1);

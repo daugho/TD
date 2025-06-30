@@ -1714,7 +1714,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 779c061b000607a46a4905d6b140e298, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  previewController: {fileID: 0}
+  previewController: {fileID: 1437550505}
 --- !u!114 &988668459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4440,7 +4440,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -399.99988, y: 151.50064}
+  m_AnchoredPosition: {x: -399.99976, y: 151.50064}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1833882287
@@ -5368,7 +5368,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1744165318}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.9999567
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
