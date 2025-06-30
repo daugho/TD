@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -104,7 +105,7 @@ public class GameResult : MonoBehaviour
         while (elapsed < duration)
         {
             float t = elapsed / duration;
-            t = Mathf.Pow(t, 0.7f); // 초반 빠르게, 끝 느리게 (ease-out)
+            t = Mathf.Pow(t, 0.7f); 
             currentScore = Mathf.Lerp(0, finalScore, t);
             _scoreText.text = $"점수: {Mathf.RoundToInt(currentScore)}";
 
@@ -170,5 +171,14 @@ public class GameResult : MonoBehaviour
         star.anchoredPosition = targetPos;
         star.localScale = endScale;
         star.localRotation = Quaternion.identity;
+
+        StartCoroutine(EndScene(5.0f));
+    }
+
+    private IEnumerator EndScene(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        PhotonNetwork.LoadLevel("StageScene");
     }
 }

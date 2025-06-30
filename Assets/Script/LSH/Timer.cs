@@ -114,11 +114,9 @@ public class Timer : MonoBehaviour
                 _timer = _waveTimer;
                 break;
             case RoundState.BreakTime:
-                //if(_wave > _maxWave)
-                if(_wave >= 3)
+                if(_wave > _maxWave)
                 {
                     _gameResult.gameObject.SetActive(true);
-                    //PhotonNetwork.LoadLevel("StageScene");
                 }
                 _timer = _waveWaitingTimer;
                 break;
