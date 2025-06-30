@@ -11,12 +11,19 @@ public class TowerClickHandler : MonoBehaviour
     }
     private void Update()
     {
-        var touches = UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches;
+        Vector2 screenPos;
+
+#if UNITY_EDITOR || UNITY_STANDALONE
+        screenPos = Input.mousePosition;
+#elif UNITY_ANDROID || UNITY_IOS
+        var touches = Touch.activeTouches;
         if (touches.Count == 0) return;
 
         var touch = touches[0];
-        Vector2 screenPos = touch.screenPosition;
+        screenPos = touch.screenPosition;
 
+        if (touch.phase != TouchPhase.Began && touch.phase != TouchPhase.Moved) return;
+#endif
         Ray ray = _mainCamera.ScreenPointToRay(screenPos);
 
         if (Physics.Raycast(ray, out RaycastHit hit))
