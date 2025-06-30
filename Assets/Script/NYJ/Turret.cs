@@ -93,6 +93,13 @@ public class Turret : MonoBehaviour
                     }
                 }
             }
+            else
+            {
+                if (_fireEffectInstance != null)
+                {
+                    _photonView.RPC(nameof(RPC_DestroyFireEffect), RpcTarget.AllBuffered);
+                }
+            }
         }
     }
     protected virtual void FindTarget()
@@ -152,8 +159,16 @@ public class Turret : MonoBehaviour
     protected virtual void RPC_SpawnBullet(Vector3 firePosition, Vector3 targetPosition)
     {
         Bullet bulletInstance = Instantiate(_bullet, firePosition, Quaternion.identity);
-        //bulletInstance.SetBulletTargetPosition(targetPosition); // 타겟이 아닌 위치로
-        bulletInstance.SetBulletTarget(_target);
+
+        if (_target != null)
+        {
+            bulletInstance.SetBulletTarget(_target); 
+        }
+        else
+        {
+            bulletInstance.SetBulletTargetPosition(targetPosition); 
+        }
+
         bulletInstance.SetBullet(MyTurretData.BulletSpeed, MyTurretData.Atk, MyTurretData.HitEffectPath, MyTurretData.Name);
 
         if (_fireEffectInstance == null)
@@ -169,16 +184,24 @@ public class Turret : MonoBehaviour
             _fireEffectInstance.transform.position = firePosition;
             _fireEffectInstance.transform.forward = _turretHead.transform.forward;
             _fireEffectInstance.SetActive(true);
-
-            StartCoroutine(DisableEffect(_fireEffectInstance, 1.0f));
         }
     }
 
-    private IEnumerator DisableEffect(GameObject effect, float delay)
+
+    [PunRPC]
+    protected virtual void RPC_DestroyFireEffect()
     {
-        yield return new WaitForSeconds(delay);
-        if (effect != null)
-            effect.SetActive(false);
+        if (_fireEffectInstance != null)
+        {
+            Destroy(_fireEffectInstance);
+            _fireEffectInstance = null;
+        }
+    }
+    
+    [PunRPC]
+    protected virtual void DeactivateTurret()
+    {
+        gameObject.SetActive(false); 
     }
 
     [PunRPC]

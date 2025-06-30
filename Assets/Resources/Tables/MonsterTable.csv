@@ -1,5 +1,5 @@
 key,name,droneType,hp,movespeed,reward,prefabPath
-1,감시드론,Small,50,3,20,Sentinel
+1,감시드론,Small,75,3,20,Sentinel
 2,정찰드론,Small,100,3,30,Scout
 3,추적드론,Small,200,3,40,Hunter
 4,수호자,Small,200,3,40,Warden

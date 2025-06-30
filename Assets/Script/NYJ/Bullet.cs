@@ -12,53 +12,50 @@ public class Bullet : MonoBehaviour
     private PhotonView _targetView;
     private TowerTypes _type;
 
+    private Vector3 _targetPosition;
+    private bool _isUsingTargetTransform = false;
+ 
     private void Awake()
     {
     }
     protected virtual void Update()
     {
-        if (!_target)
+        Vector3 destination;
+
+        // 타겟이 살아있고 Transform 기반이라면 계속 추적
+        if (_isUsingTargetTransform && _target != null)
         {
-            gameObject.SetActive(false);
-            return;
+            _targetPosition = _target.transform.position;
+            destination = _targetPosition;
+        }
+        else
+        {
+            destination = _targetPosition;
         }
 
-        Vector3 dir = _target.transform.position - transform.position;
+        Vector3 dir = destination - transform.position;
         dir.Normalize();
+
         Quaternion targetRotation = Quaternion.LookRotation(dir);
         transform.rotation = targetRotation;
         transform.position += dir * _moveSpeed * Time.deltaTime;
 
-        if (Vector3.Distance(_target.transform.position, transform.position) <= _excuteRange)
+        if (Vector3.Distance(transform.position, destination) <= _excuteRange)
         {
             ExecuteAttack();
 
             switch (_type)
             {
-                case TowerTypes.RifleTower:
-                    break;
-                case TowerTypes.MachinegunTower:
-                    break;
-                case TowerTypes.FlameTower:
-                    break;
                 case TowerTypes.MissileTower:
+                case TowerTypes.GrenadeTower:
                     SoundManager.Instance.PlaySFX("BombHitSound", 0.05f, false);
                     break;
                 case TowerTypes.RailgunTower:
                     SoundManager.Instance.PlaySFX("RailgunHitSound", 0.05f, false);
                     break;
-                case TowerTypes.GravityTower:
-                    break;
-                case TowerTypes.GrenadeTower:
-                    SoundManager.Instance.PlaySFX("BombHitSound", 0.05f, false);
-                    break;
-                case TowerTypes.ElectricTower:
-                    break;
-                case TowerTypes.LaserTower:
-                    break;
-                default:
-                    break;
             }
+
+            Destroy(gameObject);
         }
     }
 
@@ -71,10 +68,10 @@ public class Bullet : MonoBehaviour
             _targetView.RPC(nameof(Monster.TakeDamage), RpcTarget.MasterClient, _atk, actorNumber);
         }
 
-
-        Destroy(gameObject);
-        
-        GameObject explosionPrefab = Instantiate<GameObject>(_explosionEffect, transform.position, transform.rotation);
+        if (_explosionEffect != null)
+        {
+            Instantiate(_explosionEffect, transform.position, transform.rotation);
+        }
     }
 
     public void SetBullet(float speed, int atk, string hitEffectPath, TowerTypes type)
@@ -83,10 +80,21 @@ public class Bullet : MonoBehaviour
         _atk = atk;
         _type = type;
         _explosionEffect = Resources.Load<GameObject>("Prefabs/HitEffects/" + hitEffectPath);
+
     }
     public void SetBulletTarget(Monster target)
     {
         _target = target;
         _targetView = target.GetComponent<PhotonView>();
+        _isUsingTargetTransform = true;
+        _targetPosition = target.transform.position;
+    }
+
+    public void SetBulletTargetPosition(Vector3 targetPos)
+    {
+        _target = null;
+        _targetView = null;
+        _targetPosition = targetPos;
+        _isUsingTargetTransform = false;
     }
 }

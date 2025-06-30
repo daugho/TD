@@ -21,7 +21,7 @@ public class PlayerGUI : MonoBehaviour
 
         Instance = this;
 
-        AddPlayerGold(400);
+        AddPlayerGold(800);
     }
 
     public void SetGoldUI()

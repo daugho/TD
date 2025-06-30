@@ -100,7 +100,8 @@ public class TowerUIManager : MonoBehaviour
             _upgradeBtnImage.sprite = _upgradeSprite;
         }
 
-            _upgradeBtn.onClick.AddListener(() =>
+        _upgradeBtn.onClick.RemoveAllListeners();
+        _upgradeBtn.onClick.AddListener(() =>
         {
             int playerLevel = turret.MyTurretData.Level - 1;
             int totalPrice = _upgradePrice + playerLevel * _nextUpgradePrice;
