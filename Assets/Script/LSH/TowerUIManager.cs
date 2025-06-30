@@ -62,9 +62,10 @@ public class TowerUIManager : MonoBehaviour
         {
             return;
         }
-        _isTowerUIActive = true;
 
         _targetTower = turret;
+
+        _isTowerUIActive = true;
 
         _towerUI.SetActive(true);
 
@@ -103,7 +104,7 @@ public class TowerUIManager : MonoBehaviour
         {
             int playerLevel = turret.MyTurretData.Level - 1;
             int totalPrice = _upgradePrice + playerLevel * _nextUpgradePrice;
-            turret.UpgradeTurret();
+           
             if(PlayerGUI.Instance.PlayerGold < totalPrice)
             {
                 return;
@@ -118,7 +119,9 @@ public class TowerUIManager : MonoBehaviour
             {
                 _upgradeBtnImage.sprite = _upgradeSprite;
             }
-                _turretInfoUI.SetTurretInfoUI(turret);
+            turret.UpgradeTurret();
+
+            _turretInfoUI.SetTurretInfoUI(turret);
             PlayerGUI.Instance.RemovePlayerGold(totalPrice);
             GameResultData.Instance.AddUsedGold(totalPrice);
         });

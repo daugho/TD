@@ -1,8 +1,8 @@
 name,koreanName,type,rarity,koreanRarity,bullet,bulletSpeed,atk,atkSpeed,range,resellPrice,upgrade,fireEffectPath,hitEffectPath,CommonSummonTicket,RareSummonTicket
-RifleTower,소총,Direct,Normal,일반,Bullet,15,7,3,5,100,10,GunFire,GunHit,50,0
-MachinegunTower,기관총,Indirect,Normal,일반,Bullet,15,3,10,5,100,5,MachinegunFire,GunHit,50,0
+RifleTower,소총,Direct,Normal,일반,Bullet,15,15,3,5,100,10,GunFire,GunHit,50,0
+MachinegunTower,기관총,Indirect,Normal,일반,Bullet,15,5,10,5,100,5,MachinegunFire,GunHit,50,0
 FlameTower,화염방사,Direct,Rare,희귀,Flame,5,6,10,5,150,8,FlameHit,FlameHit,35,60
-MissileTower,미사일,Indirect,Rare,희귀,Missile,10,25,1,5,150,10,MissileFire,MissileHit,35,60
+MissileTower,미사일,Indirect,Rare,희귀,Missile,10,25,2,5,150,10,MissileFire,MissileHit,35,60
 RailgunTower,레일건,Direct,Legendary,전설,Railgun_Bullet,20,50,1,20,300,20,RailgunFire,RailgunHit,0,10
 GravityTower,중력,Direct,Epic,영웅,Gravity,5,1,1,10,200,1,GravityFire,GravityHit,15,30
 GrenadeTower,유탄,Indirect,Rare,희귀,Grenade,5,20,2,10,150,10,GrenadeFire,GrenadeHit,15,60

@@ -14,6 +14,7 @@ public class TowerClickHandler : MonoBehaviour
         Vector2 screenPos;
 
 #if UNITY_EDITOR || UNITY_STANDALONE
+        if (!Input.GetMouseButton(0)) return;
         screenPos = Input.mousePosition;
 #elif UNITY_ANDROID || UNITY_IOS
         var touches = Touch.activeTouches;
