@@ -31,7 +31,7 @@ public class Turret : MonoBehaviour
     public bool SetTurretBuildEarly = false;
     private TileBehaviour _tile;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _turretHead = GetComponentInChildren<TurretHead>();
         _photonView = GetComponentInChildren<PhotonView>();
@@ -106,7 +106,6 @@ public class Turret : MonoBehaviour
     {
         if (_target != null)
         {
-            
             float distSqr = (_target.transform.position - transform.position).sqrMagnitude;
             if (distSqr > _rangeSqr)
             {

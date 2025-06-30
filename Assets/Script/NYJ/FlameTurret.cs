@@ -25,7 +25,7 @@ public class FlameTurret : Turret
             return;
         }
 
-        if (_activeFlameEffect.activeSelf)
+        if (_activeFlameEffect != null && _activeFlameEffect.activeSelf)
         {
             _flameTickTimer += Time.deltaTime;
             if (_flameTickTimer >= _flameTickInterval)

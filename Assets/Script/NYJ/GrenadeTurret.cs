@@ -4,16 +4,6 @@ using Photon.Pun;
 public class GrenadeTurret : Turret
 {
     [SerializeField] private Vector3[] _grenadeStorages;
-    private void Awake()
-    {
-        _turretHead = GetComponentInChildren<TurretHead>();
-        _photonView = GetComponentInChildren<PhotonView>();
-    }
-
-    protected override void Update()
-    {
-        base.Update();
-    }
 
     //protected override void AttackTarget()
     //{
