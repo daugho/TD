@@ -12,7 +12,7 @@ public class Bullet : MonoBehaviour
     private PhotonView _targetView;
     private TowerTypes _type;
 
-    private Vector3 _targetPosition;
+    protected Vector3 _targetPosition;
     private bool _isUsingTargetTransform = false;
  
     private void Awake()
@@ -22,7 +22,6 @@ public class Bullet : MonoBehaviour
     {
         Vector3 destination;
 
-        // 타겟이 살아있고 Transform 기반이라면 계속 추적
         if (_isUsingTargetTransform && _target != null)
         {
             _targetPosition = _target.transform.position;

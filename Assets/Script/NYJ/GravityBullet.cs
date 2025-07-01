@@ -9,7 +9,7 @@ public class GravityBullet : Bullet
     {
         Destroy(gameObject);
 
-        GameObject explosionPrefab = Instantiate<GameObject>(_explosionEffect, transform.position, transform.rotation);
+        GameObject explosionPrefab = Instantiate<GameObject>(_explosionEffect, transform.position, Quaternion.identity);
         DebuffSystem debuff = explosionPrefab.GetComponent<DebuffSystem>();
         debuff.DebuffSlow(transform, _atk);
     }
